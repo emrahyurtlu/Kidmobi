@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/signOut"
+        android:contentDescription="@string/logOut"
+        android:icon="@drawable/ic_logout_24"
+        android:onClick="signOut"
+        android:title="@string/logOut"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/more"
+        android:contentDescription="Hakkında"
+        android:title="Hakkında"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">@color/purple_500</color>
+    <color name="color_primaryVariant">#3700B3</color>
+    <color name="color_secondary">#03DAC6</color>
+    <color name="color_secondaryVariant">#018786</color>
+    <color name="color_teal">#7ad3b9</color>
+    <color name="color_pink">#f62354</color>
+    <color name="color_light_gray">#666666</color>
+    <color name="color_black">#333333</color>
+    <color name="color_white">#FFFFFFFF</color>
+    <color name="color_facebook">#475993</color>
+    <color name="color_google">#EA4336</color>
+    <color name="color_button_bg">#FAFAFA</color>
+
+    <color name="purple_300">#9473d3</color>
+    <color name="purple_500">#6437bf</color>
+    <color name="purple_600">#5b32b9</color>
+    <color name="purple_700">#4d2ab0</color>
+
+
+    <color name="green_300">#b3d276</color>
+    <color name="green_500">#92bf37</color>
+    <color name="green_600">#82af2f</color>
+    <color name="green_700">#6d9c25</color>
+
+
+</resources>

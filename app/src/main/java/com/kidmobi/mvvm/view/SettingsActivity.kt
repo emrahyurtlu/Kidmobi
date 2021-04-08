@@ -1,0 +1,118 @@
+package com.kidmobi.mvvm.view
+
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.slider.Slider
+import com.kidmobi.R
+import com.kidmobi.assets.utils.SettingsUtil
+import com.kidmobi.databinding.ActivitySettingsBinding
+import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.viewmodel.SettingsViewModel
+import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
+import com.kidmobi.assets.utils.printsln
+import kotlinx.coroutines.*
+
+class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
+    private lateinit var device: MobileDevice
+    private lateinit var settingsUtil: SettingsUtil
+    private lateinit var settingsViewModel: SettingsViewModel
+    private lateinit var binding: ActivitySettingsBinding
+    private var userMobileDeviceViewModel = UserMobileDeviceViewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        MobileAds.initialize(this)
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+        // Banner ID
+        // ca-app-pub-9250940245734350/9369572410
+
+        device = intent.getSerializableExtra("device") as MobileDevice
+
+        settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
+        loadData()
+
+
+
+        settingsUtil = SettingsUtil(this, contentResolver)
+
+        binding.screenBrightnessSlider.addOnSliderTouchListener(this)
+        binding.soundVolumeSlider.addOnSliderTouchListener(this)
+    }
+
+    private fun loadData() {
+        settingsViewModel.getCurrentMobileDevice(device.deviceId)
+        settingsViewModel.currentDevice
+            .observe(this, { currentDevice ->
+                device = currentDevice
+                printsln(device, "SettingsActivity::loadData()")
+
+                device.let {
+                    binding.topAppBar.title = it.deviceOwnerName
+                    binding.screenBrightnessSlider.value = it.settings.brightnessLevel
+                    binding.soundVolumeSlider.value = it.settings.soundLevel
+                }
+            })
+    }
+
+    private suspend fun saveDeviceScreenBrightness(value: Float) {
+        device.settings.brightnessLevel = value
+        device = withContext(Dispatchers.Default) {
+            settingsViewModel.saveDeviceScreenBrightness(device)
+        }
+        // settingsUtil.changeScreenBrightness(value)
+    }
+
+    fun turnBack(view: View) {
+        finish()
+    }
+
+    override fun onStartTrackingTouch(slider: Slider) {
+
+    }
+
+    override fun onStopTrackingTouch(slider: Slider) {
+        when (slider.id) {
+            R.id.screenBrightnessSlider -> GlobalScope.launch { saveDeviceScreenBrightness(slider.value) }
+            R.id.soundVolumeSlider -> GlobalScope.launch { saveDeviceSoundVolume(slider.value) }
+        }
+    }
+
+    private suspend fun saveDeviceSoundVolume(value: Float) {
+        device.settings.soundLevel = value
+        device = withContext(Dispatchers.Default) {
+            settingsViewModel.saveDeviceSoundVolume(device)
+        }
+        // settingsUtil.changeDeviceSound(value)
+    }
+
+    fun deleteMobileDevice(item: MenuItem) {
+
+        printsln("This device will be deleted: $device")
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle(device.deviceOwnerName)
+            .setMessage(getString(R.string.are_you_sure_to_delete))
+            .setNegativeButton(getString(R.string.no)) { dialog, which ->
+                dialog.cancel()
+            }
+            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                CoroutineScope(Dispatchers.Default).launch {
+                    userMobileDeviceViewModel.deleteFromMyDevices(device.deviceId)
+                }
+                dialog.dismiss()
+                finish()
+            }
+            .show()
+
+    }
+}
