@@ -4,11 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kidmobi.assets.repositories.MobileDeviceRepo
 import com.kidmobi.mvvm.model.MobileDevice
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor() : ViewModel() {
     var currentDevice = MutableLiveData<MobileDevice>()
     private val mobileDeviceRepo: MobileDeviceRepo = MobileDeviceRepo()
 

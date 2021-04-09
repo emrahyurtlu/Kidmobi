@@ -1,8 +1,9 @@
 package com.kidmobi.mvvm.model
 
 import java.io.Serializable
+import javax.inject.Inject
 
-data class MobileDeviceSettings(
-    var brightnessLevel: Float = 150F,
-    var soundLevel: Float = 8F
+data class MobileDeviceSettings @Inject constructor(
+    var brightnessLevel: Float?,
+    var soundLevel: Float?
 ) : Serializable, BaseModel

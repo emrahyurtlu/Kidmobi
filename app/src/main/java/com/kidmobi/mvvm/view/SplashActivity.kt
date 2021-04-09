@@ -12,10 +12,13 @@ import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
 import com.kidmobi.assets.service.SettingsService
+import com.kidmobi.assets.utils.goto
 import com.kidmobi.assets.workers.SettingsWorker
 import com.kidmobi.databinding.ActivitySplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private val TAG = "SplashActivity"
     private lateinit var connectivityManager: ConnectivityManager
@@ -28,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
-        startSettingsService()
+        //startSettingsService()
         //startSettingWorker()
 
         checkConnectivity()
@@ -57,22 +60,26 @@ class SplashActivity : AppCompatActivity() {
     private fun checkConnectivity() {
 
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var intent: Intent = Intent()
 
         if (isOnline()) {
-            auth.currentUser?.let { user ->
+
+            /*auth.currentUser?.let { user ->
                 Log.d(TAG, "checkConnectivity: ${user.providerData}")
                 Log.d(TAG, "checkConnectivity: ${user.providerId}")
-                intent = if (user.providerId != "firebase") {
-                    Intent(this, DashboardActivity::class.java)
-                } else {
-                    Intent(this, LoginActivity::class.java)
-                }
-            }
 
-            startActivity(intent)
+                val target:Class<*> = if (!user.isAnonymous) {
+                    DashboardActivity::class.java
+                } else {
+                    LoginActivity::class.java
+                }
+                this.goto(target)
+                finish()
+            }*/
+            this.goto(LoginActivity::class.java)
             finish()
+
         } else {
+            Log.d(TAG, "checkConnectivity: No internet connection!")
             showToast()
         }
     }

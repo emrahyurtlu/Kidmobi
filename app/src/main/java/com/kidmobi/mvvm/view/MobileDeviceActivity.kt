@@ -13,8 +13,6 @@ import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.databinding.ActivityMobileDeviceBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.UserMobileDevice
-import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
-import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
 import java.util.*
 
 class MobileDeviceActivity : AppCompatActivity() {
@@ -22,8 +20,9 @@ class MobileDeviceActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMobileDeviceBinding
-    private var mobileDeviceViewModel = MobileDeviceViewModel()
-    private var userMobileDeviceViewModel = UserMobileDeviceViewModel()
+
+    //private var mobileDeviceViewModel = MobileDeviceViewModel()
+    //private var userMobileDeviceViewModel = UserMobileDeviceViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMobileDeviceBinding.inflate(layoutInflater)

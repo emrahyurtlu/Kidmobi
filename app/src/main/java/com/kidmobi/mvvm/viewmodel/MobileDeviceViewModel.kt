@@ -7,9 +7,12 @@ import com.kidmobi.assets.repositories.MobileDeviceRepo
 import com.kidmobi.assets.utils.initialize
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
+import javax.inject.Inject
 
-class MobileDeviceViewModel : ViewModel() {
+@HiltViewModel
+class MobileDeviceViewModel @Inject constructor() : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val mobileDeviceRepo: MobileDeviceRepo = MobileDeviceRepo()
 

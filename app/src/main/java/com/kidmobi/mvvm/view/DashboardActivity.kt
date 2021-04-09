@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -20,16 +21,18 @@ import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.databinding.ActivityDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
 import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
+import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.system.exitProcess
 
+@AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
-    private var mobileDeviceViewModel = MobileDeviceViewModel()
+    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
     private val TAG = "DashboardActivity"
     private lateinit var binding: ActivityDashboardBinding
 

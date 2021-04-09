@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
     private lateinit var callbackManager: CallbackManager
-    private lateinit var gotoDashboardActivity: Intent
     private lateinit var auth: FirebaseAuth
 
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -38,8 +37,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        gotoDashboardActivity = Intent(this, DashboardActivity::class.java)
         auth = FirebaseAuth.getInstance()
 
         callbackManager = CallbackManager.Factory.create()
@@ -52,8 +49,8 @@ class LoginActivity : AppCompatActivity() {
             Log.d(TAG, "checkIfUserLoggedIn: ${user.providerData}")
             Log.d(TAG, "checkIfUserLoggedIn: ${user.providerId}")
 
-            if (user.providerId != "firebase") {
-                startActivity(gotoDashboardActivity)
+            if (!user.isAnonymous) {
+                this.goto(DashboardActivity::class.java)
                 finish()
             }
         }
@@ -87,20 +84,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
-        Log.d("FACEBOOK_LOGIN", "handleFacebookAccessToken:$token")
+        Log.d(TAG, "handleFacebookAccessToken: $token")
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("FACEBOOK_LOGIN", "signInWithCredential:success")
-                    startActivity(gotoDashboardActivity)
+                    Log.d(TAG, "handleFacebookAccessToken: successful")
+                    this.goto(DashboardActivity::class.java)
+                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("FACEBOOK_LOGIN", "signInWithCredential:failure", task.exception)
+                    Log.d(TAG, "handleFacebookAccessToken: ${task.exception}")
                     Toast.makeText(
-                        baseContext, "Authentication failed.",
+                        baseContext, getString(R.string.login_auth_failed),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -120,12 +118,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loginAsAnonymously(view: View) {
-        //val gotoDeviceIdActivity = Intent(this, DeviceIdActivity::class.java)
         val result = auth.signInAnonymously()
         result.addOnCompleteListener(this) {
             if (it.isSuccessful) {
                 this.goto(DeviceIdActivity::class.java)
-                //startActivity(gotoDeviceIdActivity)
             } else {
                 Toast.makeText(
                     baseContext, getString(R.string.login_auth_failed),
@@ -154,7 +150,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (resultCode != RC_GOOGLE_SIGN_IN) {
-            print("Facebook Sign In will be implemented!")
             callbackManager.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -164,11 +159,8 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    //sharedPresOp.saveUserIdInSharedPrefs(user)
-                    // Toast.makeText(this, user?.email.orEmpty(), Toast.LENGTH_SHORT).show()
-                    Log.i("GOOGLE_USER_LOGIN", "Kullanıcı giriş yaptı: ${user?.email.orEmpty()}")
-                    startActivity(gotoDashboardActivity)
+                    this.goto(DashboardActivity::class.java)
+                    finish()
                 } else {
                     Toast.makeText(
                         this,

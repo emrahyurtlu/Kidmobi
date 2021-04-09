@@ -7,13 +7,14 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center">
 
         <LinearLayout
             android:id="@+id/login_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
@@ -23,7 +24,17 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:contentDescription="@string/mobicon_logo_desc"
-                app:srcCompat="@drawable/ic_logo_with_text" />
+                app:srcCompat="@drawable/ic_logo" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/TextAppearance.MdcTypographyStyles.Headline4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textAllCaps="true"
+                android:textColor="@color/color_black" />
 
             <TextView
                 android:id="@+id/textView"
@@ -33,6 +44,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="@string/login_welcome_message"
                 android:textColor="@color/color_black"
+                android:layout_gravity="center"
                 android:textSize="18sp" />
 
             <com.google.android.material.button.MaterialButton

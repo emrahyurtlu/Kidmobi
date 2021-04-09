@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.provider.Settings
+import dagger.hilt.android.qualifiers.ActivityContext
+import javax.inject.Inject
 
-class SettingsUtil(
+class SettingsUtil @Inject constructor(
+    @ActivityContext
     private var context: Context,
     private var contentResolver: ContentResolver
 ) {

@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Kidmobi</string>
-    <string name="mobicon_logo_desc">Kidmobi logo</string>
+    <string name="app_name">KidMobi</string>
+    <string name="mobicon_logo_desc">KidMobi logo</string>
     <string name="login_welcome_message">Hoşgeldiniz. Mobil cihazlarınızı yönetmek için giriş yapınız.</string>
     <string name="facebook_login_btn_msg">FACEBOOK İLE GİRİŞ</string>
     <string name="google_login_btn_msg">GOOGLE İLE GİRİŞ</string>
@@ -46,7 +46,7 @@
     <string name="permission_of_changing_system_settings">Sistem ayarlarını değiştirme izni</string>
     <string name="permission_of_system_setting_msg">Hedef cihazın ses, ekran parlaklığı gibi ayarlarınız değiştirmek için izin istiyoruz.</string>
     <string name="no_permission_msg">İzin vermediğiniz için uygulama kapatılacaktır.</string>
-    <string name="form_required">*Gerekli</string>
+    <string name="form_required">* Gerekli</string>
     <string name="dashboard_tab1_txt">MOBİL CİHAZLARIM</string>
     <string name="dashboard_tab2_txt">CİHAZ KİMLİĞİM</string>
     <string name="login_auth_failed">Doğrulama başarısız.</string>
