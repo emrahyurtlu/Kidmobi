@@ -1,4 +1,4 @@
-package com.mobicon.android.mvvm.view.fragment
+package com.kidmobi.mvvm.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,17 +12,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.kidmobi.R
 import com.kidmobi.assets.adapter.MobileDeviceRecyclerAdapter
+import com.kidmobi.assets.utils.printsln
+import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.SettingsActivity
 import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
-import com.kidmobi.assets.utils.printsln
 
 class MobileDevicesFragment : Fragment(),
     MobileDeviceRecyclerAdapter.OnMyDeviceItemClickListener {
     private val TAG = "MobileDevicesFragment"
     private var devices: MutableList<MobileDevice> = mutableListOf()
+    private lateinit var binding: FragmentMobileDevicesBinding
     private lateinit var adapter: MobileDeviceRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var textView: TextView
@@ -33,12 +34,13 @@ class MobileDevicesFragment : Fragment(),
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_mydevices, container, false)
+    ): View {
+        binding = FragmentMobileDevicesBinding.inflate(inflater)
+        //val fragmentView = inflater.inflate(R.layout.fragment_mobile_devices, container, false)
 
-        recyclerView = fragmentView.findViewById(R.id.my_devices_rc)
-        textView = fragmentView.findViewById(R.id.no_mobile_device)
-        refreshLayout = fragmentView.findViewById(R.id.mobileDevicesSwipeRefresh)
+        recyclerView = binding.myDevicesRc
+        textView = binding.noMobileDevice
+        refreshLayout = binding.mobileDevicesSwipeRefresh
         refreshLayout.setOnRefreshListener {
             loadData()
             refreshLayout.isRefreshing = false
@@ -54,7 +56,7 @@ class MobileDevicesFragment : Fragment(),
             it.adapter = adapter
         }
 
-        return fragmentView
+        return binding.root
     }
 
     private fun loadData() {

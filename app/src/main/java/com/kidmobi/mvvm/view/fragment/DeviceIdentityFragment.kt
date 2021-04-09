@@ -1,4 +1,4 @@
-package com.mobicon.android.mvvm.view.fragment
+package com.kidmobi.mvvm.view.fragment
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -19,13 +19,14 @@ import com.kidmobi.R
 import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.initialize
+import com.kidmobi.databinding.FragmentDeviceIdentityBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import java.util.*
 
 
-class DeviceIdentityFragment : Fragment(R.layout.fragment_qrcode) {
-    //private lateinit var binding: FragmentD
+class DeviceIdentityFragment : Fragment() {
+    private lateinit var binding: FragmentDeviceIdentityBinding
     private lateinit var imageView: ImageView
     private lateinit var qrCodeWriter: QRCodeWriter
     private lateinit var auth: FirebaseAuth
@@ -36,13 +37,14 @@ class DeviceIdentityFragment : Fragment(R.layout.fragment_qrcode) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        binding = FragmentDeviceIdentityBinding.inflate(inflater)
         auth = FirebaseAuth.getInstance()
         sharedPrefsUtil = SharedPrefsUtil(context!!)
-        val view = inflater.inflate(R.layout.fragment_qrcode, container, false)
+        //val view = inflater.inflate(R.layout.fragment_device_identity, container, false)
 
         qrCodeWriter = QRCodeWriter()
-        imageView = view.findViewById(R.id.qrCodeImage)
+        imageView = binding.qrCodeImage
 
         try {
             sharedPrefsUtil.setDeviceId()
@@ -57,7 +59,7 @@ class DeviceIdentityFragment : Fragment(R.layout.fragment_qrcode) {
             e.printStackTrace()
         }
 
-        return view
+        return binding.root
     }
 
     private fun saveDevice(uniqueDeviceId: String) {

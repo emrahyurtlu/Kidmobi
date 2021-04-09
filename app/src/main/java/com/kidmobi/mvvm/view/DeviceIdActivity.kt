@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
 import com.kidmobi.databinding.ActivityDeviceIdBinding
 import com.kidmobi.assets.utils.printsln
-import com.mobicon.android.mvvm.view.fragment.DeviceIdentityFragment
+import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
 
 class DeviceIdActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDeviceIdBinding

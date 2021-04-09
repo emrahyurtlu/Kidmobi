@@ -21,8 +21,8 @@ import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.databinding.ActivityDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
-import com.mobicon.android.mvvm.view.fragment.DeviceIdentityFragment
-import com.mobicon.android.mvvm.view.fragment.MobileDevicesFragment
+import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
+import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -108,8 +108,8 @@ class DashboardActivity : AppCompatActivity() {
     private fun setUpTabs() {
         val adapter = DashboardViewPager2Adapter(supportFragmentManager, lifecycle)
 
-        adapter.addFragment(MobileDevicesFragment(), "MOBİL CİHAZLARIM")
-        adapter.addFragment(DeviceIdentityFragment(), "CİHAZ KİMLİĞİM")
+        adapter.addFragment(MobileDevicesFragment(), getString(R.string.dashboard_tab1_txt))
+        adapter.addFragment(DeviceIdentityFragment(), getString(R.string.dashboard_tab2_txt))
 
         binding.viewPager2.adapter = adapter
 

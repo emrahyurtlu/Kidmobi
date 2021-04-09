@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.kidmobi.R
 import com.kidmobi.mvvm.model.MobileDevice
-import com.mobicon.android.mvvm.view.fragment.MobileDevicesFragment
+import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
 import com.squareup.picasso.Picasso
 import java.util.*
 

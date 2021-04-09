@@ -20,6 +20,7 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kidmobi.R
+import com.kidmobi.assets.utils.goto
 import com.kidmobi.databinding.ActivityLoginBinding
 
 
@@ -119,14 +120,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loginAsAnonymously(view: View) {
-        val gotoDeviceIdActivity = Intent(this, DeviceIdActivity::class.java)
+        //val gotoDeviceIdActivity = Intent(this, DeviceIdActivity::class.java)
         val result = auth.signInAnonymously()
         result.addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                startActivity(gotoDeviceIdActivity)
+                this.goto(DeviceIdActivity::class.java)
+                //startActivity(gotoDeviceIdActivity)
             } else {
                 Toast.makeText(
-                    baseContext, "Authentication failed.",
+                    baseContext, getString(R.string.login_auth_failed),
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -47,6 +47,9 @@
     <string name="permission_of_system_setting_msg">Hedef cihazın ses, ekran parlaklığı gibi ayarlarınız değiştirmek için izin istiyoruz.</string>
     <string name="no_permission_msg">İzin vermediğiniz için uygulama kapatılacaktır.</string>
     <string name="form_required">*Gerekli</string>
+    <string name="dashboard_tab1_txt">MOBİL CİHAZLARIM</string>
+    <string name="dashboard_tab2_txt">CİHAZ KİMLİĞİM</string>
+    <string name="login_auth_failed">Doğrulama başarısız.</string>
 
 
 </resources>
