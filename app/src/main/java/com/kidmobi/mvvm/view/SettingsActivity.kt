@@ -74,7 +74,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
     }
 
     private suspend fun saveDeviceScreenBrightness(value: Float) {
-        device.settings.brightnessLevel = value
+        device.settings?.brightnessLevel = value
         device = withContext(Dispatchers.Default) {
             settingsViewModel.saveDeviceScreenBrightness(device)
         }
@@ -97,7 +97,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
     }
 
     private suspend fun saveDeviceSoundVolume(value: Float) {
-        device.settings.soundLevel = value
+        device.settings?.soundLevel = value
         device = withContext(Dispatchers.Default) {
             settingsViewModel.saveDeviceSoundVolume(device)
         }

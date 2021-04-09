@@ -1,6 +1,5 @@
 package com.kidmobi.assets.utils
 
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
@@ -9,19 +8,22 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 class SettingsUtil @Inject constructor(
-    @ActivityContext
-    private var context: Context,
-    private var contentResolver: ContentResolver
+    @ActivityContext private var context: Context,
+    //private var contentResolver: ContentResolver
 ) {
 
     fun changeScreenBrightness(value: Int) {
         if (Settings.System.canWrite(context)) {
             Settings.System.putInt(
-                contentResolver,
+                context.contentResolver,
                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                 Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL
             )
-            Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, value)
+            Settings.System.putInt(
+                context.contentResolver,
+                Settings.System.SCREEN_BRIGHTNESS,
+                value
+            )
         } else {
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

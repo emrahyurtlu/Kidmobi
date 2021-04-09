@@ -17,6 +17,7 @@
         android:required="false" />
 
     <application
+        android:name=".assets.application.KidMobi"
         android:fullBackupOnly="true"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
