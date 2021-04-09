@@ -6,14 +6,19 @@ import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.assets.utils.SettingsUtil
 import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.mvvm.viewmodel.SettingsViewModel
 import com.kidmobi.assets.utils.printsln
+import com.kidmobi.mvvm.viewmodel.SettingsViewModel
+import javax.inject.Inject
 
 class SettingsWorker(context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
     private var settingsViewModel: SettingsViewModel = SettingsViewModel()
-    private var settingsUtil: SettingsUtil =
-        SettingsUtil(applicationContext, applicationContext.contentResolver)
+
+    @Inject
+    lateinit var settingsUtil: SettingsUtil
+
+    /*private var settingsUtil: SettingsUtil =
+        SettingsUtil(applicationContext, applicationContext.contentResolver)*/
     private var auth = FirebaseAuth.getInstance()
 
     override fun doWork(): Result {
@@ -24,8 +29,8 @@ class SettingsWorker(context: Context, workerParameters: WorkerParameters) :
             settingsViewModel.getCurrentMobileDevice(deviceId)
             val thisDevice = settingsViewModel.currentDevice.value
             thisDevice?.let {
-                settingsUtil.changeDeviceSound(it.settings.soundLevel.toInt())
-                settingsUtil.changeScreenBrightness(it.settings.brightnessLevel.toInt())
+                settingsUtil.changeDeviceSound(it.settings?.soundLevel!!.toInt())
+                settingsUtil.changeScreenBrightness(it.settings?.brightnessLevel!!.toInt())
             }
         }
         return Result.retry()

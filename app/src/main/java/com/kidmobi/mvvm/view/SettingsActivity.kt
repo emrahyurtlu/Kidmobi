@@ -50,10 +50,6 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
         //settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         loadData()
 
-
-
-        settingsUtil = SettingsUtil(this, contentResolver)
-
         binding.screenBrightnessSlider.addOnSliderTouchListener(this)
         binding.soundVolumeSlider.addOnSliderTouchListener(this)
     }

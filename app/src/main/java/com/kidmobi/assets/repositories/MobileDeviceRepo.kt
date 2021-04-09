@@ -26,7 +26,7 @@ class MobileDeviceRepo : BaseRepo<MobileDevice> {
     }
 
     override suspend fun add(entity: MobileDevice) {
-        collection.document(entity.deviceId).set(entity, SetOptions.merge()).await()
+        collection.document(entity.deviceId!!).set(entity, SetOptions.merge()).await()
         printsln(entity, "MobileDeviceRepo::add()")
     }
 

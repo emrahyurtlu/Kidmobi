@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.provider.Settings
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SettingsUtil @Inject constructor(
-    @ActivityContext private var context: Context,
-    //private var contentResolver: ContentResolver
+    @ApplicationContext private var context: Context,
 ) {
 
     fun changeScreenBrightness(value: Int) {

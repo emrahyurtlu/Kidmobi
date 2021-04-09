@@ -2,10 +2,12 @@ package com.kidmobi.assets.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
+import javax.inject.Inject
 
-class SharedPrefsUtil(
-    private var context: Context
+class SharedPrefsUtil @Inject constructor(
+    @ApplicationContext private var context: Context
 ) {
 
     fun getPrefsInstance(): SharedPreferences {

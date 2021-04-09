@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
@@ -35,6 +36,8 @@ class DashboardActivity : AppCompatActivity() {
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
     private val TAG = "DashboardActivity"
     private lateinit var binding: ActivityDashboardBinding
+    @Inject
+    lateinit var device: MobileDevice
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,7 +150,7 @@ class DashboardActivity : AppCompatActivity() {
             val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             if (result != null && result.contents != null) {
 
-                val device = MobileDevice(deviceId = result.contents)
+                device.deviceId = result.contents
                 val intent = Intent(this, MobileDeviceActivity::class.java)
 
                 intent.putExtra("device", device)

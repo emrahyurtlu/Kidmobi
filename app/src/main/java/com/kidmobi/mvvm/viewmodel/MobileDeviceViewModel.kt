@@ -15,13 +15,17 @@ import javax.inject.Inject
 class MobileDeviceViewModel @Inject constructor() : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val mobileDeviceRepo: MobileDeviceRepo = MobileDeviceRepo()
+    @Inject
+    lateinit var device: MobileDevice
+    @Inject
+    lateinit var mobileDeviceInfo: MobileDeviceInfo
 
     suspend fun saveDeviceInitially(uniqueDeviceId: String) {
         auth.currentUser?.let { user ->
             val now = Calendar.getInstance()
-            val deviceInfo = MobileDeviceInfo().initialize()
+            val deviceInfo = mobileDeviceInfo.initialize()
 
-            val device = MobileDevice().apply {
+            device.apply {
                 deviceId = uniqueDeviceId
                 info = deviceInfo
                 createdAt = now.time

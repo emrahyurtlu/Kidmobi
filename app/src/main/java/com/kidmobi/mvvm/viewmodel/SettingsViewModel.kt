@@ -25,7 +25,7 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
     fun saveDeviceScreenBrightness(device: MobileDevice): MobileDevice {
         CoroutineScope(Dispatchers.Default).launch {
             mobileDeviceRepo.update(
-                device.deviceId,
+                device.deviceId!!,
                 device
             )
         }
@@ -35,7 +35,7 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
     fun saveDeviceSoundVolume(device: MobileDevice): MobileDevice {
         CoroutineScope(Dispatchers.Default).launch {
             mobileDeviceRepo.update(
-                device.deviceId,
+                device.deviceId!!,
                 device
             )
         }

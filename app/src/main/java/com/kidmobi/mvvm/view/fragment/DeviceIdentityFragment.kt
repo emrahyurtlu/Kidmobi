@@ -15,7 +15,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-import com.kidmobi.R
 import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.initialize
@@ -23,6 +22,7 @@ import com.kidmobi.databinding.FragmentDeviceIdentityBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import java.util.*
+import javax.inject.Inject
 
 
 class DeviceIdentityFragment : Fragment() {
@@ -30,7 +30,12 @@ class DeviceIdentityFragment : Fragment() {
     private lateinit var imageView: ImageView
     private lateinit var qrCodeWriter: QRCodeWriter
     private lateinit var auth: FirebaseAuth
-    private lateinit var sharedPrefsUtil: SharedPrefsUtil
+    @Inject
+    lateinit var sharedPrefsUtil: SharedPrefsUtil
+    @Inject
+    lateinit var device: MobileDevice
+    @Inject
+    lateinit var mobileDeviceInfo: MobileDeviceInfo
     private lateinit var uniqueDeviceId: String
 
 
@@ -40,8 +45,6 @@ class DeviceIdentityFragment : Fragment() {
     ): View {
         binding = FragmentDeviceIdentityBinding.inflate(inflater)
         auth = FirebaseAuth.getInstance()
-        sharedPrefsUtil = SharedPrefsUtil(context!!)
-        //val view = inflater.inflate(R.layout.fragment_device_identity, container, false)
 
         qrCodeWriter = QRCodeWriter()
         imageView = binding.qrCodeImage
@@ -65,10 +68,10 @@ class DeviceIdentityFragment : Fragment() {
     private fun saveDevice(uniqueDeviceId: String) {
         val db = FirebaseFirestore.getInstance()
         val calendar = Calendar.getInstance()
-        val deviceInfo = MobileDeviceInfo().initialize()
-        val device = MobileDevice().apply {
+        mobileDeviceInfo = mobileDeviceInfo.initialize()
+        device.apply {
             deviceId = uniqueDeviceId
-            info = deviceInfo
+            info = mobileDeviceInfo
             createdAt = calendar.time
             updatedAt = calendar.time
         }

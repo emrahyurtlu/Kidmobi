@@ -3,10 +3,10 @@ package com.kidmobi.assets.repositories
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.assets.enums.DbCollection
-import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.model.UserMobileDevice
 import com.kidmobi.assets.utils.printsln
 import com.kidmobi.assets.utils.toUserMobileDevice
+import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.model.UserMobileDevice
 import kotlinx.coroutines.tasks.await
 
 class UserMobileDeviceRepo {
@@ -22,13 +22,12 @@ class UserMobileDeviceRepo {
     }
 
     suspend fun getByCurrentUserId(): UserMobileDevice {
-        var device = UserMobileDevice()
-        auth.currentUser?.let { user ->
-            device = collection.document(user.uid).get().await().toUserMobileDevice()
-            printsln(device, "UserMobileDeviceRepo::getById()")
+        val device: UserMobileDevice? = auth.currentUser?.let { user ->
+            collection.document(user.uid).get().await().toUserMobileDevice()
         }
+        //printsln(device, "UserMobileDeviceRepo::getById()")
 
-        return device
+        return device!!
     }
 
     suspend fun getListOfUserDevices(): MutableList<MobileDevice> {
