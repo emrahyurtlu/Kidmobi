@@ -25,8 +25,7 @@ import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
 import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.system.exitProcess
@@ -73,7 +72,8 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        CoroutineScope(Dispatchers.Default).launch {
+        GlobalScope.launch()
+        {
             mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
         }
     }

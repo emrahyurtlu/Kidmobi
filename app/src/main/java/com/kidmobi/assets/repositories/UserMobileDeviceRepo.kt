@@ -8,12 +8,15 @@ import com.kidmobi.assets.utils.toUserMobileDevice
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.UserMobileDevice
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class UserMobileDeviceRepo {
+class UserMobileDeviceRepo @Inject constructor() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collection = db.collection(DbCollection.UserMobileDevices.name)
-    private val mobileDeviceRepo = MobileDeviceRepo()
+
+    @Inject
+    lateinit var mobileDeviceRepo: MobileDeviceRepo
 
     suspend fun removeAllDevices() {
         auth.currentUser?.let { user ->
@@ -25,7 +28,7 @@ class UserMobileDeviceRepo {
         val device: UserMobileDevice? = auth.currentUser?.let { user ->
             collection.document(user.uid).get().await().toUserMobileDevice()
         }
-        //printsln(device, "UserMobileDeviceRepo::getById()")
+        printsln(device, "UserMobileDeviceRepo::getById()")
 
         return device!!
     }

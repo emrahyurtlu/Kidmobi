@@ -1,6 +1,8 @@
 package com.kidmobi.assets.di
 
 import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.model.MobileDeviceInfo
+import com.kidmobi.mvvm.model.UserMobileDevice
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,23 +13,11 @@ import dagger.hilt.components.SingletonComponent
 object AppModules {
 
     @Provides
-    fun provideMobileDevice() = MobileDevice(
-        deviceId = "",
-        deviceImageUrl = 0,
-        deviceOwnerName = null,
-        deviceOwnerImageUrl = null,
-        deviceOwnerUid = null,
-        deviceOwnerEmail = null,
-        info = null,
-        settings = null,
-        createdAt = null,
-        updatedAt = null,
-        userType = null
-    )
+    fun provideMobileDevice() = MobileDevice.init()
 
-    /*@ActivityScoped
     @Provides
-    fun provideSettingUtil(context: Context) = SettingsUtil(
-        context = context
-    )*/
+    fun provideMobileDeviceInfo() = MobileDeviceInfo.init()
+
+    @Provides
+    fun provideUserMobileDevice() = UserMobileDevice.init()
 }

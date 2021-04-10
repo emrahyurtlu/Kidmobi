@@ -17,14 +17,14 @@ import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.initialize
 import com.kidmobi.databinding.FragmentDeviceIdentityBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class DeviceIdentityFragment : Fragment() {
     private lateinit var binding: FragmentDeviceIdentityBinding
     private lateinit var imageView: ImageView
@@ -34,8 +34,8 @@ class DeviceIdentityFragment : Fragment() {
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     @Inject
     lateinit var device: MobileDevice
-    @Inject
-    lateinit var mobileDeviceInfo: MobileDeviceInfo
+
+    //@Inject lateinit var mobileDeviceInfo: MobileDeviceInfo
     private lateinit var uniqueDeviceId: String
 
 
@@ -68,10 +68,10 @@ class DeviceIdentityFragment : Fragment() {
     private fun saveDevice(uniqueDeviceId: String) {
         val db = FirebaseFirestore.getInstance()
         val calendar = Calendar.getInstance()
-        mobileDeviceInfo = mobileDeviceInfo.initialize()
+        //mobileDeviceInfo = MobileDeviceInfo.init()
         device.apply {
             deviceId = uniqueDeviceId
-            info = mobileDeviceInfo
+            info = MobileDeviceInfo.init()
             createdAt = calendar.time
             updatedAt = calendar.time
         }

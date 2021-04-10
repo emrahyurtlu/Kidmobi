@@ -33,12 +33,12 @@ class MobileDeviceRecyclerAdapter(
                 listener.onItemClick(device)
             }
             Picasso.get()
-                .load(device.deviceImageUrl!!)
+                .load(device.deviceImageUrl)
                 .placeholder(R.drawable.ic_baseline_phone_iphone_64)
                 .into(deviceImage)
             ownersTitle.text = device.deviceOwnerName
             ownersSubtitle.text =
-                String.format("${device.info?.brand?.capitalize(Locale.ROOT)} ${device.info?.model}")
+                String.format("${device.info.brand.capitalize(Locale.ROOT)} ${device.info.model}")
         }
     }
 

@@ -5,4 +5,8 @@ import javax.inject.Inject
 
 data class UserMobileDevice @Inject constructor(
     var devices: MutableList<String>
-) : Serializable, BaseModel
+) : Serializable, BaseModel {
+    companion object {
+        fun init() = UserMobileDevice(devices = mutableListOf())
+    }
+}

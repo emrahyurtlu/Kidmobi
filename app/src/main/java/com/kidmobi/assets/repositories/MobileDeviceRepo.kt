@@ -8,8 +8,9 @@ import com.kidmobi.assets.utils.toMobileDevice
 import com.kidmobi.assets.utils.toMobileDeviceList
 import com.kidmobi.mvvm.model.MobileDevice
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class MobileDeviceRepo : BaseRepo<MobileDevice> {
+class MobileDeviceRepo @Inject constructor() : BaseRepo<MobileDevice> {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collection = db.collection(DbCollection.MobileDevices.name)
 
@@ -26,7 +27,7 @@ class MobileDeviceRepo : BaseRepo<MobileDevice> {
     }
 
     override suspend fun add(entity: MobileDevice) {
-        collection.document(entity.deviceId!!).set(entity, SetOptions.merge()).await()
+        collection.document(entity.deviceId).set(entity, SetOptions.merge()).await()
         printsln(entity, "MobileDeviceRepo::add()")
     }
 

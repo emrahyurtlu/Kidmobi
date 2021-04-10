@@ -13,14 +13,17 @@ import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.databinding.ActivityMobileDeviceBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.UserMobileDevice
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MobileDeviceActivity : AppCompatActivity() {
     private lateinit var mobileDevice: MobileDevice
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMobileDeviceBinding
+
     @Inject
     lateinit var userMobileDevice: UserMobileDevice
 
@@ -60,7 +63,7 @@ class MobileDeviceActivity : AppCompatActivity() {
 
         mobileDevice.deviceOwnerName = binding.deviceOwner.text.toString()
 
-        userMobileDevice.devices = mutableListOf(mobileDevice.deviceId!!)
+        userMobileDevice.devices = mutableListOf(mobileDevice.deviceId)
 
         // Get user Device List
         val hashMap = hashMapOf("devices" to listOf(mobileDevice.deviceId))
@@ -90,7 +93,7 @@ class MobileDeviceActivity : AppCompatActivity() {
         }
 
         val mobileDeviceRef =
-            db.collection(DbCollection.MobileDevices.name).document(mobileDevice.deviceId!!)
+            db.collection(DbCollection.MobileDevices.name).document(mobileDevice.deviceId)
         mobileDeviceRef.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 val tempDevice = document.toObject(MobileDevice::class.java)

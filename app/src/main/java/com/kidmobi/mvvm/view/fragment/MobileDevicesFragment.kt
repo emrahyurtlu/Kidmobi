@@ -18,7 +18,9 @@ import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.SettingsActivity
 import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MobileDevicesFragment : Fragment(),
     MobileDeviceRecyclerAdapter.OnMyDeviceItemClickListener {
     private val TAG = "MobileDevicesFragment"

@@ -9,7 +9,9 @@ import com.google.android.gms.ads.MobileAds
 import com.kidmobi.R
 import com.kidmobi.databinding.ActivityDeviceIdBinding
 import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DeviceIdActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDeviceIdBinding
     private lateinit var fragmentManager: FragmentManager

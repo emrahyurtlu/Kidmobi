@@ -8,6 +8,6 @@ import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.UserMobileDevice
 
 fun DocumentSnapshot.toUserMobileDevice() = this.toObject<UserMobileDevice>()
-fun DocumentSnapshot.toMobileDevice() = this.toObject<MobileDevice>()
+fun DocumentSnapshot.toMobileDevice() = this.toObject<MobileDevice>() ?: MobileDevice.init()
 
 fun QuerySnapshot.toMobileDeviceList() = this.toObjects<MobileDevice>().toMutableList()

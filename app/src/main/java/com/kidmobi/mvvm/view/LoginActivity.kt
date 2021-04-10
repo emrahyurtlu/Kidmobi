@@ -22,8 +22,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.kidmobi.R
 import com.kidmobi.assets.utils.goto
 import com.kidmobi.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding

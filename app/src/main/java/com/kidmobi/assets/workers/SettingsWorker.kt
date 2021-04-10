@@ -13,10 +13,8 @@ import javax.inject.Inject
 class SettingsWorker(context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
     private var settingsViewModel: SettingsViewModel = SettingsViewModel()
-
     @Inject
     lateinit var settingsUtil: SettingsUtil
-
     /*private var settingsUtil: SettingsUtil =
         SettingsUtil(applicationContext, applicationContext.contentResolver)*/
     private var auth = FirebaseAuth.getInstance()
@@ -29,8 +27,8 @@ class SettingsWorker(context: Context, workerParameters: WorkerParameters) :
             settingsViewModel.getCurrentMobileDevice(deviceId)
             val thisDevice = settingsViewModel.currentDevice.value
             thisDevice?.let {
-                settingsUtil.changeDeviceSound(it.settings?.soundLevel!!.toInt())
-                settingsUtil.changeScreenBrightness(it.settings?.brightnessLevel!!.toInt())
+                settingsUtil.changeDeviceSound(it.settings.soundLevel.toInt())
+                settingsUtil.changeScreenBrightness(it.settings.brightnessLevel.toInt())
             }
         }
         return Result.retry()
