@@ -15,7 +15,9 @@ import javax.inject.Inject
 class UserMobileDeviceViewModel @Inject constructor() : ViewModel() {
     var userMobileDevice = MutableLiveData<UserMobileDevice>()
     var mobileDeviceList = MutableLiveData<MutableList<MobileDevice>>()
-    private var userMobileDeviceRepo = UserMobileDeviceRepo()
+
+    @Inject
+    lateinit var userMobileDeviceRepo: UserMobileDeviceRepo
 
     fun getUserMobileDevice() {
         CoroutineScope(Dispatchers.Default).launch {

@@ -23,13 +23,15 @@ import com.kidmobi.R
 import com.kidmobi.assets.utils.goto
 import com.kidmobi.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
     private lateinit var callbackManager: CallbackManager
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -37,8 +39,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = FirebaseAuth.getInstance()
 
         callbackManager = CallbackManager.Factory.create()
         Log.d(TAG, "onCreate: ")

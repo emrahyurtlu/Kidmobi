@@ -19,16 +19,20 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MobileDeviceActivity : AppCompatActivity() {
-    private lateinit var mobileDevice: MobileDevice
-    private lateinit var db: FirebaseFirestore
-    private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityMobileDeviceBinding
+    @Inject
+    lateinit var mobileDevice: MobileDevice
+
+    @Inject
+    lateinit var db: FirebaseFirestore
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     @Inject
     lateinit var userMobileDevice: UserMobileDevice
 
-    //private var mobileDeviceViewModel = MobileDeviceViewModel()
-    //private var userMobileDeviceViewModel = UserMobileDeviceViewModel()
+    private lateinit var binding: ActivityMobileDeviceBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMobileDeviceBinding.inflate(layoutInflater)
@@ -37,9 +41,6 @@ class MobileDeviceActivity : AppCompatActivity() {
         mobileDevice = intent.getSerializableExtra("device") as MobileDevice
         binding.deviceOwner.setText(mobileDevice.deviceOwnerName)
         // Admob ID: ca-app-pub-9250940245734350/2801074884
-
-        db = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
     }
 
     fun turnBack(view: View) {

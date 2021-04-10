@@ -1,5 +1,6 @@
 package com.kidmobi.mvvm.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.assets.enums.UserType
@@ -15,7 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MobileDeviceViewModel @Inject constructor() : ViewModel() {
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val TAG = "MobileDeviceViewModel"
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     @Inject
     lateinit var mobileDeviceRepo: MobileDeviceRepo
@@ -23,12 +27,11 @@ class MobileDeviceViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var device: MobileDevice
 
-    suspend fun saveDeviceInitially(uniqueDeviceId: String) {
+    fun saveDeviceInitially(uniqueDeviceId: String) {
         CoroutineScope(Dispatchers.Default).launch {
             auth.currentUser?.let { user ->
                 val now = Calendar.getInstance()
                 val deviceInfo = MobileDeviceInfo.init()
-
                 device.apply {
                     deviceId = uniqueDeviceId
                     info = deviceInfo
@@ -38,14 +41,12 @@ class MobileDeviceViewModel @Inject constructor() : ViewModel() {
                     deviceOwnerImageUrl = user.photoUrl.toString()
                     deviceOwnerUid = user.uid
                     deviceOwnerEmail = user.email.toString()
-                }
-
-
-                device.userType = when (user.providerId) {
-                    "google.com" -> UserType.UserFromGoogle
-                    "facebook.com" -> UserType.UserFromFacebook
-                    "firebase" -> UserType.UserAnonymous
-                    else -> UserType.UserUnknown
+                    userType = when (user.providerId) {
+                        "google.com" -> UserType.UserFromGoogle
+                        "facebook.com" -> UserType.UserFromFacebook
+                        "firebase" -> UserType.UserAnonymous
+                        else -> UserType.UserUnknown
+                    }
                 }
 
                 val docExist = mobileDeviceRepo.docExists(uniqueDeviceId)
@@ -54,4 +55,22 @@ class MobileDeviceViewModel @Inject constructor() : ViewModel() {
             }
         }
     }
+
+    fun getDeviceById(deviceId: String): MobileDevice {
+        CoroutineScope(Dispatchers.Default).launch {
+            device = mobileDeviceRepo.getById(deviceId)
+        }
+        return device
+    }
+
+    fun updateDevice(device: MobileDevice) {
+        val calendar = Calendar.getInstance()
+        device.updatedAt = calendar.time
+        CoroutineScope(Dispatchers.Default).launch {
+            mobileDeviceRepo.update(documentId = device.deviceId, entity = device)
+            Log.d(TAG, "updateDevice: $device")
+        }
+    }
+
+
 }

@@ -17,19 +17,22 @@ import com.kidmobi.assets.workers.SettingsWorker
 import com.kidmobi.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private val TAG = "SplashActivity"
+
+    @Inject
+    lateinit var auth: FirebaseAuth
     private lateinit var connectivityManager: ConnectivityManager
-    private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = FirebaseAuth.getInstance()
+        //auth = FirebaseAuth.getInstance()
 
         //startSettingsService()
         //startSettingWorker()

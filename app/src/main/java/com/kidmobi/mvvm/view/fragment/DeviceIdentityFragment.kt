@@ -29,9 +29,16 @@ class DeviceIdentityFragment : Fragment() {
     private lateinit var binding: FragmentDeviceIdentityBinding
     private lateinit var imageView: ImageView
     private lateinit var qrCodeWriter: QRCodeWriter
-    private lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var db: FirebaseFirestore
+
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
+
     @Inject
     lateinit var device: MobileDevice
 
@@ -44,7 +51,6 @@ class DeviceIdentityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeviceIdentityBinding.inflate(inflater)
-        auth = FirebaseAuth.getInstance()
 
         qrCodeWriter = QRCodeWriter()
         imageView = binding.qrCodeImage
@@ -66,9 +72,7 @@ class DeviceIdentityFragment : Fragment() {
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        val db = FirebaseFirestore.getInstance()
         val calendar = Calendar.getInstance()
-        //mobileDeviceInfo = MobileDeviceInfo.init()
         device.apply {
             deviceId = uniqueDeviceId
             info = MobileDeviceInfo.init()

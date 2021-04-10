@@ -1,6 +1,7 @@
 package com.kidmobi.mvvm.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -22,6 +23,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
+    private val TAG = "SettingsActivity"
+
     @Inject
     lateinit var device: MobileDevice
 
@@ -55,22 +58,22 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
     }
 
     private fun loadData() {
-        settingsViewModel.getCurrentMobileDevice(device.deviceId!!)
+        settingsViewModel.getCurrentMobileDevice(device.deviceId)
         settingsViewModel.currentDevice
             .observe(this, { currentDevice ->
                 device = currentDevice
-                printsln(device, "SettingsActivity::loadData()")
+                Log.d(TAG, "loadData: $device")
 
                 device.let {
                     binding.topAppBar.title = it.deviceOwnerName
-                    binding.screenBrightnessSlider.value = it.settings?.brightnessLevel!!
-                    binding.soundVolumeSlider.value = it.settings?.soundLevel!!
+                    binding.screenBrightnessSlider.value = it.settings.brightnessLevel
+                    binding.soundVolumeSlider.value = it.settings.soundLevel
                 }
             })
     }
 
     private suspend fun saveDeviceScreenBrightness(value: Float) {
-        device.settings?.brightnessLevel = value
+        device.settings.brightnessLevel = value
         device = withContext(Dispatchers.Default) {
             settingsViewModel.saveDeviceScreenBrightness(device)
         }
@@ -93,7 +96,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
     }
 
     private suspend fun saveDeviceSoundVolume(value: Float) {
-        device.settings?.soundLevel = value
+        device.settings.soundLevel = value
         device = withContext(Dispatchers.Default) {
             settingsViewModel.saveDeviceSoundVolume(device)
         }
@@ -112,7 +115,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
             }
             .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                 CoroutineScope(Dispatchers.Default).launch {
-                    userMobileDeviceViewModel.deleteFromMyDevices(device.deviceId!!)
+                    userMobileDeviceViewModel.deleteFromMyDevices(device.deviceId)
                 }
                 dialog.dismiss()
                 finish()

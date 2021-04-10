@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,7 +30,8 @@ class MobileDevicesFragment : Fragment(),
     private lateinit var recyclerView: RecyclerView
     private lateinit var textView: TextView
     private lateinit var refreshLayout: SwipeRefreshLayout
-    private lateinit var viewModel: UserMobileDeviceViewModel
+
+    private val viewModel: UserMobileDeviceViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -50,7 +51,7 @@ class MobileDevicesFragment : Fragment(),
 
         adapter = MobileDeviceRecyclerAdapter(devices, this)
 
-        viewModel = ViewModelProviders.of(this).get(UserMobileDeviceViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(UserMobileDeviceViewModel::class.java)
         loadData()
 
         recyclerView.let {

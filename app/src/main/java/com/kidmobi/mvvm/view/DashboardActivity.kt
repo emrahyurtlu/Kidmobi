@@ -19,6 +19,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.kidmobi.R
 import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
 import com.kidmobi.assets.utils.SharedPrefsUtil
+import com.kidmobi.assets.utils.goto
 import com.kidmobi.databinding.ActivityDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
@@ -35,7 +36,11 @@ class DashboardActivity : AppCompatActivity() {
     private val TAG = "DashboardActivity"
 
     @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
     lateinit var device: MobileDevice
+
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
@@ -130,10 +135,8 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     fun signOut(item: MenuItem) {
-        val auth = FirebaseAuth.getInstance()
         auth.signOut()
-        val gotoLogin = Intent(this, LoginActivity::class.java)
-        startActivity(gotoLogin)
+        this.goto(LoginActivity::class.java)
         finish()
     }
 
@@ -154,12 +157,16 @@ class DashboardActivity : AppCompatActivity() {
             val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             if (result != null && result.contents != null) {
 
-                device.deviceId = result.contents
-                val intent = Intent(this, MobileDeviceActivity::class.java)
+                device = mobileDeviceViewModel.getDeviceById(result.contents)
+                if (device.deviceOwnerName.isEmpty()) {
+                    // rename and save device
+                    val intent = Intent(this, MobileDeviceActivity::class.java)
+                    intent.putExtra("device", device)
+                    startActivity(intent)
+                } else {
+                    mobileDeviceViewModel.updateDevice(device)
+                }
 
-                intent.putExtra("device", device)
-                startActivity(intent)
-                // save device
             } else {
                 Toast.makeText(
                     applicationContext,
