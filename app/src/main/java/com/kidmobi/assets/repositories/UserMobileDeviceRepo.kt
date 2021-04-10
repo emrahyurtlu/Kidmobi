@@ -25,12 +25,13 @@ class UserMobileDeviceRepo @Inject constructor() {
     }
 
     suspend fun getByCurrentUserId(): UserMobileDevice {
-        val device: UserMobileDevice? = auth.currentUser?.let { user ->
-            collection.document(user.uid).get().await().toUserMobileDevice()
+        var device: UserMobileDevice = UserMobileDevice.init()
+        auth.currentUser?.let { user ->
+            device = collection.document(user.uid).get().await().toUserMobileDevice()
         }
         printsln(device, "UserMobileDeviceRepo::getById()")
 
-        return device!!
+        return device
     }
 
     suspend fun getListOfUserDevices(): MutableList<MobileDevice> {

@@ -12,7 +12,7 @@
         android:fillColor="@color/green_500" />
     <path
         android:pathData="M800.376,581.668m-174.787,0a174.787,174.787 0,1 1,349.574 0a174.787,174.787 0,1 1,-349.574 0"
-        android:fillColor="#f62354"/>
+        android:fillColor="@color/color_pink" />
       <path
           android:pathData="M582.608,232.094m-232.094,0a232.094,232.094 0,1 1,464.188 0a232.094,232.094 0,1 1,-464.188 0"
           android:fillColor="@color/purple_500" />

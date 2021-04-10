@@ -47,9 +47,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkIfUserLoggedIn() {
         auth.currentUser?.let { user ->
-            Log.d(TAG, "checkIfUserLoggedIn: ${user.providerData}")
-            Log.d(TAG, "checkIfUserLoggedIn: ${user.providerId}")
-
             if (!user.isAnonymous) {
                 this.goto(DashboardActivity::class.java)
                 finish()

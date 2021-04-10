@@ -6,6 +6,8 @@ plugins {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -37,6 +39,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    kapt {
+        correctErrorTypes true
+    }
 }
 
 dependencies {
@@ -58,7 +63,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
+    //implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 

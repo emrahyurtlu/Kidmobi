@@ -32,22 +32,22 @@ import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
-    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
     private val TAG = "DashboardActivity"
-    private lateinit var binding: ActivityDashboardBinding
+
     @Inject
     lateinit var device: MobileDevice
+    @Inject
+    lateinit var sharedPrefsUtil: SharedPrefsUtil
+    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
+    private lateinit var binding: ActivityDashboardBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        val sharedPrefsUtil = SharedPrefsUtil(applicationContext)
-        sharedPrefsUtil.setDeviceId()
-
-        saveDevice(sharedPrefsUtil.getDeviceId())
         setUpTabs()
 
         MobileAds.initialize(this)
@@ -59,7 +59,7 @@ class DashboardActivity : AppCompatActivity() {
         // Banner: Dashboard bottom banner
         // ca-app-pub-9250940245734350/3048347271
 
-        // Interstitial Dashboard to SettingsActiviyt
+        // Interstitial Dashboard to SettingsActivity
         // ca-app-pub-9250940245734350/1237955040
 
         /*
@@ -74,7 +74,11 @@ class DashboardActivity : AppCompatActivity() {
     private fun saveDevice(uniqueDeviceId: String) {
         GlobalScope.launch()
         {
-            mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+            try {
+                mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -86,6 +90,7 @@ class DashboardActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setNegativeButton(R.string.no) { dialog, which ->
                     dialog.cancel()
+                    dialog.dismiss()
                     Toast.makeText(
                         findViewById(android.R.id.content),
                         getString(R.string.no_permission_msg),
@@ -96,7 +101,6 @@ class DashboardActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.yes) { dialog, which ->
                     getDeviceSettingChangePermission()
                     dialog.dismiss()
-                    finish()
                 }
                 .show()
         }
@@ -170,5 +174,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart: ")
+        sharedPrefsUtil.setDeviceId()
+        saveDevice(sharedPrefsUtil.getDeviceId())
     }
 }

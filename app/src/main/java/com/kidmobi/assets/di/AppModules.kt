@@ -21,3 +21,12 @@ object AppModules {
     @Provides
     fun provideUserMobileDevice() = UserMobileDevice.init()
 }
+
+/*
+@Module
+@InstallIn(ActivityComponent::class)
+object ViewModelModules {
+    @Provides
+    @ViewModelScoped
+    fun provideMobileDeviceViewModel() = MobileDeviceViewModel()
+}*/
