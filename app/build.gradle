@@ -101,5 +101,8 @@ dependencies {
     //Hilt&Kapt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    //Timber Logs
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 

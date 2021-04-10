@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -28,13 +27,12 @@ import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class DashboardActivity : AppCompatActivity() {
-    private val TAG = "DashboardActivity"
-
     @Inject
     lateinit var auth: FirebaseAuth
 
@@ -49,7 +47,6 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -73,7 +70,6 @@ class DashboardActivity : AppCompatActivity() {
         *   Interstitial: ca-app-pub-3940256099942544/1033173712
         *
         * */
-
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
@@ -180,7 +176,7 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart: ")
+        Timber.d("onStart: ")
         sharedPrefsUtil.setDeviceId()
         saveDevice(sharedPrefsUtil.getDeviceId())
     }
