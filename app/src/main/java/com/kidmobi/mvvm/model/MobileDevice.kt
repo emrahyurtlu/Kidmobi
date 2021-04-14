@@ -3,21 +3,21 @@ package com.kidmobi.mvvm.model
 import com.kidmobi.assets.enums.UserType
 import java.io.Serializable
 import java.util.*
-import javax.inject.Inject
 
-data class MobileDevice @Inject constructor(
-    var deviceId: String,
-    var deviceImageUrl: Int,
-    var deviceOwnerName: String,
-    var deviceOwnerImageUrl: String,
-    var deviceOwnerUid: String,
-    var deviceOwnerEmail: String,
-    var info: MobileDeviceInfo,
-    var settings: MobileDeviceSettings,
-    var createdAt: Date?,
-    var updatedAt: Date?,
-    var userType: UserType
+data class MobileDevice constructor(
+    var deviceId: String = "",
+    var deviceImageUrl: Int = 0,
+    var deviceOwnerName: String = "",
+    var deviceOwnerImageUrl: String = "",
+    var deviceOwnerUid: String = "",
+    var deviceOwnerEmail: String = "",
+    var info: MobileDeviceInfo = MobileDeviceInfo.blank(),
+    var settings: MobileDeviceSettings = MobileDeviceSettings.init(),
+    var createdAt: Date? = null,
+    var updatedAt: Date? = null,
+    var userType: UserType = UserType.UserUnknown
 ) : Serializable, BaseModel {
+
     companion object {
         fun init() = MobileDevice(
             deviceId = "",
@@ -37,7 +37,7 @@ data class MobileDevice @Inject constructor(
                 increment = "",
                 securityPatch = ""
             ),
-            settings = MobileDeviceSettings(brightnessLevel = 150F, soundLevel = 8F),
+            settings = MobileDeviceSettings.init(),
             createdAt = null,
             updatedAt = null,
             userType = UserType.UserUnknown

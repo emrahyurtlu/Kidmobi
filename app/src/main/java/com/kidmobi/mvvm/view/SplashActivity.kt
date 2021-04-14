@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.work.*
@@ -16,13 +15,12 @@ import com.kidmobi.assets.utils.goto
 import com.kidmobi.assets.workers.SettingsWorker
 import com.kidmobi.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private val TAG = "SplashActivity"
-
     @Inject
     lateinit var auth: FirebaseAuth
     private lateinit var connectivityManager: ConnectivityManager
@@ -32,11 +30,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //auth = FirebaseAuth.getInstance()
 
+        //startSettingsBackgroundService()
         //startSettingsService()
-        //startSettingWorker()
+        startSettingWorker()
+    }
 
+    override fun onStart() {
+        super.onStart()
         checkConnectivity()
     }
 
@@ -46,7 +47,7 @@ class SplashActivity : AppCompatActivity() {
             //.setRequiresCharging(true)
             .build()
         val settingsRequest =
-            PeriodicWorkRequestBuilder<SettingsWorker>(10, TimeUnit.MILLISECONDS)
+            PeriodicWorkRequestBuilder<SettingsWorker>(30, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.MILLISECONDS)
                 .addTag("SettingsWorker-SplashActivity")
@@ -56,7 +57,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startSettingsService() {
-        val intent = Intent(applicationContext, SettingsService::class.java)
+        val intent = Intent(this, SettingsService::class.java)
         startService(intent)
     }
 
@@ -65,24 +66,11 @@ class SplashActivity : AppCompatActivity() {
         connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         if (isOnline()) {
-
-            /*auth.currentUser?.let { user ->
-                Log.d(TAG, "checkConnectivity: ${user.providerData}")
-                Log.d(TAG, "checkConnectivity: ${user.providerId}")
-
-                val target:Class<*> = if (!user.isAnonymous) {
-                    DashboardActivity::class.java
-                } else {
-                    LoginActivity::class.java
-                }
-                this.goto(target)
-                finish()
-            }*/
             this.goto(LoginActivity::class.java)
             finish()
 
         } else {
-            Log.d(TAG, "checkConnectivity: No internet connection!")
+            Timber.d("checkConnectivity: No internet connection!")
             showToast()
         }
     }

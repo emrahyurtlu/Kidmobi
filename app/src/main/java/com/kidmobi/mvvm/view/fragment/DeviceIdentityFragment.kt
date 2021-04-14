@@ -8,20 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.databinding.FragmentDeviceIdentityBinding
 import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.model.MobileDeviceInfo
+import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,8 +44,9 @@ class DeviceIdentityFragment : Fragment() {
     @Inject
     lateinit var device: MobileDevice
 
-    //@Inject lateinit var mobileDeviceInfo: MobileDeviceInfo
     private lateinit var uniqueDeviceId: String
+
+    private val viewModel: MobileDeviceViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -64,7 +67,7 @@ class DeviceIdentityFragment : Fragment() {
             val bitmap: Bitmap = createBitmap(bitMatrix)
             imageView.setImageBitmap(bitmap)
         } catch (e: WriterException) {
-            print("QR ERROR: ${e.message}")
+            Timber.e("Qr code error: ${e.message}")
             e.printStackTrace()
         }
 
@@ -72,7 +75,14 @@ class DeviceIdentityFragment : Fragment() {
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        val calendar = Calendar.getInstance()
+        CoroutineScope(Dispatchers.Default).launch {
+            try {
+                viewModel.saveDeviceInitially(uniqueDeviceId)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        /*val calendar = Calendar.getInstance()
         device.apply {
             deviceId = uniqueDeviceId
             info = MobileDeviceInfo.init()
@@ -87,7 +97,7 @@ class DeviceIdentityFragment : Fragment() {
             if (!it.exists()) {
                 documentReference.set(device, SetOptions.merge())
             }
-        }
+        }*/
     }
 
     private fun createBitmap(bitMatrix: BitMatrix): Bitmap {

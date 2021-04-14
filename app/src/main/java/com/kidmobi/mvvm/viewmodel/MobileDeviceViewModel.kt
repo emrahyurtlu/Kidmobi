@@ -1,23 +1,22 @@
 package com.kidmobi.mvvm.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.assets.enums.UserType
 import com.kidmobi.assets.repositories.MobileDeviceRepo
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
+import com.kidmobi.mvvm.model.MobileDeviceSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class MobileDeviceViewModel @Inject constructor() : ViewModel() {
-    private val TAG = "MobileDeviceViewModel"
-
     @Inject
     lateinit var auth: FirebaseAuth
 
@@ -29,18 +28,19 @@ class MobileDeviceViewModel @Inject constructor() : ViewModel() {
 
     fun saveDeviceInitially(uniqueDeviceId: String) {
         CoroutineScope(Dispatchers.Default).launch {
+            val auth = FirebaseAuth.getInstance()
             auth.currentUser?.let { user ->
                 val now = Calendar.getInstance()
-                val deviceInfo = MobileDeviceInfo.init()
                 device.apply {
                     deviceId = uniqueDeviceId
-                    info = deviceInfo
+                    info = MobileDeviceInfo.init()
+                    settings = MobileDeviceSettings.init()
                     createdAt = now.time
                     updatedAt = now.time
                     deviceOwnerName = user.displayName.toString()
                     deviceOwnerImageUrl = user.photoUrl.toString()
-                    deviceOwnerUid = user.uid
                     deviceOwnerEmail = user.email.toString()
+                    deviceOwnerUid = user.uid
                     userType = when (user.providerId) {
                         "google.com" -> UserType.UserFromGoogle
                         "facebook.com" -> UserType.UserFromFacebook
@@ -68,9 +68,7 @@ class MobileDeviceViewModel @Inject constructor() : ViewModel() {
         device.updatedAt = calendar.time
         CoroutineScope(Dispatchers.Default).launch {
             mobileDeviceRepo.update(documentId = device.deviceId, entity = device)
-            Log.d(TAG, "updateDevice: $device")
+            Timber.d("updateDevice: $device")
         }
     }
-
-
 }

@@ -2,9 +2,9 @@ package com.kidmobi.mvvm.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -20,18 +20,28 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kidmobi.R
+import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.goto
 import com.kidmobi.databinding.ActivityLoginBinding
+import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-    private val TAG = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
     private lateinit var callbackManager: CallbackManager
+
     @Inject
     lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var sharedPrefsUtil: SharedPrefsUtil
+
+    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -41,8 +51,26 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         callbackManager = CallbackManager.Factory.create()
-        Log.d(TAG, "onCreate: ")
+        Timber.d("onCreate: ")
+
+        saveDevice(sharedPrefsUtil.getDeviceId())
+
         checkIfUserLoggedIn()
+    }
+
+    private fun saveDevice(uniqueDeviceId: String) {
+        GlobalScope.launch()
+        {
+            try {
+                Timber.d("Saving device")
+                runOnUiThread {
+                    mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun checkIfUserLoggedIn() {
@@ -59,12 +87,12 @@ class LoginActivity : AppCompatActivity() {
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
-                    Log.d("facebook:onSuccess", "facebook:onSuccess:$loginResult")
+                    Timber.d("facebook:onSuccess:$loginResult")
                     handleFacebookAccessToken(loginResult.accessToken)
                 }
 
                 override fun onCancel() {
-                    Log.d("facebook:onCancel", "facebook:onCancel")
+                    Timber.d("facebook:onCancel")
                     Toast.makeText(
                         baseContext, "Facebook ile giriş iptal edildi.",
                         Toast.LENGTH_SHORT
@@ -72,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onError(error: FacebookException) {
-                    Log.d("facebook:onError", "facebook:onError", error)
+                    Timber.d(error)
                     Toast.makeText(
                         baseContext, "Facebook ile giriş sırasında hata oluştu.",
                         Toast.LENGTH_SHORT
@@ -82,19 +110,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
-        Log.d(TAG, "handleFacebookAccessToken: $token")
+        Timber.d("handleFacebookAccessToken: $token")
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "handleFacebookAccessToken: successful")
+                    Timber.d("handleFacebookAccessToken: successful")
                     this.goto(DashboardActivity::class.java)
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.d(TAG, "handleFacebookAccessToken: ${task.exception}")
+                    Timber.d("handleFacebookAccessToken: ${task.exception}")
                     Toast.makeText(
                         baseContext, getString(R.string.login_auth_failed),
                         Toast.LENGTH_SHORT

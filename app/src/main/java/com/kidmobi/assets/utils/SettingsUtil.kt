@@ -8,7 +8,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SettingsUtil @Inject constructor(
-    @ApplicationContext private var context: Context,
+    @ApplicationContext
+    private var context: Context
 ) {
 
     fun changeScreenBrightness(value: Int) {

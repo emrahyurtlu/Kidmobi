@@ -49,6 +49,8 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sharedPrefsUtil.setDeviceId()
+        //saveDevice(sharedPrefsUtil.getDeviceId())
 
         setUpTabs()
 
@@ -76,7 +78,9 @@ class DashboardActivity : AppCompatActivity() {
         GlobalScope.launch()
         {
             try {
-                mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+                runOnUiThread {
+                    mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -114,7 +118,6 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
     private fun setUpTabs() {
         val adapter = DashboardViewPager2Adapter(supportFragmentManager, lifecycle)
@@ -177,7 +180,5 @@ class DashboardActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Timber.d("onStart: ")
-        sharedPrefsUtil.setDeviceId()
-        saveDevice(sharedPrefsUtil.getDeviceId())
     }
 }

@@ -1,9 +1,8 @@
 package com.kidmobi.mvvm.model
 
 import java.io.Serializable
-import javax.inject.Inject
 
-data class UserMobileDevice @Inject constructor(
+data class UserMobileDevice constructor(
     var devices: MutableList<String>
 ) : Serializable, BaseModel {
     companion object {

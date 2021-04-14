@@ -104,5 +104,6 @@ dependencies {
 
     //Timber Logs
     implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
 }
 

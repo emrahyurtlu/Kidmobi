@@ -2,7 +2,6 @@ package com.kidmobi.mvvm.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +18,11 @@ import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.SettingsActivity
 import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MobileDevicesFragment : Fragment(),
     MobileDeviceRecyclerAdapter.OnMyDeviceItemClickListener {
-    private val TAG = "MobileDevicesFragment"
     private var devices: MutableList<MobileDevice> = mutableListOf()
     private lateinit var binding: FragmentMobileDevicesBinding
     private lateinit var adapter: MobileDeviceRecyclerAdapter
@@ -39,7 +38,6 @@ class MobileDevicesFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMobileDevicesBinding.inflate(inflater)
-        //val fragmentView = inflater.inflate(R.layout.fragment_mobile_devices, container, false)
 
         recyclerView = binding.myDevicesRc
         textView = binding.noMobileDevice
@@ -93,18 +91,18 @@ class MobileDevicesFragment : Fragment(),
     override fun onStart() {
         super.onStart()
         loadData()
-        Log.d(TAG, "onStart: ")
+        Timber.d("onStart: ")
     }
 
     override fun onResume() {
         super.onResume()
         loadData()
-        Log.d(TAG, "onResume: ")
+        Timber.d("onResume: ")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "onPause: ")
+        Timber.d("onPause: ")
         loadData()
     }
 }

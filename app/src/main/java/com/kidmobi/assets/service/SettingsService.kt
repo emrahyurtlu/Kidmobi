@@ -1,54 +1,82 @@
 package com.kidmobi.assets.service
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
+import androidx.core.app.NotificationCompat
+import com.kidmobi.R
+import com.kidmobi.assets.enums.IntentConstants
 import com.kidmobi.assets.utils.SettingsUtil
-import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.mvvm.viewmodel.SettingsViewModel
-import javax.inject.Inject
+import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.view.SplashActivity
+import timber.log.Timber
 
 class SettingsService : Service() {
-    private val TAG = "SettingsService"
-    private var settingsViewModel: SettingsViewModel = SettingsViewModel()
-    @Inject
-    lateinit var sharedPrefsUtil: SharedPrefsUtil
+    private val CHANNEL_ID = "KIDMOBI SERVICE"
+    //private var settingsViewModel: SettingsViewModel = SettingsViewModel()
+    //lateinit var auth: FirebaseAuth
 
-    private var auth = FirebaseAuth.getInstance()
+    lateinit var settingsUtil: SettingsUtil
+    //lateinit var sharedPrefsUtil: SharedPrefsUtil
+
+    lateinit var notificationManager: NotificationManager
 
     override fun onBind(intent: Intent?): IBinder? {
-        Log.d(TAG, "onBind: ")
-
+        Timber.d("onBind: ")
         return null
     }
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "onCreate: ")
+        Timber.d("onCreate: ")
+        notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        //auth = FirebaseAuth.getInstance()
+        //sharedPrefsUtil = SharedPrefsUtil(this)
+        settingsUtil = SettingsUtil(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "onDestroy: ")
+        Timber.d("onDestroy: ")
+        notificationManager.cancel(R.string.settings_service_desc)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand: ")
-        auth.currentUser.let {
-            //val sharedPrefsUtil = SharedPrefsUtil(this)
-            val deviceId = sharedPrefsUtil.getDeviceId()
-            val settingsUtil = SettingsUtil(this)
-            settingsViewModel.getCurrentMobileDevice(deviceId)
-            val thisDevice = settingsViewModel.currentDevice.value
-            thisDevice.let {
-                if (it != null) {
-                    settingsUtil.changeDeviceSound(it.settings.soundLevel.toInt())
-                    settingsUtil.changeScreenBrightness(it.settings.brightnessLevel.toInt())
-                }
-            }
+        var device: MobileDevice? = null
+        Timber.d("onStartCommand: ")
+
+        if (intent != null) {
+            if (intent.hasExtra(IntentConstants.Device.name))
+                device = intent.getSerializableExtra(IntentConstants.Device.name) as MobileDevice
         }
+
+
+        val pendingIntent: PendingIntent =
+            Intent(this, SplashActivity::class.java).let { notificationIntent ->
+                PendingIntent.getActivity(this, 0, notificationIntent, 0)
+            }
+
+        val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle(getString(R.string.app_name))
+            .setContentText("KidMobi çalışıyor...")
+            .setSmallIcon(R.drawable.ic_logo)
+            .setContentIntent(pendingIntent)
+            .setTicker("KidMobi çalışıyor...")
+            .build()
+
+
+        device?.let {
+            Timber.d("Device settings are ready to adjust: $it")
+            settingsUtil.changeDeviceSound(it.settings.soundLevel.toInt())
+            settingsUtil.changeScreenBrightness(it.settings.brightnessLevel.toInt())
+        }
+
+        startForeground(1, notification)
         return START_STICKY
     }
 }
+
+
