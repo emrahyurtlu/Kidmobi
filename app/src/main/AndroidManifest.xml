@@ -82,7 +82,6 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9250940245734350~2478868616" />

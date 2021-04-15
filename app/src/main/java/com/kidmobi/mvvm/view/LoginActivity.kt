@@ -25,8 +25,6 @@ import com.kidmobi.assets.utils.goto
 import com.kidmobi.databinding.ActivityLoginBinding
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -53,12 +51,12 @@ class LoginActivity : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
         Timber.d("onCreate: ")
 
-        saveDevice(sharedPrefsUtil.getDeviceId())
+        //saveDevice(sharedPrefsUtil.getDeviceId())
 
         checkIfUserLoggedIn()
     }
 
-    private fun saveDevice(uniqueDeviceId: String) {
+    /*private fun saveDevice(uniqueDeviceId: String) {
         GlobalScope.launch()
         {
             try {
@@ -71,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-    }
+    }*/
 
     private fun checkIfUserLoggedIn() {
         auth.currentUser?.let { user ->
