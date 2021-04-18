@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import androidx.lifecycle.ViewModelProviders
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.HiltAndroidApp
@@ -18,11 +19,13 @@ class KidMobiApp : Application() {
 
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
-    private val mobileDeviceViewModel: MobileDeviceViewModel = MobileDeviceViewModel()
+    lateinit var viewModel: MobileDeviceViewModel
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        val instance = ViewModelProviders.DefaultFactory.getInstance(this)
+        viewModel = instance.create(MobileDeviceViewModel::class.java)
         saveDevice(sharedPrefsUtil.getDeviceId())
         createNotificationChannel()
     }
@@ -32,7 +35,7 @@ class KidMobiApp : Application() {
         {
             try {
                 Timber.d("Saving device")
-                mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+                //viewModel.saveDeviceInitially(uniqueDeviceId)
 
             } catch (e: Exception) {
                 e.printStackTrace()

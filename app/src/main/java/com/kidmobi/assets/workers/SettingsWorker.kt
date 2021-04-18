@@ -7,17 +7,8 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kidmobi.assets.enums.DbCollection
-import com.kidmobi.assets.enums.IntentConstants
 import com.kidmobi.assets.service.SettingsService
 import com.kidmobi.assets.utils.SettingsUtil
-import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.printsln
-import com.kidmobi.assets.utils.toMobileDevice
-import com.kidmobi.mvvm.model.MobileDevice
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SettingsWorker(var context: Context, workerParameters: WorkerParameters) :
@@ -28,9 +19,12 @@ class SettingsWorker(var context: Context, workerParameters: WorkerParameters) :
 
     override fun doWork(): Result {
         Timber.d("SettingsWorker is running")
-        CoroutineScope(Dispatchers.Default).launch {
+        Intent(context, SettingsService::class.java).also {
+            ContextCompat.startForegroundService(context, it)
+        }
+        /*CoroutineScope(Dispatchers.Default).launch {
             try {
-                db = FirebaseFirestore.getInstance()
+                /*db = FirebaseFirestore.getInstance()
                 auth = FirebaseAuth.getInstance()
                 settingsUtil = SettingsUtil(context)
                 auth.currentUser?.let {
@@ -54,13 +48,17 @@ class SettingsWorker(var context: Context, workerParameters: WorkerParameters) :
                         Timber.d("$d")
                         printsln(d)
                     }
+                }*/
 
-                }
+
+
+
             } catch (e: Exception) {
                 Timber.e("Settings Worker Exception: ${e.message}")
 
             }
         }
+         */
 
         return Result.retry()
     }

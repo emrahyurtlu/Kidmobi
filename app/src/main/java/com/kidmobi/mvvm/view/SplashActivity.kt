@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
-import com.kidmobi.assets.service.SettingsService
+import com.kidmobi.assets.service.RemoteSettingsService
 import com.kidmobi.assets.utils.goto
 import com.kidmobi.assets.workers.SettingsWorker
 import com.kidmobi.databinding.ActivitySplashBinding
@@ -32,8 +32,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //startSettingsBackgroundService()
-        //startSettingsService()
-        startSettingWorker()
+        startSettingsService()
+        //startSettingWorker()
     }
 
     override fun onStart() {
@@ -47,7 +47,7 @@ class SplashActivity : AppCompatActivity() {
             //.setRequiresCharging(true)
             .build()
         val settingsRequest =
-            PeriodicWorkRequestBuilder<SettingsWorker>(30, TimeUnit.MILLISECONDS)
+            PeriodicWorkRequestBuilder<SettingsWorker>(10, TimeUnit.MILLISECONDS)
                 .setConstraints(constraints)
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.MILLISECONDS)
                 .addTag("SettingsWorker-SplashActivity")
@@ -57,7 +57,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startSettingsService() {
-        val intent = Intent(this, SettingsService::class.java)
+        val intent = Intent(this, RemoteSettingsService::class.java)
         startService(intent)
     }
 
@@ -76,8 +76,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun isOnline(): Boolean {
-        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        val networkCallback = ConnectivityManager.NetworkCallback()
+        val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
         return networkInfo?.isConnected == true
     }
 

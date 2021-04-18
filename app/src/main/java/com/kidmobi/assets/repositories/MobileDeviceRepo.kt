@@ -1,5 +1,6 @@
 package com.kidmobi.assets.repositories
 
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.kidmobi.assets.enums.DbCollection
@@ -10,9 +11,13 @@ import com.kidmobi.mvvm.model.MobileDevice
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class MobileDeviceRepo @Inject constructor() : BaseRepo<MobileDevice> {
-    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val collection = db.collection(DbCollection.MobileDevices.name)
+class MobileDeviceRepo @Inject constructor(
+    private val db: FirebaseFirestore
+) : BaseRepo<MobileDevice> {
+    //private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var collection: CollectionReference = db.collection(DbCollection.MobileDevices.name)
+
+    //private val collection = db.collection(DbCollection.MobileDevices.name)
 
     override suspend fun getById(documentId: String): MobileDevice {
         val result = collection.document(documentId).get().await().toMobileDevice()

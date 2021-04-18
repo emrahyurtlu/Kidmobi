@@ -10,9 +10,12 @@ import com.kidmobi.mvvm.model.UserMobileDevice
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class UserMobileDeviceRepo @Inject constructor() {
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+class UserMobileDeviceRepo @Inject constructor(
+    private val db: FirebaseFirestore,
+    private val auth: FirebaseAuth
+) {
+    //private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    //private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collection = db.collection(DbCollection.UserMobileDevices.name)
 
     @Inject
