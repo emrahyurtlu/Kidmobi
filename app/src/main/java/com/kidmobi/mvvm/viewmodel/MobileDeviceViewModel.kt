@@ -16,15 +16,9 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class MobileDeviceViewModel @Inject constructor() : ViewModel() {
-    @Inject
-    lateinit var auth: FirebaseAuth
+class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobileDeviceRepo: MobileDeviceRepo) : ViewModel() {
 
-    @Inject
-    lateinit var mobileDeviceRepo: MobileDeviceRepo
-
-    @Inject
-    lateinit var device: MobileDevice
+    var device: MobileDevice = MobileDevice()
 
     fun saveDeviceInitially(uniqueDeviceId: String) {
         CoroutineScope(Dispatchers.Default).launch {

@@ -4,13 +4,20 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
-import androidx.lifecycle.ViewModelProviders
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.kidmobi.assets.enums.DbCollection
+import com.kidmobi.assets.enums.UserType
 import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
+import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.model.MobileDeviceInfo
+import com.kidmobi.mvvm.model.MobileDeviceSettings
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 
@@ -19,28 +26,13 @@ class KidMobiApp : Application() {
 
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
-    lateinit var viewModel: MobileDeviceViewModel
+
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        val instance = ViewModelProviders.DefaultFactory.getInstance(this)
-        viewModel = instance.create(MobileDeviceViewModel::class.java)
         saveDevice(sharedPrefsUtil.getDeviceId())
         createNotificationChannel()
-    }
-
-    private fun saveDevice(uniqueDeviceId: String) {
-        GlobalScope.launch()
-        {
-            try {
-                Timber.d("Saving device")
-                //viewModel.saveDeviceInitially(uniqueDeviceId)
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 
     private fun createNotificationChannel() {
@@ -52,6 +44,44 @@ class KidMobiApp : Application() {
             )
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(serviceChannel)
+        }
+    }
+
+    private fun saveDevice(uniqueDeviceId: String) {
+        Timber.d("Device is trying to save: $uniqueDeviceId")
+        CoroutineScope(Dispatchers.Default).launch {
+            val device = MobileDevice()
+            val auth = FirebaseAuth.getInstance()
+            val db = FirebaseFirestore.getInstance()
+            auth.currentUser?.let { user ->
+                val now = Calendar.getInstance()
+                device.apply {
+                    deviceId = uniqueDeviceId
+                    info = MobileDeviceInfo.init()
+                    settings = MobileDeviceSettings.init()
+                    createdAt = now.time
+                    updatedAt = now.time
+                    deviceOwnerName = user.displayName.toString()
+                    deviceOwnerImageUrl = user.photoUrl.toString()
+                    deviceOwnerEmail = user.email.toString()
+                    deviceOwnerUid = user.uid
+                    userType = when (user.providerId) {
+                        "google.com" -> UserType.UserFromGoogle
+                        "facebook.com" -> UserType.UserFromFacebook
+                        "firebase" -> UserType.UserAnonymous
+                        else -> UserType.UserUnknown
+                    }
+                }
+                val docRef = db.collection(DbCollection.MobileDevices.name).document(uniqueDeviceId)
+                docRef.addSnapshotListener { snapshot, e ->
+                    if (e == null) {
+                        if (snapshot == null || !snapshot.exists()) {
+                            docRef.set(device)
+                            Timber.d("Current device is saved!")
+                        }
+                    }
+                }
+            }
         }
     }
 

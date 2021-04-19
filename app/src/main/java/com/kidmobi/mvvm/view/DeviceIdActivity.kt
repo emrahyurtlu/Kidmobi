@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.kidmobi.R
+import com.kidmobi.assets.utils.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.ActivityDeviceIdBinding
 import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,7 @@ class DeviceIdActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDeviceIdBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        this.checkSystemSettingsAdjustable()
         MobileAds.initialize(this)
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
