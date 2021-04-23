@@ -9,7 +9,7 @@ import com.kidmobi.mvvm.model.DeviceSession
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class DeviceSessionRepo @Inject constructor(private val db: FirebaseFirestore) : BaseRepo<DeviceSession> {
+class DeviceSessionRepo @Inject constructor(db: FirebaseFirestore) : BaseRepo<DeviceSession> {
 
     private val collection = db.collection(DbCollection.DeviceSessions.name)
 

@@ -1,5 +1,6 @@
 package com.kidmobi.mvvm.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kidmobi.assets.repositories.MobileDeviceRepo
@@ -7,26 +8,37 @@ import com.kidmobi.mvvm.model.MobileDevice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor() : ViewModel() {
 
-    var currentDevice = MutableLiveData<MobileDevice>()
+    private var _currentDevice = MutableLiveData<MobileDevice>()
+    val currentDevice: LiveData<MobileDevice>
+        get() = _currentDevice
 
     @Inject
     lateinit var mobileDeviceRepo: MobileDeviceRepo
 
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     fun getCurrentMobileDevice(documentId: String) {
-        CoroutineScope(Dispatchers.Default).launch {
+        uiScope.launch {
             val temp = mobileDeviceRepo.getById(documentId)
-            currentDevice.postValue(temp)
+            _currentDevice.postValue(temp)
         }
     }
 
     fun saveDeviceScreenBrightness(device: MobileDevice): MobileDevice {
-        CoroutineScope(Dispatchers.Default).launch {
+        uiScope.launch {
             mobileDeviceRepo.update(
                 device.deviceId,
                 device
@@ -36,7 +48,7 @@ class SettingsViewModel @Inject constructor() : ViewModel() {
     }
 
     fun saveDeviceSoundVolume(device: MobileDevice): MobileDevice {
-        CoroutineScope(Dispatchers.Default).launch {
+        uiScope.launch {
             mobileDeviceRepo.update(
                 device.deviceId,
                 device

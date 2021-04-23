@@ -1,7 +1,7 @@
 package com.kidmobi.assets.enums
 
 enum class DbCollection {
-    UserMobileDevices,
+    ManagedDevices,
     MobileDevices,
     DeviceSessions
 }

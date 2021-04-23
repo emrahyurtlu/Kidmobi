@@ -3,22 +3,18 @@ package com.kidmobi.assets.repositories
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.assets.enums.DbCollection
-import com.kidmobi.assets.utils.extensions.modelExtensions.init
-import com.kidmobi.assets.utils.extensions.toUserMobileDevice
-import com.kidmobi.assets.utils.printsln
+import com.kidmobi.assets.utils.extensions.toManagedDevice
+import com.kidmobi.mvvm.model.ManagedDevice
 import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.model.UserMobileDevice
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class UserMobileDeviceRepo @Inject constructor(
-    private val db: FirebaseFirestore,
-    private val auth: FirebaseAuth
+class ManagedDeviceRepo @Inject constructor(
+    db: FirebaseFirestore,
+    private val auth: FirebaseAuth,
+    var mobileDeviceRepo: MobileDeviceRepo
 ) {
-    private val collection = db.collection(DbCollection.UserMobileDevices.name)
-
-    @Inject
-    lateinit var mobileDeviceRepo: MobileDeviceRepo
+    private val collection = db.collection(DbCollection.ManagedDevices.name)
 
     suspend fun removeAllDevices() {
         auth.currentUser?.let { user ->
@@ -26,21 +22,18 @@ class UserMobileDeviceRepo @Inject constructor(
         }
     }
 
-    suspend fun getByCurrentUserId(): UserMobileDevice {
-        var device: UserMobileDevice = UserMobileDevice().init()
+    suspend fun getByCurrentUserId(): ManagedDevice {
+        var device = ManagedDevice()
         auth.currentUser?.let { user ->
-            device = collection.document(user.uid).get().await().toUserMobileDevice()
+            device = collection.document(user.uid).get().await().toManagedDevice()
         }
-        printsln(device, "UserMobileDeviceRepo::getByCurrentUserId()")
-
         return device
     }
 
-    suspend fun updateCurrentUserDeviceList(device: UserMobileDevice) {
+    suspend fun updateCurrentUserDeviceList(device: ManagedDevice) {
         auth.currentUser?.let { user ->
             update(user.uid, device)
         }
-        printsln(device, "UserMobileDeviceRepo::updateByCurrentUserDeviceList()")
     }
 
     suspend fun getListOfUserDevices(): MutableList<MobileDevice> {
@@ -50,12 +43,11 @@ class UserMobileDeviceRepo @Inject constructor(
             val device = mobileDeviceRepo.getById(deviceId)
             list.add(device)
         }
-        printsln(list, "UserMobileDeviceRepo::getListOfUserDevices()")
         return list
     }
 
-    fun update(documentId: String, entity: UserMobileDevice) {
-        collection.document(documentId).set(entity)
+    suspend fun update(documentId: String, entity: ManagedDevice) {
+        collection.document(documentId).set(entity).await()
     }
 
     suspend fun remove(documentId: String) {
@@ -71,7 +63,7 @@ class UserMobileDeviceRepo @Inject constructor(
         return userMobileDevice.exists()
     }
 
-    suspend fun add(entity: UserMobileDevice) {
+    suspend fun add(entity: ManagedDevice) {
         auth.currentUser?.let { user ->
             collection.document(user.uid).set(entity).await()
         }

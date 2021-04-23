@@ -1,6 +1,7 @@
 package com.kidmobi.assets.utils.extensions.modelExtensions
 
-import com.kidmobi.mvvm.model.UserMobileDevice
+import com.kidmobi.mvvm.model.ManagedDevice
 
-fun UserMobileDevice.init() = UserMobileDevice(devices = mutableListOf())
-fun UserMobileDevice.isNull() = this.devices.size == 0
+fun ManagedDevice.init() = ManagedDevice()
+
+fun ManagedDevice.isNull() = this.devices.size == 0

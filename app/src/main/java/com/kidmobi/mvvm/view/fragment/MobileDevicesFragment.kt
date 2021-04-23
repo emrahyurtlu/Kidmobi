@@ -16,7 +16,7 @@ import com.kidmobi.assets.utils.printsln
 import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.SettingsActivity
-import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
+import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -30,7 +30,7 @@ class MobileDevicesFragment : Fragment(),
     private lateinit var textView: TextView
     private lateinit var refreshLayout: SwipeRefreshLayout
 
-    private val viewModel: UserMobileDeviceViewModel by viewModels()
+    private val viewModel: ManagedDevicesViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -61,7 +61,7 @@ class MobileDevicesFragment : Fragment(),
     }
 
     private fun loadData() {
-        viewModel.getUserMobileDevices()
+        viewModel.getManagedMobileDevices()
         viewModel.mobileDeviceList
             .observe(viewLifecycleOwner, { list ->
                 devices.clear()

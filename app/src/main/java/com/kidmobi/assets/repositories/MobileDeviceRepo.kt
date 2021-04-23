@@ -12,7 +12,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class MobileDeviceRepo @Inject constructor(
-    private val db: FirebaseFirestore
+    db: FirebaseFirestore
 ) : BaseRepo<MobileDevice> {
 
     private var collection: CollectionReference = db.collection(DbCollection.MobileDevices.name)

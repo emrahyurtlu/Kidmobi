@@ -22,11 +22,9 @@ import com.kidmobi.databinding.ActivityDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
 import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
+import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
-import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -41,7 +39,7 @@ class DashboardActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
-    private val userMobileDeviceViewModel: UserMobileDeviceViewModel by viewModels()
+    private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
     private lateinit var binding: ActivityDashboardBinding
 
 
@@ -50,7 +48,6 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedPrefsUtil.setDeviceId()
-        //saveDevice(sharedPrefsUtil.getDeviceId())
 
         setUpTabs()
 
@@ -75,7 +72,8 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        GlobalScope.launch()
+        mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
+        /*GlobalScope.launch()
         {
             try {
                 runOnUiThread {
@@ -84,7 +82,7 @@ class DashboardActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
+        }*/
     }
 
     private fun setUpTabs() {
@@ -123,18 +121,14 @@ class DashboardActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             if (result != null && result.contents != null) {
+                val deviceId = result.contents
+                device = mobileDeviceViewModel.getDeviceById(deviceId)
 
-                device = mobileDeviceViewModel.getDeviceById(result.contents)
-                if (device.deviceOwnerName.isEmpty()) {
-                    // rename and save device
-                    val intent = Intent(this, MobileDeviceActivity::class.java)
-                    intent.putExtra("device", device)
-                    startActivity(intent)
-                } else {
-                    mobileDeviceViewModel.updateDevice(device)
-                    TODO("ADD USER MOBILE DEVICE LIST")
-                    userMobileDeviceViewModel.getUserMobileDevices()
-                }
+                Timber.asTree().d("New device is trying to add your collection: $device")
+
+                val intent = Intent(this, MobileDeviceActivity::class.java)
+                intent.putExtra("device", device)
+                startActivity(intent)
 
             } else {
                 Toast.makeText(

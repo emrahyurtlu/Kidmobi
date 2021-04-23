@@ -11,6 +11,7 @@ import com.kidmobi.mvvm.model.MobileDeviceSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -21,8 +22,16 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
 
     var device: MobileDevice = MobileDevice()
 
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     fun saveDeviceInitially(uniqueDeviceId: String) {
-        CoroutineScope(Dispatchers.Default).launch {
+        uiScope.launch {
             val auth = FirebaseAuth.getInstance()
             auth.currentUser?.let { user ->
                 val now = Calendar.getInstance()
@@ -52,7 +61,7 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
     }
 
     fun getDeviceById(deviceId: String): MobileDevice {
-        CoroutineScope(Dispatchers.Default).launch {
+        uiScope.launch {
             device = mobileDeviceRepo.getById(deviceId)
         }
         return device
@@ -61,7 +70,7 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
     fun updateDevice(device: MobileDevice) {
         val calendar = Calendar.getInstance()
         device.updatedAt = calendar.time
-        CoroutineScope(Dispatchers.Default).launch {
+        uiScope.launch {
             mobileDeviceRepo.update(documentId = device.deviceId, entity = device)
             Timber.d("updateDevice: $device")
         }

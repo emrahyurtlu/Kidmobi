@@ -19,7 +19,7 @@
         android:required="false" />
 
     <application
-        android:name=".assets.application.KidMobiApp"
+        android:name=".assets.application.KidmobiApp"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"

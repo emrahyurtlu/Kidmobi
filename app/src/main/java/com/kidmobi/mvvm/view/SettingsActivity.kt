@@ -14,8 +14,8 @@ import com.kidmobi.assets.utils.SettingsUtil
 import com.kidmobi.assets.utils.printsln
 import com.kidmobi.databinding.ActivitySettingsBinding
 import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.mvvm.viewmodel.SettingsViewModel
-import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -34,7 +34,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
 
     private val settingsViewModel: SettingsViewModel by viewModels()
 
-    private val userMobileDeviceViewModel: UserMobileDeviceViewModel by viewModels()
+    private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +113,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
             }
             .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                 CoroutineScope(Dispatchers.Default).launch {
-                    userMobileDeviceViewModel.deleteFromMyDevices(device.deviceId)
+                    managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
                 }
                 dialog.dismiss()
                 finish()

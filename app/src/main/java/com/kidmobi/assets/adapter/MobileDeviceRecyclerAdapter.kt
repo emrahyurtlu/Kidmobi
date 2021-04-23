@@ -33,7 +33,7 @@ class MobileDeviceRecyclerAdapter(
                 listener.onItemClick(device)
             }
             Picasso.get()
-                .load(device.deviceImageUrl)
+                .load(R.drawable.iphone)
                 .placeholder(R.drawable.ic_baseline_phone_iphone_64)
                 .into(deviceImage)
             ownersTitle.text = device.deviceOwnerName

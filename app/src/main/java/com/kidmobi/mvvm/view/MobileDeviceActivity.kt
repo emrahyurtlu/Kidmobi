@@ -10,6 +10,7 @@ import com.kidmobi.assets.utils.extensions.modelExtensions.init
 import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
 import com.kidmobi.databinding.ActivityMobileDeviceBinding
 import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.mvvm.viewmodel.MobileDeviceActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,7 @@ class MobileDeviceActivity : AppCompatActivity() {
     var mobileDevice: MobileDevice = MobileDevice().init()
 
     private val viewModel: MobileDeviceActivityViewModel by viewModels()
+    private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
 
     private lateinit var binding: ActivityMobileDeviceBinding
 
@@ -57,8 +59,8 @@ class MobileDeviceActivity : AppCompatActivity() {
 
         mobileDevice.deviceOwnerName = binding.deviceOwner.text.toString()
 
-        // ADD DEVICE AFTER THESE LINES
         viewModel.saveDeviceDetails(mobileDevice)
+        managedDevicesViewModel.addManagedDeviceList(mobileDevice.deviceId)
 
         turnBack(view)
 

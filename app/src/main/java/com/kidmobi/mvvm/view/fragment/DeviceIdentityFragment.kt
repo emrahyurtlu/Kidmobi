@@ -9,20 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.databinding.FragmentDeviceIdentityBinding
-import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -33,16 +27,7 @@ class DeviceIdentityFragment : Fragment() {
     private lateinit var qrCodeWriter: QRCodeWriter
 
     @Inject
-    lateinit var auth: FirebaseAuth
-
-    @Inject
-    lateinit var db: FirebaseFirestore
-
-    @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
-
-    @Inject
-    lateinit var device: MobileDevice
 
     private lateinit var uniqueDeviceId: String
 
@@ -54,7 +39,6 @@ class DeviceIdentityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeviceIdentityBinding.inflate(inflater)
-
         qrCodeWriter = QRCodeWriter()
         imageView = binding.qrCodeImage
 
@@ -75,13 +59,16 @@ class DeviceIdentityFragment : Fragment() {
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        CoroutineScope(Dispatchers.Default).launch {
+        Timber.d("Started to save device")
+        viewModel.saveDeviceInitially(uniqueDeviceId)
+        /*CoroutineScope(Dispatchers.Default).launch {
             try {
+                Timber.d("Started to save device")
                 viewModel.saveDeviceInitially(uniqueDeviceId)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
+        }*/
     }
 
     private fun createBitmap(bitMatrix: BitMatrix): Bitmap {

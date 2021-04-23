@@ -10,6 +10,7 @@ import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.enums.UserType
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.modelExtensions.init
+import com.kidmobi.assets.utils.printsln
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings
@@ -23,7 +24,7 @@ import javax.inject.Inject
 
 
 @HiltAndroidApp
-class KidMobiApp : Application() {
+class KidmobiApp : Application() {
 
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
@@ -49,7 +50,7 @@ class KidMobiApp : Application() {
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        Timber.d("Device is trying to save: $uniqueDeviceId")
+        printsln("KidmobiApp::saveDevice => $uniqueDeviceId")
         CoroutineScope(Dispatchers.Default).launch {
             val device = MobileDevice()
             val auth = FirebaseAuth.getInstance()
