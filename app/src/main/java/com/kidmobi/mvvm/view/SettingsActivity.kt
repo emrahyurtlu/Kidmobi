@@ -1,7 +1,6 @@
 package com.kidmobi.mvvm.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -19,11 +18,11 @@ import com.kidmobi.mvvm.viewmodel.SettingsViewModel
 import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
-    private val TAG = "SettingsActivity"
 
     @Inject
     lateinit var device: MobileDevice
@@ -41,7 +40,6 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         MobileAds.initialize(this)
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
@@ -62,7 +60,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
         settingsViewModel.currentDevice
             .observe(this, { currentDevice ->
                 device = currentDevice
-                Log.d(TAG, "loadData: $device")
+                Timber.d("$device")
 
                 device.let {
                     binding.topAppBar.title = it.deviceOwnerName

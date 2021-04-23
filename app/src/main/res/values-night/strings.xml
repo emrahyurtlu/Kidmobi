@@ -3,4 +3,7 @@
     <string name="dashboard_tab1_txt">MOBİL CİHAZLARIM</string>
     <string name="dashboard_tab2_txt">CİHAZ KİMLİĞİM</string>
     <string name="login_auth_failed">Doğrulama başarısız.</string>
+    <string name="whose_device">Bu cihaz kime ait?</string>
+    <string name="device_owner_hint">Can\'ın telefonu</string>
+    <string name="form_field_not_null">Bu alan boş olamaz.</string>
 </resources>

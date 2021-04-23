@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">KidMobi</string>
-    <string name="mobicon_logo_desc">KidMobi logo</string>
+    <string name="app_name">Kidmobi</string>
+    <string name="mobicon_logo_desc">Kidmobi logo</string>
     <string name="login_welcome_message">Hoşgeldiniz. Mobil cihazlarınızı yönetmek için giriş yapınız.</string>
     <string name="facebook_login_btn_msg">FACEBOOK İLE GİRİŞ</string>
     <string name="google_login_btn_msg">GOOGLE İLE GİRİŞ</string>
@@ -52,6 +52,9 @@
     <string name="login_auth_failed">Doğrulama başarısız.</string>
 
     <string name="profile_name">Sample Device Owner</string>
+    <string name="whose_device">Bu cihaz kime ait?</string>
+    <string name="device_owner_hint">Can\'ın telefonu</string>
+    <string name="form_field_not_null">Bu alan boş olamaz.</string>
 
 
 </resources>

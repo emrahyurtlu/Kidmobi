@@ -16,13 +16,14 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.kidmobi.R
 import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
 import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.checkSystemSettingsAdjustable
-import com.kidmobi.assets.utils.goto
+import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
+import com.kidmobi.assets.utils.extensions.goto
 import com.kidmobi.databinding.ActivityDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
 import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
+import com.kidmobi.mvvm.viewmodel.UserMobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,6 +41,7 @@ class DashboardActivity : AppCompatActivity() {
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
+    private val userMobileDeviceViewModel: UserMobileDeviceViewModel by viewModels()
     private lateinit var binding: ActivityDashboardBinding
 
 
@@ -130,6 +132,8 @@ class DashboardActivity : AppCompatActivity() {
                     startActivity(intent)
                 } else {
                     mobileDeviceViewModel.updateDevice(device)
+                    TODO("ADD USER MOBILE DEVICE LIST")
+                    userMobileDeviceViewModel.getUserMobileDevices()
                 }
 
             } else {

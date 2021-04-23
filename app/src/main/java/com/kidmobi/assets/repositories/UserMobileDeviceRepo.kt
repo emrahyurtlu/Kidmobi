@@ -3,8 +3,9 @@ package com.kidmobi.assets.repositories
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.assets.enums.DbCollection
+import com.kidmobi.assets.utils.extensions.modelExtensions.init
+import com.kidmobi.assets.utils.extensions.toUserMobileDevice
 import com.kidmobi.assets.utils.printsln
-import com.kidmobi.assets.utils.toUserMobileDevice
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.UserMobileDevice
 import kotlinx.coroutines.tasks.await
@@ -14,8 +15,6 @@ class UserMobileDeviceRepo @Inject constructor(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) {
-    //private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    //private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collection = db.collection(DbCollection.UserMobileDevices.name)
 
     @Inject
@@ -28,13 +27,20 @@ class UserMobileDeviceRepo @Inject constructor(
     }
 
     suspend fun getByCurrentUserId(): UserMobileDevice {
-        var device: UserMobileDevice = UserMobileDevice.init()
+        var device: UserMobileDevice = UserMobileDevice().init()
         auth.currentUser?.let { user ->
             device = collection.document(user.uid).get().await().toUserMobileDevice()
         }
-        printsln(device, "UserMobileDeviceRepo::getById()")
+        printsln(device, "UserMobileDeviceRepo::getByCurrentUserId()")
 
         return device
+    }
+
+    suspend fun updateCurrentUserDeviceList(device: UserMobileDevice) {
+        auth.currentUser?.let { user ->
+            update(user.uid, device)
+        }
+        printsln(device, "UserMobileDeviceRepo::updateByCurrentUserDeviceList()")
     }
 
     suspend fun getListOfUserDevices(): MutableList<MobileDevice> {

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.assets.enums.UserType
 import com.kidmobi.assets.repositories.MobileDeviceRepo
+import com.kidmobi.assets.utils.extensions.modelExtensions.init
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings
@@ -27,8 +28,8 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
                 val now = Calendar.getInstance()
                 device.apply {
                     deviceId = uniqueDeviceId
-                    info = MobileDeviceInfo.init()
-                    settings = MobileDeviceSettings.init()
+                    info = MobileDeviceInfo().init()
+                    settings = MobileDeviceSettings().init()
                     createdAt = now.time
                     updatedAt = now.time
                     deviceOwnerName = user.displayName.toString()

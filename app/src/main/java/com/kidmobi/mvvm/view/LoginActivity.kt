@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kidmobi.R
 import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.goto
+import com.kidmobi.assets.utils.extensions.goto
 import com.kidmobi.databinding.ActivityLoginBinding
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint

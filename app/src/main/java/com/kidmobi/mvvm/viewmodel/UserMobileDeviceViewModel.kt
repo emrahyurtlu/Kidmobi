@@ -33,6 +33,14 @@ class UserMobileDeviceViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun addUserMobileDeviceList(deviceId: String) {
+        CoroutineScope(Dispatchers.Default).launch {
+            val temp = userMobileDeviceRepo.getListOfUserDevices()
+            TODO("ADD IF NOT EXIST")
+            mobileDeviceList.postValue(temp)
+        }
+    }
+
     fun deleteFromMyDevices(documentId: String) {
         CoroutineScope(Dispatchers.Default).launch {
             userMobileDeviceRepo.remove(documentId)

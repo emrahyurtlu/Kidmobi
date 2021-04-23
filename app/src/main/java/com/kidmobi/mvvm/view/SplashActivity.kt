@@ -11,7 +11,7 @@ import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
 import com.kidmobi.assets.service.RemoteSettingsService
-import com.kidmobi.assets.utils.goto
+import com.kidmobi.assets.utils.extensions.goto
 import com.kidmobi.assets.workers.SettingsWorker
 import com.kidmobi.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint

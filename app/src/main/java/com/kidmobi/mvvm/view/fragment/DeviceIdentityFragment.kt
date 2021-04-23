@@ -82,22 +82,6 @@ class DeviceIdentityFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-        /*val calendar = Calendar.getInstance()
-        device.apply {
-            deviceId = uniqueDeviceId
-            info = MobileDeviceInfo.init()
-            createdAt = calendar.time
-            updatedAt = calendar.time
-        }
-
-        val documentReference =
-            db.collection(DbCollection.MobileDevices.name).document(uniqueDeviceId)
-
-        documentReference.get().addOnSuccessListener {
-            if (!it.exists()) {
-                documentReference.set(device, SetOptions.merge())
-            }
-        }*/
     }
 
     private fun createBitmap(bitMatrix: BitMatrix): Bitmap {

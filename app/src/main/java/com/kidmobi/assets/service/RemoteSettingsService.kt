@@ -8,7 +8,7 @@ import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.repositories.MobileDeviceRepo
 import com.kidmobi.assets.utils.SettingsUtil
 import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.toMobileDevice
+import com.kidmobi.assets.utils.extensions.toMobileDevice
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

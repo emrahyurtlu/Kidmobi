@@ -1,4 +1,4 @@
-package com.kidmobi.assets.utils
+package com.kidmobi.assets.utils.extensions
 
 import android.app.Activity
 import android.content.Intent

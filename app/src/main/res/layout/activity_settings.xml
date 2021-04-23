@@ -33,12 +33,17 @@
             android:orientation="vertical"
             android:padding="8dp">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fcv_device_session"
+                android:name="com.kidmobi.mvvm.view.fragment.DeviceSessionFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:text="@string/ekran_parlakligi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ekran_parlakligi"
-                android:textFontWeight="600" />
+                android:textAppearance="?attr/textAppearanceSubtitle1" />
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/screenBrightnessSlider"
@@ -52,11 +57,10 @@
                 app:tickVisible="false" />
 
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:text="@string/ses_duzeyini_ayarla"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ses_duzeyini_ayarla"
-                android:textFontWeight="600" />
+                android:textAppearance="?attr/textAppearanceSubtitle1" />
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/soundVolumeSlider"
