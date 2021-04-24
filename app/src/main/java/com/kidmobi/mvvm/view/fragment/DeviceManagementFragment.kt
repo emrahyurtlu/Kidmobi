@@ -1,54 +1,61 @@
-package com.kidmobi.mvvm.view
+package com.kidmobi.mvvm.view.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import com.kidmobi.R
-import com.kidmobi.assets.utils.SettingsUtil
-import com.kidmobi.assets.utils.printsln
-import com.kidmobi.databinding.ActivitySettingsBinding
+import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.mvvm.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
-
+class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     @Inject
     lateinit var device: MobileDevice
 
-    @Inject
-    lateinit var settingsUtil: SettingsUtil
-
-    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var binding: FragmentDeviceManagementBinding
 
     private val settingsViewModel: SettingsViewModel by viewModels()
 
     private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //binding = ActivitySettingsBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
-        MobileAds.initialize(this)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        MobileAds.initialize(context)
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
         // Banner ID
         // ca-app-pub-9250940245734350/9369572410
 
-        device = intent.getSerializableExtra("device") as MobileDevice
+        activity?.let {
+            device = it.intent.getSerializableExtra("device") as MobileDevice
+        }
 
         //settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         loadData()
@@ -57,12 +64,13 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
         binding.soundVolumeSlider.addOnSliderTouchListener(this)
 
         binding.mobileDevice = device
+
     }
 
     private fun loadData() {
         settingsViewModel.getCurrentMobileDevice(device.deviceId)
         settingsViewModel.currentDevice
-            .observe(this, { currentDevice ->
+            .observe(viewLifecycleOwner, { currentDevice ->
                 device = currentDevice
                 Timber.d("$device")
 
@@ -83,7 +91,7 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
     }
 
     fun turnBack(view: View) {
-        finish()
+        activity?.finish()
     }
 
     override fun onStartTrackingTouch(slider: Slider) {
@@ -102,27 +110,27 @@ class SettingsActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
         device = withContext(Dispatchers.Default) {
             settingsViewModel.saveDeviceSoundVolume(device)
         }
-        // settingsUtil.changeDeviceSound(value)
     }
 
     fun deleteMobileDevice(item: MenuItem) {
 
-        printsln("This device will be deleted: $device")
+        Timber.d("This device will be deleted: $device")
 
-        MaterialAlertDialogBuilder(this)
-            .setTitle(device.deviceOwnerName)
-            .setMessage(getString(R.string.are_you_sure_to_delete))
-            .setNegativeButton(getString(R.string.no)) { dialog, which ->
-                dialog.cancel()
-            }
-            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
-                CoroutineScope(Dispatchers.Default).launch {
-                    managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
+        activity?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(device.deviceOwnerName)
+                .setMessage(getString(R.string.are_you_sure_to_delete))
+                .setNegativeButton(getString(R.string.no)) { dialog, which ->
+                    dialog.cancel()
                 }
-                dialog.dismiss()
-                finish()
-            }
-            .show()
+                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                    managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
+                    dialog.dismiss()
+                    it.finish()
+                }
+                .show()
+        }
+
 
     }
 }

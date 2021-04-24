@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -20,10 +19,8 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kidmobi.R
-import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.goto
 import com.kidmobi.databinding.ActivityLoginBinding
-import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,10 +33,10 @@ class LoginActivity : AppCompatActivity() {
     @Inject
     lateinit var auth: FirebaseAuth
 
-    @Inject
-    lateinit var sharedPrefsUtil: SharedPrefsUtil
+    //@Inject
+    //lateinit var sharedPrefsUtil: SharedPrefsUtil
 
-    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
+    //private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
 
     private lateinit var googleSignInClient: GoogleSignInClient
 

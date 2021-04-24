@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.kidmobi.R
 import com.kidmobi.assets.adapter.MobileDeviceRecyclerAdapter
 import com.kidmobi.assets.utils.printsln
 import com.kidmobi.databinding.FragmentMobileDevicesBinding
@@ -37,7 +39,7 @@ class MobileDevicesFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMobileDevicesBinding.inflate(inflater)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mobile_devices, container, false)
 
         recyclerView = binding.myDevicesRc
         textView = binding.noMobileDevice

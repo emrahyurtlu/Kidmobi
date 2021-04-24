@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ManagedDevicesViewModel @Inject constructor() : ViewModel() {
+class ManagedDevicesViewModel @Inject constructor(var managedDeviceRepo: ManagedDeviceRepo) : ViewModel() {
 
     private var _userMobileDevice = MutableLiveData<ManagedDevice>()
     val managedDevice: LiveData<ManagedDevice>
@@ -25,8 +25,7 @@ class ManagedDevicesViewModel @Inject constructor() : ViewModel() {
     val mobileDeviceList: LiveData<MutableList<MobileDevice>>
         get() = _mobileDeviceList
 
-    @Inject
-    lateinit var managedDeviceRepo: ManagedDeviceRepo
+
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)

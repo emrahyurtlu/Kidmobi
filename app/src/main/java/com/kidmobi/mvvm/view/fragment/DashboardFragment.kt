@@ -1,13 +1,13 @@
-package com.kidmobi.mvvm.view
+package com.kidmobi.mvvm.view.fragment
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,18 +18,18 @@ import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.assets.utils.extensions.goto
-import com.kidmobi.databinding.ActivityDashboardBinding
+import com.kidmobi.databinding.FragmentDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment
-import com.kidmobi.mvvm.view.fragment.MobileDevicesFragment
-import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
+import com.kidmobi.mvvm.view.LoginActivity
+import com.kidmobi.mvvm.view.MobileDeviceActivity
+import com.kidmobi.mvvm.view.QrCaptureActivity
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashboardActivity : AppCompatActivity() {
+class DashboardFragment : Fragment() {
     @Inject
     lateinit var auth: FirebaseAuth
 
@@ -38,20 +38,40 @@ class DashboardActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
+
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
-    private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
-    private lateinit var binding: ActivityDashboardBinding
 
+    private lateinit var binding: FragmentDashboardBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityDashboardBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    //private lateinit var fManager: FragmentManager
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
+        return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.top_app_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.signOut) signOut(item)
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         sharedPrefsUtil.setDeviceId()
 
         setUpTabs()
 
-        MobileAds.initialize(this)
+        setHasOptionsMenu(true)
+
+        MobileAds.initialize(context)
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
@@ -71,12 +91,8 @@ class DashboardActivity : AppCompatActivity() {
         * */
     }
 
-    private fun saveDevice(uniqueDeviceId: String) {
-        mobileDeviceViewModel.saveDeviceInitially(uniqueDeviceId)
-    }
-
     private fun setUpTabs() {
-        val adapter = DashboardViewPager2Adapter(supportFragmentManager, lifecycle)
+        val adapter = DashboardViewPager2Adapter(parentFragmentManager, lifecycle)
 
         adapter.addFragment(MobileDevicesFragment(), getString(R.string.dashboard_tab1_txt))
         adapter.addFragment(DeviceIdentityFragment(), getString(R.string.dashboard_tab2_txt))
@@ -91,12 +107,11 @@ class DashboardActivity : AppCompatActivity() {
 
     fun signOut(item: MenuItem) {
         auth.signOut()
-        this.goto(LoginActivity::class.java)
-        finish()
+        activity?.goto(LoginActivity::class.java, true)
     }
 
     fun addNewDeviceFab(view: View) {
-        val integrator = IntentIntegrator(this).apply {
+        val integrator = IntentIntegrator(activity).apply {
             setBeepEnabled(false)
             setOrientationLocked(false)
             setPrompt(getString(R.string.cihaz_ekleniyor))
@@ -116,23 +131,18 @@ class DashboardActivity : AppCompatActivity() {
 
                 Timber.asTree().d("New device is trying to add your collection: $device")
 
-                val intent = Intent(this, MobileDeviceActivity::class.java)
+                val intent = Intent(context, MobileDeviceActivity::class.java)
                 intent.putExtra("device", device)
                 startActivity(intent)
 
             } else {
                 Toast.makeText(
-                    applicationContext,
+                    context,
                     getString(R.string.qr_couldnt_read),
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Timber.d("onStart: ")
     }
 }

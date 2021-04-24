@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_deviceIdentityFragment"
+            app:destination="@id/deviceIdentityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_addMobileDeviceFragment"
+            app:destination="@id/addMobileDeviceFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_deviceManagementFragment"
+            app:destination="@id/deviceManagementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMobileDeviceFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.AddMobileDeviceFragment"
+        android:label="AddMobileDeviceFragment"
+        tools:layout="@layout/fragment_device_management">
+        <action
+            android:id="@+id/action_addMobileDeviceFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceManagementFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.DeviceManagementFragment"
+        android:label="fragment_device_management"
+        tools:layout="@layout/fragment_device_management">
+        <action
+            android:id="@+id/action_deviceManagementFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceIdentityFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.DeviceIdentityFragment"
+        android:label="DeviceIdentityFragment"
+        tools:layout="@layout/fragment_device_identity">
+        <action
+            android:id="@+id/action_deviceIdentityFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+</navigation>
