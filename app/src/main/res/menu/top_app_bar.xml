@@ -2,17 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/signOut"
+        android:id="@+id/miSignOut"
         android:contentDescription="@string/logOut"
         android:icon="@drawable/ic_logout_24"
-        android:onClick="signOut"
         android:title="@string/logOut"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/more"
-        android:contentDescription="Hakkında"
-        android:title="Hakkında"
+        android:id="@+id/miAboutUs"
+        android:contentDescription="@string/about_us"
+        android:title="@string/about_us"
         app:showAsAction="never" />
 
 </menu>

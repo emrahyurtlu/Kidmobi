@@ -1,82 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:onClick="turnBack"
-            app:navigationIcon="@drawable/ic_arrow_back_24"
-            app:title="Mobil cihaz işlemleri" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                style="@style/Widget.MaterialComponents.Toolbar.Surface"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:onClick="turnBack"
+                app:navigationIcon="@drawable/ic_arrow_back_24"
+                app:title="Mobil cihaz işlemleri" />
 
-    <!-- Note: A RecyclerView can also be used -->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
+        <!-- Note: A RecyclerView can also be used -->
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:padding="16dp">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/whose_device"
-                android:textAppearance="?attr/textAppearanceSubtitle1" />
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/device_owner_hint"
-                app:errorEnabled="true"
-                app:helperText="@string/form_required"
-                app:helperTextEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/deviceOwner"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/whose_device"
+                    android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/device_owner_hint"
+                    app:errorEnabled="true"
+                    app:helperText="@string/form_required"
+                    app:helperTextEnabled="true">
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="8dp"
-                android:onClick="saveDeviceDetails"
-                android:text="@string/save"
-                app:cornerRadius="20dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/deviceOwner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom|center"
-        ads:adSize="FULL_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="8dp"
+                    android:onClick="saveDeviceDetails"
+                    android:text="@string/save"
+                    app:cornerRadius="20dp" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center"
+            ads:adSize="FULL_BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

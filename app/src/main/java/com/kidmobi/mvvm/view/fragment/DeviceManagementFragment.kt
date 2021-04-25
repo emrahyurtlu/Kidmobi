@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -29,19 +30,23 @@ import javax.inject.Inject
 class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     @Inject
     lateinit var device: MobileDevice
-
     private lateinit var binding: FragmentDeviceManagementBinding
-
     private val settingsViewModel: SettingsViewModel by viewModels()
-
     private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
+    private val args: DeviceManagementFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management, container, false)
+        binding.lifecycleOwner = this
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,8 +58,12 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         // Banner ID
         // ca-app-pub-9250940245734350/9369572410
 
-        activity?.let {
-            device = it.intent.getSerializableExtra("device") as MobileDevice
+        device = args.device
+
+        binding.topAppBar.inflateMenu(R.menu.settings_top_app_bar)
+
+        binding.topAppBar.setOnMenuItemClickListener {
+            optionsItemSelected(it)
         }
 
         //settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
@@ -65,6 +74,13 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
 
         binding.mobileDevice = device
 
+    }
+
+    private fun optionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.miDeleteMobileDevice -> deleteMobileDevice()
+        }
+        return true
     }
 
     private fun loadData() {
@@ -112,7 +128,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         }
     }
 
-    fun deleteMobileDevice(item: MenuItem) {
+    private fun deleteMobileDevice() {
 
         Timber.d("This device will be deleted: $device")
 

@@ -1,6 +1,5 @@
 package com.kidmobi.mvvm.view.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -17,7 +17,6 @@ import com.kidmobi.assets.adapter.MobileDeviceRecyclerAdapter
 import com.kidmobi.assets.utils.printsln
 import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.view.SettingsActivity
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -75,7 +74,7 @@ class MobileDevicesFragment : Fragment(),
     }
 
     private fun setEmptyDeviceListMessage() {
-        if (devices.size == 0) {
+        if (devices.isNotEmpty() && devices.size == 0) {
             recyclerView.visibility = View.GONE
             textView.visibility = View.VISIBLE
         } else {
@@ -85,9 +84,9 @@ class MobileDevicesFragment : Fragment(),
     }
 
     override fun onItemClick(device: MobileDevice) {
-        val intent = Intent(context, SettingsActivity::class.java)
-        intent.putExtra("device", device)
-        startActivity(intent)
+        findNavController().navigate(
+            DashboardFragmentDirections.actionDashboardFragmentToDeviceManagementFragment(device)
+        )
     }
 
     override fun onStart() {

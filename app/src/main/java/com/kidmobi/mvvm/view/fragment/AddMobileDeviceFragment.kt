@@ -8,6 +8,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.kidmobi.R
 import com.kidmobi.assets.utils.extensions.modelExtensions.init
 import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
@@ -20,12 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddMobileDeviceFragment : Fragment() {
     private lateinit var binding: FragmentAddMobileDeviceBinding
-
     var mobileDevice: MobileDevice = MobileDevice().init()
-
     private val viewModel: MobileDeviceActivityViewModel by viewModels()
-
     private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
+    private val args: AddMobileDeviceFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,14 +38,9 @@ class AddMobileDeviceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-            mobileDevice = it.intent.getSerializableExtra("device") as MobileDevice
-
-            if (mobileDevice.isNull())
-                it.finish()
-        }
-
-
+        mobileDevice = args.device
+        if (mobileDevice.isNull())
+            findNavController().navigate(R.id.action_addMobileDeviceFragment_to_dashboardFragment)
 
         binding.deviceOwner.setText(mobileDevice.deviceOwnerName)
 

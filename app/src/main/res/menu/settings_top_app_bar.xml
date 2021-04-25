@@ -2,10 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/signOut"
+        android:id="@+id/miDeleteMobileDevice"
         android:contentDescription="@string/btnDelete"
         android:icon="@drawable/ic_baseline_delete_24"
-        android:onClick="deleteMobileDevice"
         android:title="@string/btnDelete"
         app:showAsAction="ifRoom" />
 

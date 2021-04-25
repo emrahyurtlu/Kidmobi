@@ -55,6 +55,7 @@
     <string name="whose_device">Bu cihaz kime ait?</string>
     <string name="device_owner_hint">Can\'ın telefonu</string>
     <string name="form_field_not_null">Bu alan boş olamaz.</string>
+    <string name="about_us">Hakkında</string>
 
 
 </resources>

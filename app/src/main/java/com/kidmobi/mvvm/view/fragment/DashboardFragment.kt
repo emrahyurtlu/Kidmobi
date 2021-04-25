@@ -3,11 +3,15 @@ package com.kidmobi.mvvm.view.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,11 +21,8 @@ import com.kidmobi.R
 import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
-import com.kidmobi.assets.utils.extensions.goto
 import com.kidmobi.databinding.FragmentDashboardBinding
 import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.view.LoginActivity
-import com.kidmobi.mvvm.view.MobileDeviceActivity
 import com.kidmobi.mvvm.view.QrCaptureActivity
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,10 @@ class DashboardFragment : Fragment() {
 
     private lateinit var binding: FragmentDashboardBinding
 
-    //private lateinit var fManager: FragmentManager
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,14 +57,12 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.top_app_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.signOut) signOut(item)
-        return super.onOptionsItemSelected(item)
+    fun optionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.miSignOut -> signOut()
+            R.id.miAboutUs -> Timber.d("About Us is clicked in option menu!!!")
+        }
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,13 +71,19 @@ class DashboardFragment : Fragment() {
 
         setUpTabs()
 
-        setHasOptionsMenu(true)
+        binding.topAppBar.inflateMenu(R.menu.top_app_bar)
+
+        binding.topAppBar.setOnMenuItemClickListener {
+            optionsItemSelected(it)
+        }
 
         MobileAds.initialize(context)
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
         this.checkSystemSettingsAdjustable()
+
+        binding.btnFab.setOnClickListener { addNewDeviceFab() }
 
         // Banner: Dashboard bottom banner
         // ca-app-pub-9250940245734350/3048347271
@@ -105,12 +113,13 @@ class DashboardFragment : Fragment() {
 
     }
 
-    fun signOut(item: MenuItem) {
-        auth.signOut()
-        activity?.goto(LoginActivity::class.java, true)
+    private fun signOut() {
+        auth.signOut().also {
+            findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+        }
     }
 
-    fun addNewDeviceFab(view: View) {
+    private fun addNewDeviceFab() {
         val integrator = IntentIntegrator(activity).apply {
             setBeepEnabled(false)
             setOrientationLocked(false)
@@ -129,13 +138,12 @@ class DashboardFragment : Fragment() {
                 val deviceId = result.contents
                 device = mobileDeviceViewModel.getDeviceById(deviceId)
 
-                Timber.asTree().d("New device is trying to add your collection: $device")
+                Timber.d("New device is trying to add your collection: $device")
 
-                val intent = Intent(context, MobileDeviceActivity::class.java)
-                intent.putExtra("device", device)
-                startActivity(intent)
+                findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
 
             } else {
+                Timber.d(getString(R.string.qr_couldnt_read))
                 Toast.makeText(
                     context,
                     getString(R.string.qr_couldnt_read),

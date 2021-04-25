@@ -42,23 +42,30 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        //binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         callbackManager = CallbackManager.Factory.create()
-
         checkIfUserLoggedIn()
+
+        binding.btnLoginFacebook.setOnClickListener { loginWithFacebook() }
+
+        binding.btnLoginGoogle.setOnClickListener { loginWithGoogle() }
+
+        binding.btnLoginAsGuest.setOnClickListener { loginAsAnonymously() }
     }
 
     private fun checkIfUserLoggedIn() {
         auth.currentUser?.let {
-            findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+            if (!it.isAnonymous)
+                findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
         }
     }
 
-    fun loginWithFacebook(view: View) {
+    private fun loginWithFacebook() {
         LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile"))
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
@@ -108,7 +115,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    fun loginWithGoogle(view: View) {
+    private fun loginWithGoogle() {
         activity?.let {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -122,7 +129,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    fun loginAsAnonymously(view: View) {
+    private fun loginAsAnonymously() {
         val result = auth.signInAnonymously()
         activity?.let { activity ->
             result.addOnCompleteListener(activity) {

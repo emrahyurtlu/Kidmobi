@@ -25,10 +25,11 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:onClick="turnBack"
-                app:menu="@menu/settings_top_app_bar"
-                app:navigationIcon="@drawable/ic_arrow_back_24"
                 app:title="@string/app_name" />
+            <!--android:onClick="turnBack"
+            app:menu="@menu/settings_top_app_bar"
+            app:navigationIcon="@drawable/ic_arrow_back_24"-->
+
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -62,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/ekran_parlakligi"
                     android:stepSize="1"
-                    android:value="150"
+                    android:value="@{mobileDevice.settings.brightnessLevel}"
                     android:valueFrom="0"
                     android:valueTo="255"
                     app:tickVisible="false" />
@@ -79,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/ses_duzeyini_ayarla"
                     android:stepSize="1"
-                    android:value="7"
+                    android:value="@{mobileDevice.settings.soundLevel}"
                     android:valueFrom="0"
                     android:valueTo="15"
                     app:tickVisible="false" />

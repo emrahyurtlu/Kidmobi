@@ -8,6 +8,7 @@ plugins {
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 30
@@ -66,7 +67,6 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    //implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -97,6 +97,7 @@ dependencies {
     def navigation_version = '1.0.0'
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+
 
 
     // Swiper dependency

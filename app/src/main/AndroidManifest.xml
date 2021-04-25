@@ -27,15 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kidmobi">
-        <!--<activity android:name=".mvvm.view.MainActivity"></activity>-->
-        <!--
-        <service
-            android:name=".assets.service.SettingsService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
-        -->
-        <service
+
+    <service
             android:name=".assets.service.RemoteSettingsService"
             android:enabled="true"
             android:exported="false" />
@@ -57,21 +50,6 @@
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:replace="screenOrientation" />
-        <!--<activity android:name=".mvvm.view.DeviceIdActivity" />
-        <activity android:name=".mvvm.view.DashboardActivity" />-->
-        <activity android:name=".mvvm.view.SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.kidmobi.mvvm.view.DashboardActivity" />
-        </activity>
-        <!--<activity android:name=".mvvm.view.LoginActivity" />
-        <activity android:name=".mvvm.view.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
 
         <meta-data
             android:name="preloaded_fonts"

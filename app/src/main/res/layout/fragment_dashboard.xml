@@ -23,7 +23,6 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/top_app_bar"
                 app:title="@string/app_name" />
 
             <com.google.android.material.tabs.TabLayout
@@ -42,14 +41,13 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/btnFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:layout_marginBottom="50dp"
             android:contentDescription="@string/add_new_device"
-            android:onClick="addNewDeviceFab"
             android:src="@drawable/ic_add_24"
             app:fabSize="auto"
             app:tint="@color/color_white" />
