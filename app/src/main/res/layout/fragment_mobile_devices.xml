@@ -39,10 +39,11 @@
                 android:padding="16dp"
                 android:text="@string/no_mobile_device_message"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:visibility="gone"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

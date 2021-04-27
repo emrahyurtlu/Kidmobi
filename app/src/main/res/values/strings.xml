@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">Kidmobi</string>
-    <string name="mobicon_logo_desc">Kidmobi logo</string>
+    <string name="mobicon_logo_desc" translatable="false">Kidmobi logo</string>
     <string name="login_welcome_message">Hoşgeldiniz. Mobil cihazlarınızı yönetmek için giriş yapınız.</string>
     <string name="facebook_login_btn_msg">FACEBOOK İLE GİRİŞ</string>
     <string name="google_login_btn_msg">GOOGLE İLE GİRİŞ</string>
     <string name="login_login_as_guest_btn_str">MİSAFİR OLARAK GİRİŞ</string>
 
-    <string name="facebook_app_id">743880013182917</string>
-    <string name="fb_login_protocol_scheme">fb743880013182917</string>
+    <string name="facebook_app_id" translatable="false">743880013182917</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb743880013182917</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="qrcode_image_string">Qrcode Image</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="qrcode_image_string" translatable="false">Qrcode Image</string>
     <string name="cihaz_kimligim">Cihaz Kimliğim</string>
     <string name="login_google_basarisiz_giris">Google ile giriş yapamadınız.</string>
     <string name="login_kullanici_bilgileri_alinamadi">Kullanıcı bilgileri alınamadı. Lütfen tekrar giriş yapmayı deneyin.</string>
@@ -18,18 +18,17 @@
     <string name="qr_code_aciklama">Aşağıdaki karekodu okuyan cihaz sizin mobil cihazınızı yönetebilir.</string>
     <string name="logOut">Çıkış</string>
     <string name="btnDelete">Sil</string>
-    <string name="login_baskasi_tarafindan_yönetilmek_icin_msg">Ya da\n başkası tarafından yönetilmek için</string>
+    <string name="login_baskasi_tarafindan_yönetilmek_icin_msg">Ya da  başkası tarafından yönetilmek için</string>
     <string name="add_new_device">Yeni cihaz ekle</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
-    <string name="hello_world">Hello Square World!</string>
-    <string name="ekran_parlakligi">1. Ekran Parlaklığını Ayarla</string>
-    <string name="ses_duzeyini_ayarla">2. Ses Düzeyini Ayarla</string>
+    <string name="ekran_parlakligi">Ekran Parlaklığını Ayarla</string>
+    <string name="ses_duzeyini_ayarla">Ses Düzeyini Ayarla</string>
     <string name="cihaz_ekleniyor">Cihaz ağınızına ekleniyor.</string>
 
-    <string name="device_card_text">%1$s %2$s</string>
+    <string name="device_card_text" translatable="false">%1$s %2$s</string>
 
     <string name="device_admin_desc">Uzaktan yönetim için kullanılacaktır.</string>
     <string name="qr_couldnt_read">Qr kod okunamadı. Lütfen tekrar deneyiniz.</string>

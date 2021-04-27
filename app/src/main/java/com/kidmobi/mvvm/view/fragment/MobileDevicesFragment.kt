@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +27,6 @@ class MobileDevicesFragment : Fragment(),
     private lateinit var binding: FragmentMobileDevicesBinding
     private lateinit var adapter: MobileDeviceRecyclerAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var textView: TextView
     private lateinit var refreshLayout: SwipeRefreshLayout
 
     private val viewModel: ManagedDevicesViewModel by viewModels()
@@ -41,7 +39,6 @@ class MobileDevicesFragment : Fragment(),
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mobile_devices, container, false)
 
         recyclerView = binding.myDevicesRc
-        textView = binding.noMobileDevice
         refreshLayout = binding.mobileDevicesSwipeRefresh
         refreshLayout.setOnRefreshListener {
             loadData()
@@ -74,12 +71,13 @@ class MobileDevicesFragment : Fragment(),
     }
 
     private fun setEmptyDeviceListMessage() {
-        if (devices.isNotEmpty() && devices.size == 0) {
-            recyclerView.visibility = View.GONE
-            textView.visibility = View.VISIBLE
+        Timber.d("Checking whether list is empty: ${devices.isEmpty()}")
+        if (devices.isEmpty()) {
+            binding.myDevicesRc.visibility = View.GONE
+            binding.noMobileDevice.visibility = View.VISIBLE
         } else {
-            recyclerView.visibility = View.VISIBLE
-            textView.visibility = View.GONE
+            binding.myDevicesRc.visibility = View.VISIBLE
+            binding.noMobileDevice.visibility = View.GONE
         }
     }
 

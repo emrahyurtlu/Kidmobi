@@ -57,7 +57,7 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    fun optionsItemSelected(item: MenuItem): Boolean {
+    private fun optionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.miSignOut -> signOut()
             R.id.miAboutUs -> Timber.d("About Us is clicked in option menu!!!")
@@ -77,7 +77,7 @@ class DashboardFragment : Fragment() {
             optionsItemSelected(it)
         }
 
-        MobileAds.initialize(context)
+        MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
@@ -126,6 +126,7 @@ class DashboardFragment : Fragment() {
             setPrompt(getString(R.string.cihaz_ekleniyor))
             setBarcodeImageEnabled(false)
             captureActivity = QrCaptureActivity::class.java
+            setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)
         }
         integrator.initiateScan()
     }

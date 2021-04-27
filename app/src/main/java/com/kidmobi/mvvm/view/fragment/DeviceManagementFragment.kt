@@ -52,7 +52,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        MobileAds.initialize(context)
+        MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
         // Banner ID
