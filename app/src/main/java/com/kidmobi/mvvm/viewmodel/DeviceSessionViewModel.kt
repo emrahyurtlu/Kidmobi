@@ -1,5 +1,7 @@
 package com.kidmobi.mvvm.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kidmobi.assets.repositories.DeviceSessionRepo
 import com.kidmobi.mvvm.model.DeviceSession
@@ -11,9 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DeviceSessionViewModel @Inject constructor(var deviceSessionRepo: DeviceSessionRepo) : ViewModel() {
+class DeviceSessionViewModel @Inject constructor(private var deviceSessionRepo: DeviceSessionRepo) : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private lateinit var session: DeviceSession
+    private var _currentSession = MutableLiveData<DeviceSession>()
+    val currentSession: LiveData<DeviceSession>
+        get() = _currentSession
 
     override fun onCleared() {
         super.onCleared()
@@ -23,6 +30,13 @@ class DeviceSessionViewModel @Inject constructor(var deviceSessionRepo: DeviceSe
     fun sessionStart(session: DeviceSession) {
         uiScope.launch {
             deviceSessionRepo.add(session)
+        }
+    }
+
+    fun getSession(deviceId: String) {
+        uiScope.launch {
+            session = deviceSessionRepo.getByOpenSession(deviceId)
+            _currentSession.postValue(session)
         }
     }
 }

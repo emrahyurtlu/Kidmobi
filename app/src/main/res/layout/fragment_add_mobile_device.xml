@@ -19,7 +19,6 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:onClick="turnBack"
                 app:navigationIcon="@drawable/ic_arrow_back_24"
                 app:title="Mobil cihaz işlemleri" />
 
@@ -64,11 +63,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_device"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginTop="8dp"
-                    android:onClick="saveDeviceDetails"
                     android:text="@string/save"
                     app:cornerRadius="20dp" />
 

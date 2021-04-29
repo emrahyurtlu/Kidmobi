@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import com.kidmobi.R
+import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.mvvm.viewmodel.DeviceSessionViewModel
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.mvvm.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +36,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     private lateinit var binding: FragmentDeviceManagementBinding
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
+    private val sessionViewModel: DeviceSessionViewModel by viewModels()
     private val args: DeviceManagementFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -52,6 +56,8 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
@@ -68,12 +74,22 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
 
         //settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         loadData()
+        checkSession()
 
         binding.screenBrightnessSlider.addOnSliderTouchListener(this)
         binding.soundVolumeSlider.addOnSliderTouchListener(this)
 
         binding.mobileDevice = device
 
+    }
+
+    private fun checkSession() {
+        sessionViewModel.getSession(device.deviceId)
+        sessionViewModel.currentSession.observe(viewLifecycleOwner, { session ->
+            if (session.isNull()) {
+                findNavController().navigate(DeviceManagementFragmentDirections.actionDeviceManagementFragmentToDeviceSessionFragment(device))
+            }
+        })
     }
 
     private fun optionsItemSelected(item: MenuItem): Boolean {
@@ -132,20 +148,18 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
 
         Timber.d("This device will be deleted: $device")
 
-        activity?.let {
-            MaterialAlertDialogBuilder(it)
-                .setTitle(device.deviceOwnerName)
-                .setMessage(getString(R.string.are_you_sure_to_delete))
-                .setNegativeButton(getString(R.string.no)) { dialog, which ->
-                    dialog.cancel()
-                }
-                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
-                    managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
-                    dialog.dismiss()
-                    it.finish()
-                }
-                .show()
-        }
+        MaterialAlertDialogBuilder(requireActivity())
+            .setTitle(device.deviceOwnerName)
+            .setMessage(getString(R.string.are_you_sure_to_delete))
+            .setNegativeButton(getString(R.string.no)) { dialog, which ->
+                dialog.cancel()
+            }
+            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
+                dialog.dismiss()
+                requireActivity().finish()
+            }
+            .show()
 
 
     }

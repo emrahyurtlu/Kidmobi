@@ -44,6 +44,8 @@ class AddMobileDeviceFragment : Fragment() {
 
         binding.deviceOwner.setText(mobileDevice.deviceOwnerName)
 
+        binding.btnAddDevice.setOnClickListener { saveDeviceDetails() }
+
         // Admob ID: ca-app-pub-9250940245734350/2801074884
     }
 
@@ -51,7 +53,7 @@ class AddMobileDeviceFragment : Fragment() {
         activity?.finish()
     }
 
-    fun saveDeviceDetails(view: View) {
+    fun saveDeviceDetails() {
 
         if (binding.deviceOwner.text.isNullOrEmpty()) {
             binding.deviceOwner.setError(
@@ -72,7 +74,6 @@ class AddMobileDeviceFragment : Fragment() {
         viewModel.saveDeviceDetails(mobileDevice)
         managedDevicesViewModel.addManagedDeviceList(mobileDevice.deviceId)
 
-        turnBack(view)
-
+        findNavController().navigate(R.id.action_addMobileDeviceFragment_to_dashboardFragment)
     }
 }

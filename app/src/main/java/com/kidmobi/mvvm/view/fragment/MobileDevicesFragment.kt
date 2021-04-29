@@ -9,11 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.kidmobi.R
 import com.kidmobi.assets.adapter.MobileDeviceRecyclerAdapter
-import com.kidmobi.assets.utils.printsln
 import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
@@ -26,7 +24,6 @@ class MobileDevicesFragment : Fragment(),
     private var devices: MutableList<MobileDevice> = mutableListOf()
     private lateinit var binding: FragmentMobileDevicesBinding
     private lateinit var adapter: MobileDeviceRecyclerAdapter
-    private lateinit var recyclerView: RecyclerView
     private lateinit var refreshLayout: SwipeRefreshLayout
 
     private val viewModel: ManagedDevicesViewModel by viewModels()
@@ -37,8 +34,11 @@ class MobileDevicesFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_mobile_devices, container, false)
+        return binding.root
+    }
 
-        recyclerView = binding.myDevicesRc
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         refreshLayout = binding.mobileDevicesSwipeRefresh
         refreshLayout.setOnRefreshListener {
             loadData()
@@ -47,15 +47,12 @@ class MobileDevicesFragment : Fragment(),
 
         adapter = MobileDeviceRecyclerAdapter(devices, this)
 
-        //viewModel = ViewModelProviders.of(this).get(UserMobileDeviceViewModel::class.java)
         loadData()
 
-        recyclerView.let {
-            it.layoutManager = LinearLayoutManager(context)
+        binding.rvMobileDevices.let {
+            it.layoutManager = LinearLayoutManager(requireContext())
             it.adapter = adapter
         }
-
-        return binding.root
     }
 
     private fun loadData() {
@@ -65,19 +62,19 @@ class MobileDevicesFragment : Fragment(),
                 devices.clear()
                 devices.addAll(list)
                 adapter.notifyDataSetChanged()
-                setEmptyDeviceListMessage()
-                printsln(devices, "MobileDevicesFragment::loadData()")
+                setEmptyDeviceListMessage(list.size)
             })
     }
 
-    private fun setEmptyDeviceListMessage() {
-        Timber.d("Checking whether list is empty: ${devices.isEmpty()}")
-        if (devices.isEmpty()) {
-            binding.myDevicesRc.visibility = View.GONE
-            binding.noMobileDevice.visibility = View.VISIBLE
-        } else {
-            binding.myDevicesRc.visibility = View.VISIBLE
-            binding.noMobileDevice.visibility = View.GONE
+    private fun setEmptyDeviceListMessage(size: Int) {
+        Timber.d("Checking whether list size : $size")
+        if (size == 0) {
+            binding.rvMobileDevices.visibility = View.INVISIBLE
+            binding.tvNoMobileDevice.visibility = View.VISIBLE
+        }
+        if (size > 0) {
+            binding.rvMobileDevices.visibility = View.VISIBLE
+            binding.tvNoMobileDevice.visibility = View.INVISIBLE
         }
     }
 

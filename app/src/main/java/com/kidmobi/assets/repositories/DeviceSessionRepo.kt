@@ -44,9 +44,15 @@ class DeviceSessionRepo @Inject constructor(db: FirebaseFirestore) : BaseRepo<De
     }
 
     suspend fun getByOpenSession(sessionOwnerDeviceId: String): DeviceSession {
-        return collection
-            .whereEqualTo("", sessionOwnerDeviceId)
+        var temp = DeviceSession()
+        val result = collection
+            .whereEqualTo("sessionOwnerDeviceId", sessionOwnerDeviceId)
             .whereEqualTo("done", false)
-            .get().await().first().toDeviceSession()
+            .get().await().toDeviceSessionList()
+
+        if (result.size > 0)
+            temp = result.first()
+
+        return temp
     }
 }

@@ -5,7 +5,6 @@
     tools:context=".mvvm.view.fragment.DeviceManagementFragment">
 
     <data>
-
         <variable
             name="mobileDevice"
             type="com.kidmobi.mvvm.model.MobileDevice" />
@@ -43,13 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="8dp">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/fcv_device_session"
-                    android:name="com.kidmobi.mvvm.view.fragment.DeviceSessionFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"

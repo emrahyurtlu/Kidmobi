@@ -23,10 +23,10 @@ class MobileDeviceRecyclerAdapter(
     }
 
     inner class MobileDeviceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val ownersTitle: TextView = view.findViewById(R.id.my_device_item_owners_title)
-        val ownersSubtitle: TextView = view.findViewById(R.id.my_device_item_owners_subtitle)
-        val deviceImage: ImageView = view.findViewById(R.id.my_device_item_image)
-        val container: CardView = view.findViewById(R.id.my_device_item_cv)
+        private val ownersTitle: TextView = view.findViewById(R.id.my_device_item_owners_title)
+        private val ownersSubtitle: TextView = view.findViewById(R.id.my_device_item_owners_subtitle)
+        private val deviceImage: ImageView = view.findViewById(R.id.my_device_item_image)
+        private val container: CardView = view.findViewById(R.id.my_device_item_cv)
 
         fun bind(device: MobileDevice, listener: OnMyDeviceItemClickListener) {
             container.setOnClickListener {

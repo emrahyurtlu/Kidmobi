@@ -64,6 +64,9 @@
         <argument
             android:name="device"
             app:argType="com.kidmobi.mvvm.model.MobileDevice" />
+        <action
+            android:id="@+id/action_deviceManagementFragment_to_deviceSessionFragment"
+            app:destination="@id/deviceSessionFragment" />
     </fragment>
     <fragment
         android:id="@+id/deviceIdentityFragment"
@@ -80,6 +83,18 @@
         android:label="MobileDevicesFragment">
         <action
             android:id="@+id/action_mobileDevicesFragment_to_deviceManagementFragment"
+            app:destination="@id/deviceManagementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceSessionFragment"
+        android:name="com.kidmobi.mvvm.view.fragment.DeviceSessionFragment"
+        android:label="DeviceSessionFragment"
+        tools:layout="@layout/fragment_device_session">
+        <argument
+            android:name="device"
+            app:argType="com.kidmobi.mvvm.model.MobileDevice" />
+        <action
+            android:id="@+id/action_deviceSessionFragment_to_deviceManagementFragment"
             app:destination="@id/deviceManagementFragment" />
     </fragment>
 </navigation>

@@ -22,7 +22,6 @@ import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.FragmentDashboardBinding
-import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.QrCaptureActivity
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,12 +34,9 @@ class DashboardFragment : Fragment() {
     lateinit var auth: FirebaseAuth
 
     @Inject
-    lateinit var device: MobileDevice
-
-    @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
 
-    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
+    private val viewModel: MobileDeviceViewModel by viewModels()
 
     private lateinit var binding: FragmentDashboardBinding
 
@@ -120,7 +116,8 @@ class DashboardFragment : Fragment() {
     }
 
     private fun addNewDeviceFab() {
-        val integrator = IntentIntegrator(activity).apply {
+        Timber.d("Qr reading is started!")
+        val integrator = IntentIntegrator.forSupportFragment(this).apply {
             setBeepEnabled(false)
             setOrientationLocked(false)
             setPrompt(getString(R.string.cihaz_ekleniyor))
@@ -137,11 +134,15 @@ class DashboardFragment : Fragment() {
             val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
             if (result != null && result.contents != null) {
                 val deviceId = result.contents
-                device = mobileDeviceViewModel.getDeviceById(deviceId)
 
-                Timber.d("New device is trying to add your collection: $device")
+                viewModel.getDeviceById(deviceId)
+                viewModel.device.observe(viewLifecycleOwner, { device ->
+                    Timber.d("New device id: ${deviceId}")
+                    Timber.d("New device is: ${device}")
 
-                findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
+                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
+                })
+
 
             } else {
                 Timber.d(getString(R.string.qr_couldnt_read))

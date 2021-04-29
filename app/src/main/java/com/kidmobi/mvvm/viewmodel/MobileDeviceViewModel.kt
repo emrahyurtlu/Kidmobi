@@ -1,5 +1,7 @@
 package com.kidmobi.mvvm.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.assets.enums.UserType
@@ -20,10 +22,13 @@ import javax.inject.Inject
 @HiltViewModel
 class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobileDeviceRepo: MobileDeviceRepo) : ViewModel() {
 
-    var device: MobileDevice = MobileDevice()
+    private var _device = MutableLiveData<MobileDevice>()
+
+    val device: LiveData<MobileDevice>
+        get() = _device
 
     private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
     override fun onCleared() {
         super.onCleared()
@@ -35,7 +40,8 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
             val auth = FirebaseAuth.getInstance()
             auth.currentUser?.let { user ->
                 val now = Calendar.getInstance()
-                device.apply {
+                val temp = MobileDevice()
+                temp.apply {
                     deviceId = uniqueDeviceId
                     info = MobileDeviceInfo().init()
                     settings = MobileDeviceSettings().init()
@@ -55,16 +61,16 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
 
                 val docExist = mobileDeviceRepo.docExists(uniqueDeviceId)
                 if (!docExist)
-                    mobileDeviceRepo.add(device)
+                    mobileDeviceRepo.add(temp)
             }
         }
     }
 
-    fun getDeviceById(deviceId: String): MobileDevice {
+    fun getDeviceById(deviceId: String) {
         uiScope.launch {
-            device = mobileDeviceRepo.getById(deviceId)
+            val result = mobileDeviceRepo.getById(deviceId)
+            _device.postValue(result)
         }
-        return device
     }
 
     fun updateDevice(device: MobileDevice) {

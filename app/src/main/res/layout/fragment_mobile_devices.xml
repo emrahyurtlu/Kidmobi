@@ -5,12 +5,17 @@
 
     <data>
 
+        <variable
+            name="model"
+            type="com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp">
+        android:padding="8dp">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/mobileDevicesSwipeRefresh"
@@ -23,7 +28,7 @@
             app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/color_primary">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/my_devices_rc"
+                android:id="@+id/rv_mobile_devices"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -33,17 +38,16 @@
                 tools:listitem="@layout/item_mydevices_layout" />
 
             <TextView
-                android:id="@+id/no_mobile_device"
+                android:id="@+id/tv_no_mobile_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:padding="16dp"
                 android:text="@string/no_mobile_device_message"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

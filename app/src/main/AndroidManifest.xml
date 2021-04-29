@@ -29,8 +29,8 @@
         android:theme="@style/Theme.Kidmobi">
 
     <service
-            android:name=".assets.service.RemoteSettingsService"
-            android:enabled="true"
+            android:name=".assets.services.RemoteSettingsService"
+        android:enabled="true"
             android:exported="false" />
 
         <activity

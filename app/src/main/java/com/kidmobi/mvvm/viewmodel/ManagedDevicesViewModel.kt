@@ -1,5 +1,6 @@
 package com.kidmobi.mvvm.viewmodel
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,11 @@ class ManagedDevicesViewModel @Inject constructor(var managedDeviceRepo: Managed
     val mobileDeviceList: LiveData<MutableList<MobileDevice>>
         get() = _mobileDeviceList
 
+    val recyclerViewVisibility: Int
+        get() = if (_mobileDeviceList.value?.size!! > 0) View.VISIBLE else View.INVISIBLE
+
+    val noDeviceTvVisibility: Int
+        get() = if (_mobileDeviceList.value?.size!! > 0) View.INVISIBLE else View.VISIBLE
 
 
     private var viewModelJob = Job()

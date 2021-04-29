@@ -7,9 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
 import com.kidmobi.databinding.FragmentDeviceSessionBinding
 import com.kidmobi.mvvm.model.DeviceSession
+import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.DeviceSessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -17,8 +22,10 @@ import java.util.*
 
 @AndroidEntryPoint
 class DeviceSessionFragment : Fragment() {
+    lateinit var device: MobileDevice
     private lateinit var binding: FragmentDeviceSessionBinding
     private val viewModel: DeviceSessionViewModel by viewModels()
+    private val args: DeviceSessionFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +37,13 @@ class DeviceSessionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        device = args.device
         binding.btnSaveSession.setOnClickListener {
-            createSession()
+            createSession(it)
         }
     }
 
-    private fun createSession() {
+    private fun createSession(view: View) {
         Timber.d("Session is created!")
         val calendar = Calendar.getInstance()
         val session = DeviceSession()
@@ -51,10 +59,16 @@ class DeviceSessionFragment : Fragment() {
             sessionStart = calendar.time
             calendar.add(Calendar.MINUTE, minutes)
             sessionEnd = calendar.time
-            sessionCreatorDeviceId = ""
-            sessionOwnerDeviceId = ""
+            sessionCreatorDeviceId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+            sessionOwnerDeviceId = device.deviceId
         }
 
         viewModel.sessionStart(session)
+
+        Snackbar.make(view, "Oturum açıldı", Snackbar.LENGTH_LONG).show().also {
+            findNavController().navigate(DeviceSessionFragmentDirections.actionDeviceSessionFragmentToDeviceManagementFragment(device))
+        }
+
     }
+
 }
