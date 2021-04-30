@@ -40,4 +40,8 @@
     <string name="form_field_not_null">This field cannot be null.</string>
     <string name="about_us">About</string>
     <string name="login_baskasi_tarafindan_yönetilmek_icin_msg">Or to be managed by someone else</string>
+    <string name="kidmobi_is_running">Kidmobi çalışıyor</string>
+    <string name="foreground_service_title">Kidmobi</string>
+    <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
+    <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
 </resources>

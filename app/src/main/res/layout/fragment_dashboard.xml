@@ -15,7 +15,6 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
-            style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,12 +22,13 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 app:title="@string/app_name" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 app:tabGravity="fill" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -49,8 +49,7 @@
             android:layout_marginBottom="50dp"
             android:contentDescription="@string/add_new_device"
             android:src="@drawable/ic_add_24"
-            app:fabSize="auto"
-            app:tint="@color/color_white" />
+            app:fabSize="auto" />
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"

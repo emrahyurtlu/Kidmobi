@@ -13,7 +13,7 @@
         tools:context=".mvvm.view.MainActivity">
 
         <fragment
-            android:id="@+id/fragment"
+            android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"

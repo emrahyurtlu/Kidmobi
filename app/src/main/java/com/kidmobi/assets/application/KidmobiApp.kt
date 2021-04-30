@@ -1,16 +1,12 @@
 package com.kidmobi.assets.application
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.os.Build
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.assets.enums.DbCollection
 import com.kidmobi.assets.enums.UserType
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.modelExtensions.init
-import com.kidmobi.assets.utils.printsln
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings
@@ -38,23 +34,10 @@ class KidmobiApp : Application() {
             }
         })
         saveDevice(sharedPrefsUtil.getDeviceId())
-        createNotificationChannel()
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val serviceChannel = NotificationChannel(
-                CHANNEL_ID,
-                "KidMobi Service Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            val manager = getSystemService(NotificationManager::class.java)
-            manager.createNotificationChannel(serviceChannel)
-        }
     }
 
     private fun saveDevice(uniqueDeviceId: String) {
-        printsln("KidmobiApp::saveDevice => $uniqueDeviceId")
+        Timber.d(uniqueDeviceId)
         CoroutineScope(Dispatchers.Default).launch {
             val device = MobileDevice()
             val auth = FirebaseAuth.getInstance()
@@ -89,9 +72,5 @@ class KidmobiApp : Application() {
                 }
             }
         }
-    }
-
-    companion object {
-        private const val CHANNEL_ID = "KIDMOBI SERVICE"
     }
 }

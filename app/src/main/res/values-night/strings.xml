@@ -7,4 +7,8 @@
     <string name="device_owner_hint">Can\'ın telefonu</string>
     <string name="form_field_not_null">Bu alan boş olamaz.</string>
     <string name="about_us">Hakkında</string>
+    <string name="kidmobi_is_running">Kidmobi çalışıyor</string>
+    <string name="foreground_service_title">Kidmobi</string>
+    <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
+    <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
 </resources>

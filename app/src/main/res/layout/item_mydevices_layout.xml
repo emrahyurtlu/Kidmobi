@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:background="@color/color_white"
             android:clickable="true"
             android:elevation="4dp"
             android:focusable="true"
@@ -66,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
                         android:text="Zehra'nın cep telefonu"
-                        android:textColor="@color/color_black"
+
                         android:textSize="16sp" />
 
                     <TextView

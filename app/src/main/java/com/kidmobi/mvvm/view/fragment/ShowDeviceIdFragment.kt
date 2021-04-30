@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.zxing.BarcodeFormat
@@ -17,15 +19,15 @@ import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import com.kidmobi.assets.utils.SharedPrefsUtil
 import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
-import com.kidmobi.databinding.FragmentDeviceIdentityBinding
+import com.kidmobi.databinding.FragmentShowDeviceIdBinding
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DeviceIdentityFragment : Fragment() {
-    private lateinit var binding: FragmentDeviceIdentityBinding
+class ShowDeviceIdFragment : Fragment() {
+    private lateinit var binding: FragmentShowDeviceIdBinding
     private lateinit var imageView: ImageView
     private lateinit var qrCodeWriter: QRCodeWriter
 
@@ -36,12 +38,12 @@ class DeviceIdentityFragment : Fragment() {
 
     private val viewModel: MobileDeviceViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDeviceIdentityBinding.inflate(inflater)
+    ): View? {
+        binding = FragmentShowDeviceIdBinding.inflate(inflater)
+        binding.topAppBar.setupWithNavController(findNavController())
         return binding.root
     }
 
@@ -90,4 +92,3 @@ class DeviceIdentityFragment : Fragment() {
         return bitmap
     }
 }
-

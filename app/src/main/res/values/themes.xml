@@ -2,21 +2,21 @@
     <!-- Base application theme. -->
     <style name="Theme.Kidmobi" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/color_white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/green_500</item>
-        <item name="colorSecondaryVariant">@color/green_700</item>
-        <item name="colorOnSecondary">@color/green_300</item>
-        <item name="colorOnSurface">@color/color_black</item>
-        <item name="background">@color/color_white</item>
-        <item name="colorSurface">@color/color_white</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <!--<item name="colorOnSurface">@color/color_black</item>-->
+        <!--<item name="background">@color/color_white</item>
+        <item name="colorSurface">@color/color_white</item>-->
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:background">@color/color_white</item>
+        <!--<item name="android:background">@color/color_white</item>-->
         <!-- Customize your theme here. -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.MdcTypographyStyles.Headline1
         </item>

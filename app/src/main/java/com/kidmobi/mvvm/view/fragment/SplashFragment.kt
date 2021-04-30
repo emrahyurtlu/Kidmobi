@@ -12,12 +12,15 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
 import com.kidmobi.assets.services.RemoteSettingsService
+import com.kidmobi.assets.workers.RemoteSettingsWorker
 import com.kidmobi.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,23 +42,22 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         startSettingsService()
+        //startSettingWorker()
         checkConnectivity()
     }
 
-    /*private fun startSettingWorker() {
+    private fun startSettingWorker() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
-            //.setRequiresCharging(true)
             .build()
         val settingsRequest =
-            PeriodicWorkRequestBuilder<SettingsWorker>(10, TimeUnit.MILLISECONDS)
+            PeriodicWorkRequestBuilder<RemoteSettingsWorker>(1, TimeUnit.SECONDS)
                 .setConstraints(constraints)
-                .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.MILLISECONDS)
-                .addTag("SettingsWorker-SplashActivity")
+                .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
                 .build()
 
         context?.let { WorkManager.getInstance(it).enqueue(settingsRequest) }
-    }*/
+    }
 
     private fun startSettingsService() {
         val intent = Intent(context, RemoteSettingsService::class.java)

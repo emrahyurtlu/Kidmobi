@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_primary">@color/purple_500</color>
+    <!--NEW COLORS-->
+    <color name="primaryColor">#6437bf</color>
+    <color name="primaryLightColor">#9864f3</color>
+    <color name="primaryDarkColor">#2c068e</color>
+    <color name="secondaryColor">#92bf37</color>
+    <color name="secondaryLightColor">#c5f269</color>
+    <color name="secondaryDarkColor">#608f00</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <!--OLD COLORS-->
+    <!--<color name="color_primary">@color/purple_500</color>
     <color name="color_primaryVariant">#3700B3</color>
     <color name="color_secondary">#03DAC6</color>
     <color name="color_secondaryVariant">#018786</color>
@@ -22,7 +33,12 @@
     <color name="green_300">#b3d276</color>
     <color name="green_500">#92bf37</color>
     <color name="green_600">#82af2f</color>
-    <color name="green_700">#6d9c25</color>
+    <color name="green_700">#6d9c25</color>-->
+
+    <color name="color_facebook">#475993</color>
+    <color name="color_google">#EA4336</color>
+    <color name="color_light_gray">#666666</color>
+    <color name="color_pink">#f62354</color>
 
 
 </resources>

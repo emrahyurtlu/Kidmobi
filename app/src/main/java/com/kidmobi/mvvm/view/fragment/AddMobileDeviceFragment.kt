@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.setupWithNavController
 import com.kidmobi.R
 import com.kidmobi.assets.utils.extensions.modelExtensions.init
 import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
@@ -32,6 +33,7 @@ class AddMobileDeviceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_mobile_device, container, false)
+        binding.topAppBar.setupWithNavController(findNavController())
         return binding.root
     }
 

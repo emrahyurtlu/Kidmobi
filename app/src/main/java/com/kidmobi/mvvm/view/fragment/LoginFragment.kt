@@ -134,7 +134,7 @@ class LoginFragment : Fragment() {
         activity?.let { activity ->
             result.addOnCompleteListener(activity) {
                 if (it.isSuccessful) {
-                    findNavController().navigate(R.id.action_loginFragment_to_deviceIdentityFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_showDeviceIdFragment)
                 } else {
                     Toast.makeText(
                         context, getString(R.string.login_auth_failed),

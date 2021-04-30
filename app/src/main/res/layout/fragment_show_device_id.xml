@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".mvvm.view.fragment.DeviceManagementFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <variable
-            name="mobileDevice"
-            type="com.kidmobi.mvvm.model.MobileDevice" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -24,7 +20,7 @@
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name" />
+                app:title="@string/frg_show_dev_id_header" />
 
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -35,47 +31,36 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="match_parent"
                 android:padding="16dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/qrcodeExplanation"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/ekran_parlakligi"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/qr_code_aciklama"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/screenBrightnessSlider"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/qrCodeImage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/ekran_parlakligi"
-                    android:stepSize="1"
-                    android:value="@{mobileDevice.settings.brightnessLevel}"
-                    android:valueFrom="0"
-                    android:valueTo="255"
-                    app:tickVisible="false" />
+                    android:layout_marginTop="50dp"
+                    android:contentDescription="@string/qrcode_image_string"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/qrcodeExplanation"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ses_duzeyini_ayarla"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
-
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/soundVolumeSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/ses_duzeyini_ayarla"
-                    android:stepSize="1"
-                    android:value="@{mobileDevice.settings.soundLevel}"
-                    android:valueFrom="0"
-                    android:valueTo="15"
-                    app:tickVisible="false" />
-
-            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -87,6 +72,5 @@
             android:layout_gravity="bottom|center"
             ads:adSize="FULL_BANNER"
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

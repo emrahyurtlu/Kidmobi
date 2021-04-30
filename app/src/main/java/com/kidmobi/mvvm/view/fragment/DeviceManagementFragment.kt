@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -44,7 +45,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management, container, false)
-        binding.lifecycleOwner = this
+        binding.topAppBar.setupWithNavController(findNavController())
         return binding.root
     }
 
@@ -55,7 +56,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
 
         MobileAds.initialize(requireContext())
