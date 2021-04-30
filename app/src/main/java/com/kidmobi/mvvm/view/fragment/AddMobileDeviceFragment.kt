@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.kidmobi.R
-import com.kidmobi.assets.utils.extensions.modelExtensions.init
 import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
 import com.kidmobi.databinding.FragmentAddMobileDeviceBinding
 import com.kidmobi.mvvm.model.MobileDevice
@@ -23,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddMobileDeviceFragment : Fragment() {
     private lateinit var binding: FragmentAddMobileDeviceBinding
-    var mobileDevice: MobileDevice = MobileDevice().init()
+    var mobileDevice: MobileDevice = MobileDevice()
     private val viewModel: MobileDeviceActivityViewModel by viewModels()
     private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
     private val args: AddMobileDeviceFragmentArgs by navArgs()

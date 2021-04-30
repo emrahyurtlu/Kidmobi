@@ -17,13 +17,12 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.kidmobi.mvvm.view.fragment.LoginFragment"
-        android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
             app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true" />
+             />
         <action
             android:id="@+id/action_loginFragment_to_showDeviceIdFragment"
             app:destination="@id/showDeviceIdFragment" />
@@ -31,7 +30,6 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.kidmobi.mvvm.view.fragment.DashboardFragment"
-        android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_loginFragment"
@@ -39,15 +37,19 @@
             app:popUpTo="@id/loginFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_addMobileDeviceFragment"
-            app:destination="@id/addMobileDeviceFragment" />
+            app:destination="@id/addMobileDeviceFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_dashboardFragment_to_deviceManagementFragment"
-            app:destination="@id/deviceManagementFragment" />
+            app:destination="@id/deviceManagementFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addMobileDeviceFragment"
         android:name="com.kidmobi.mvvm.view.fragment.AddMobileDeviceFragment"
-        android:label="AddMobileDeviceFragment"
         tools:layout="@layout/fragment_add_mobile_device">
         <action
             android:id="@+id/action_addMobileDeviceFragment_to_dashboardFragment"
@@ -60,11 +62,11 @@
     <fragment
         android:id="@+id/deviceManagementFragment"
         android:name="com.kidmobi.mvvm.view.fragment.DeviceManagementFragment"
-        android:label="fragment_device_management"
         tools:layout="@layout/fragment_device_management">
         <action
             android:id="@+id/action_deviceManagementFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/dashboardFragment" />
         <argument
             android:name="device"
@@ -75,16 +77,14 @@
     </fragment>
     <fragment
         android:id="@+id/mobileDevicesFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.MobileDevicesFragment"
-        android:label="MobileDevicesFragment">
+        android:name="com.kidmobi.mvvm.view.fragment.MobileDevicesFragment">
         <action
             android:id="@+id/action_mobileDevicesFragment_to_deviceManagementFragment"
             app:destination="@id/deviceManagementFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/deviceSessionFragment"
         android:name="com.kidmobi.mvvm.view.fragment.DeviceSessionFragment"
-        android:label="DeviceSessionFragment"
         tools:layout="@layout/fragment_device_session">
         <argument
             android:name="device"
@@ -92,9 +92,8 @@
         <action
             android:id="@+id/action_deviceSessionFragment_to_deviceManagementFragment"
             app:destination="@id/deviceManagementFragment"
-            app:popUpTo="@id/deviceManagementFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+            app:popUpTo="@id/deviceManagementFragment" />
+    </dialog>
     <fragment
         android:id="@+id/showDeviceIdFragment"
         android:name="com.kidmobi.mvvm.view.fragment.ShowDeviceIdFragment"

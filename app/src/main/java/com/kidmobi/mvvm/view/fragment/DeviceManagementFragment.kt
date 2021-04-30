@@ -157,7 +157,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
             .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                 managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
                 dialog.dismiss()
-                requireActivity().finish()
+                findNavController().navigate(R.id.action_deviceManagementFragment_to_dashboardFragment)
             }
             .show()
 
