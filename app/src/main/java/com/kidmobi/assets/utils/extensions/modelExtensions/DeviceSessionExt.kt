@@ -12,8 +12,14 @@ fun DeviceSession.init() = DeviceSession(
 )
 
 fun DeviceSession.isNull() = this.sessionCreatorDeviceId.isEmpty()
+fun DeviceSession.isNotNull() = this.sessionCreatorDeviceId.isNotEmpty()
 
 fun DeviceSession.isValid(): Boolean {
     val calendar = Calendar.getInstance()
-    return calendar.time < this.sessionEnd && !this.done
+    return this.sessionEnd !== null && calendar.time < this.sessionEnd && !this.done
+}
+
+fun DeviceSession.isInvalid(): Boolean {
+    val calendar = Calendar.getInstance()
+    return this.sessionEnd == null || calendar.time >= this.sessionEnd || this.done
 }

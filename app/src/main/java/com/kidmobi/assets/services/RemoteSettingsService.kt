@@ -20,8 +20,6 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 class RemoteSettingsService : Service() {
-
-
     lateinit var settingsUtil: SettingsUtil
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     lateinit var db: FirebaseFirestore

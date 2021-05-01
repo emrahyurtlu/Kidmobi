@@ -16,6 +16,7 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import com.kidmobi.R
+import com.kidmobi.assets.utils.extensions.modelExtensions.isInvalid
 import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.mvvm.model.MobileDevice
@@ -86,7 +87,11 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     private fun checkSession() {
         sessionViewModel.getSession(device.deviceId)
         sessionViewModel.currentSession.observe(viewLifecycleOwner, { session ->
-            if (session.isNull()) {
+            Timber.d("Session: $session")
+            Timber.d("Session isNull: ${session.isNull()}")
+            Timber.d("Session isInvalid: ${session.isInvalid()}")
+
+            if (session.isNull() && session.isInvalid()) {
                 findNavController().navigate(DeviceManagementFragmentDirections.actionDeviceManagementFragmentToDeviceSessionFragment(device))
             }
         })

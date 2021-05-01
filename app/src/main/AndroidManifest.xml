@@ -36,6 +36,21 @@
             android:foregroundServiceType="dataSync"
             android:permission="android.permission.WRITE_SETTINGS" />
 
+        <service
+            android:name=".assets.services.RemoteService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".assets.receivers.TriggerServiceWhenDeviceRestartedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".mvvm.view.MainActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout">
@@ -45,7 +60,6 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".mvvm.view.MobileDeviceActivity" />-->
         <activity
             android:name=".mvvm.view.QrCaptureActivity"
             android:screenOrientation="fullSensor"

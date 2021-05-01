@@ -16,10 +16,4 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
     }
-
-    /*override fun onSupportNavigateUp(): Boolean {
-        //val navController = this.findNavController(R.id.navHostFragment)
-        //return navController.navigateUp()
-    }
-     */
 }

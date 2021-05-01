@@ -41,26 +41,21 @@ class SettingsUtil @Inject constructor(
                 AudioManager.STREAM_MUSIC, value,
                 AudioManager.FLAG_VIBRATE
             )
-            audioManager.setStreamVolume(
-                AudioManager.STREAM_MUSIC,
-                value,
-                AudioManager.FLAG_VIBRATE
-            )
-            audioManager.setStreamVolume(
+            /*audioManager.setStreamVolume(
                 AudioManager.STREAM_NOTIFICATION,
                 value,
                 AudioManager.FLAG_VIBRATE
-            )
+            )*/
             audioManager.setStreamVolume(
                 AudioManager.STREAM_RING,
                 value,
                 AudioManager.FLAG_VIBRATE
             )
-            audioManager.setStreamVolume(
+            /*audioManager.setStreamVolume(
                 AudioManager.STREAM_SYSTEM,
                 value,
                 AudioManager.FLAG_VIBRATE
-            )
+            )*/
         } else {
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

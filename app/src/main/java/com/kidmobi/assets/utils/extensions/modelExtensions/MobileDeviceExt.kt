@@ -30,4 +30,5 @@ fun MobileDevice.init() = MobileDevice(
 )
 
 fun MobileDevice.isNull() = this.deviceId.isEmpty()
+fun MobileDevice.isNotNull() = this.deviceId.isNotEmpty()
 

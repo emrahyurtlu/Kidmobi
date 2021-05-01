@@ -82,7 +82,7 @@
             android:id="@+id/action_mobileDevicesFragment_to_deviceManagementFragment"
             app:destination="@id/deviceManagementFragment" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/deviceSessionFragment"
         android:name="com.kidmobi.mvvm.view.fragment.DeviceSessionFragment"
         tools:layout="@layout/fragment_device_session">
@@ -93,7 +93,7 @@
             android:id="@+id/action_deviceSessionFragment_to_deviceManagementFragment"
             app:destination="@id/deviceManagementFragment"
             app:popUpTo="@id/deviceManagementFragment" />
-    </dialog>
+    </fragment>
     <fragment
         android:id="@+id/showDeviceIdFragment"
         android:name="com.kidmobi.mvvm.view.fragment.ShowDeviceIdFragment"

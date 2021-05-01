@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
-import com.kidmobi.assets.services.RemoteSettingsService
+import com.kidmobi.assets.services.RemoteService
 import com.kidmobi.assets.workers.RemoteSettingsWorker
 import com.kidmobi.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,8 +41,8 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startSettingsService()
-        //startSettingWorker()
+        startSettingWorker()
+        startRemoteService()
         checkConnectivity()
     }
 
@@ -51,20 +51,18 @@ class SplashFragment : Fragment() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val settingsRequest =
-            PeriodicWorkRequestBuilder<RemoteSettingsWorker>(1, TimeUnit.SECONDS)
+            PeriodicWorkRequestBuilder<RemoteSettingsWorker>(1, TimeUnit.MINUTES)
                 .setConstraints(constraints)
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
                 .build()
 
-        context?.let { WorkManager.getInstance(it).enqueue(settingsRequest) }
+        WorkManager.getInstance(requireContext()).enqueue(settingsRequest)
     }
 
-    private fun startSettingsService() {
-        Intent(context, RemoteSettingsService::class.java).also {
-            requireActivity().startService(it)
-            Timber.d("Remote settings service is started in Splash Fragment")
+    private fun startRemoteService() =
+        Intent(requireContext(), RemoteService::class.java).also {
+            requireContext().startService(it)
         }
-    }
 
     private fun checkConnectivity() {
 
