@@ -60,8 +60,10 @@ class SplashFragment : Fragment() {
     }
 
     private fun startSettingsService() {
-        val intent = Intent(context, RemoteSettingsService::class.java)
-        activity?.startService(intent)
+        Intent(context, RemoteSettingsService::class.java).also {
+            requireActivity().startService(it)
+            Timber.d("Remote settings service is started in Splash Fragment")
+        }
     }
 
     private fun checkConnectivity() {

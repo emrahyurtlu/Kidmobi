@@ -29,10 +29,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kidmobi">
 
-    <service
+        <service
             android:name=".assets.services.RemoteSettingsService"
-        android:enabled="true"
-            android:exported="false" />
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            android:permission="android.permission.WRITE_SETTINGS" />
 
         <activity
             android:name=".mvvm.view.MainActivity"

@@ -16,19 +16,25 @@ import com.kidmobi.assets.utils.extensions.modelExtensions.isValid
 import com.kidmobi.assets.utils.extensions.toDeviceSession
 import com.kidmobi.assets.utils.extensions.toMobileDevice
 import com.kidmobi.mvvm.view.MainActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class RemoteSettingsService : Service() {
+
 
     lateinit var settingsUtil: SettingsUtil
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     lateinit var db: FirebaseFirestore
 
     private var wakeLock: PowerManager.WakeLock? = null
-    private var isServiceStarted = false
+
+    private var serviceJob = Job()
+    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceJob.cancel()
+    }
 
     override fun onBind(intent: Intent?): IBinder? {
         Timber.d("onBind is started!")
@@ -40,18 +46,17 @@ class RemoteSettingsService : Service() {
         settingsUtil = SettingsUtil(this)
         sharedPrefsUtil = SharedPrefsUtil(this)
         db = FirebaseFirestore.getInstance()
-        Timber.d("onCreate is started!")
+        lockServiceForDozeMode()
         val notification = createNotification()
         startForeground(1, notification)
+        Timber.d("Service is initiated.")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Timber.d("onStartCommand is started!")
+        Timber.d("Service is started!")
         val deviceId = sharedPrefsUtil.getDeviceId()
-        CoroutineScope(Dispatchers.Main).launch {
+        serviceScope.launch {
             //Check whether session is started!
-            startService()
-
             db.collection(DbCollection.DeviceSessions.name)
                 .whereEqualTo("sessionOwnerDeviceId", deviceId)
                 .whereEqualTo("done", false)
@@ -64,6 +69,8 @@ class RemoteSettingsService : Service() {
                     if (snapshot != null && snapshot.documents.size > 0) {
                         Timber.d("Current session data: ${snapshot.documents.first().data}")
                         val session = snapshot.documents.first().toDeviceSession()
+                        Timber.d("Session end time: ${session.sessionEnd?.time}")
+                        Timber.d("Session is valid: ${session.isValid()}")
                         if (session.isValid())
                             changeSettings(deviceId)
                     }
@@ -93,18 +100,13 @@ class RemoteSettingsService : Service() {
         }
     }
 
-    private fun startService() {
-        if (isServiceStarted) return
-        Timber.d("Starting the foreground service task")
-        isServiceStarted = true
-
+    private fun lockServiceForDozeMode() {
         // we need this lock so our service gets not affected by Doze Mode
-        wakeLock =
-            (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
-                newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EndlessService::lock").apply {
-                    acquire()
-                }
-            }
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "RemoteSettingsService::lock").let {
+            it.acquire(10 * 60 * 1000L /*10 minutes*/)
+            it
+        }
     }
 
 
@@ -118,7 +120,7 @@ class RemoteSettingsService : Service() {
             val channel = NotificationChannel(
                 notificationChannelId,
                 getString(R.string.kidmobi_is_running),
-                NotificationManager.IMPORTANCE_HIGH
+                NotificationManager.IMPORTANCE_LOW
             ).let {
                 it.description = getString(R.string.kidmobi_service_channel)
                 it.enableLights(true)
@@ -132,6 +134,8 @@ class RemoteSettingsService : Service() {
             PendingIntent.getActivity(this, 0, notificationIntent, 0)
         }
 
+        //val builder: NotificationCompat.Builder = NotificationCompat.Builder(this, notificationChannelId)
+
         val builder: Notification.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) Notification.Builder(
             this,
             notificationChannelId
@@ -144,7 +148,6 @@ class RemoteSettingsService : Service() {
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setTicker("Ticker text")
-            .setPriority(Notification.PRIORITY_HIGH) // for under android 26 compatibility
             .build()
     }
 
