@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="50dp"
-                    android:fontFamily="@font/roboto_light"
+                    android:fontFamily="@font/roboto"
                     android:text="@string/login_welcome_message"
 
                     android:textSize="18sp" />
@@ -55,9 +55,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_login_facebook"
                     android:layout_width="310dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/btn_rounded_corner_24"
+                    app:cornerRadius="@dimen/btn_corner_radius"
                     android:gravity="center|start"
                     android:paddingStart="32dp"
                     android:paddingEnd="32dp"
@@ -68,9 +68,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_login_google"
                     android:layout_width="310dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/btn_rounded_corner_24"
+                    app:cornerRadius="@dimen/btn_corner_radius"
                     android:gravity="center|start"
                     android:paddingStart="32dp"
                     android:paddingEnd="32dp"
@@ -83,7 +83,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="45dp"
-                    android:fontFamily="@font/roboto_light"
+                    android:fontFamily="@font/roboto"
                     android:text="@string/login_baskasi_tarafindan_yönetilmek_icin_msg"
                     android:textSize="16sp" />
 
@@ -92,7 +92,7 @@
                     android:layout_width="310dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/btn_rounded_corner_24"
+                    app:cornerRadius="@dimen/btn_corner_radius"
                     android:gravity="center|start"
                     android:paddingStart="32dp"
                     android:paddingEnd="32dp"

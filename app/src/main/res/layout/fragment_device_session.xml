@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <!--<com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -22,7 +22,7 @@
                 app:title="@string/app_name" />
 
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>-->
 
         <!-- Note: A RecyclerView can also be used -->
         <androidx.core.widget.NestedScrollView
@@ -39,13 +39,16 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kullanım Süresi"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/session_start_on_target_device"
                     android:textAppearance="?textAppearanceSubtitle1" />
+
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/cg_device_session"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
@@ -55,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:checkable="true"
                         android:checked="true"
-                        android:text="Yarım saat" />
+                        android:text="@string/half_hour" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_2"
@@ -63,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Bir saat" />
+                        android:text="@string/one_hour" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_3"
@@ -71,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="İki saat" />
+                        android:text="@string/two_hours" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_4"
@@ -79,15 +82,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Dört saat" />
+                        android:text="@string/four_hours" />
                 </com.google.android.material.chip.ChipGroup>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSaveSession"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/save"
-                    app:cornerRadius="20dp" />
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveSession"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/save"
+                        app:cornerRadius="20dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDialogCancel"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/cancel"
+                        app:cornerRadius="20dp" />
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

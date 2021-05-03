@@ -1,9 +1,9 @@
 package com.kidmobi.mvvm.model
 
 import com.google.common.truth.Truth.assertThat
-import com.kidmobi.assets.utils.extensions.modelExtensions.isInvalid
-import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
-import com.kidmobi.assets.utils.extensions.modelExtensions.isValid
+import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
+import com.kidmobi.business.utils.extensions.modelExtensions.isNull
+import com.kidmobi.business.utils.extensions.modelExtensions.isValid
 import junit.framework.TestCase
 import org.junit.Test
 

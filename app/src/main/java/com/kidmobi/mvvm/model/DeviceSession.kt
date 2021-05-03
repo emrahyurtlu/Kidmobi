@@ -8,5 +8,4 @@ data class DeviceSession(
     var sessionOwnerDeviceId: String = "",
     var sessionStart: Date? = null,
     var sessionEnd: Date? = null,
-    var done: Boolean = false
 ) : Serializable, BaseModel

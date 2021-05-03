@@ -3,7 +3,7 @@ package com.kidmobi.mvvm.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kidmobi.assets.repositories.MobileDeviceRepo
+import com.kidmobi.business.repositories.MobileDeviceRepo
 import com.kidmobi.mvvm.model.MobileDevice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

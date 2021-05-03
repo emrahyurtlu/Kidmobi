@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.kidmobi.R
-import com.kidmobi.assets.adapter.MobileDeviceRecyclerAdapter
+import com.kidmobi.business.adapter.MobileDeviceRecyclerAdapter
 import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel

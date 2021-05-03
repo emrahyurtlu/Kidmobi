@@ -19,7 +19,7 @@
         android:required="false" />
 
     <application
-        android:name=".assets.application.KidmobiApp"
+        android:name=".business.application.KidmobiApp"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
@@ -30,26 +30,10 @@
         android:theme="@style/Theme.Kidmobi">
 
         <service
-            android:name=".assets.services.RemoteSettingsService"
+            android:name=".business.services.RemoteService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="dataSync"
-            android:permission="android.permission.WRITE_SETTINGS" />
-
-        <service
-            android:name=".assets.services.RemoteService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <receiver
-            android:name=".assets.receivers.TriggerServiceWhenDeviceRestartedBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+            android:icon="@drawable/ic_logo" />
 
         <activity
             android:name=".mvvm.view.MainActivity"

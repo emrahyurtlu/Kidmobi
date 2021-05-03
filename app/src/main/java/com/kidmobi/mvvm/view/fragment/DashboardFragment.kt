@@ -18,9 +18,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.integration.android.IntentIntegrator
 import com.kidmobi.R
-import com.kidmobi.assets.adapter.DashboardViewPager2Adapter
-import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
+import com.kidmobi.business.adapter.DashboardViewPager2Adapter
+import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.FragmentDashboardBinding
 import com.kidmobi.mvvm.view.QrCaptureActivity
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
@@ -75,24 +75,12 @@ class DashboardFragment : Fragment() {
 
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
+
         binding.adView.loadAd(adRequest)
 
         this.checkSystemSettingsAdjustable()
 
         binding.btnFab.setOnClickListener { addNewDeviceFab() }
-
-        // Banner: Dashboard bottom banner
-        // ca-app-pub-9250940245734350/3048347271
-
-        // Interstitial Dashboard to SettingsActivity
-        // ca-app-pub-9250940245734350/1237955040
-
-        /*
-        * TEST ID
-        *   Banner: ca-app-pub-3940256099942544/6300978111
-        *   Interstitial: ca-app-pub-3940256099942544/1033173712
-        *
-        * */
     }
 
     private fun setUpTabs() {

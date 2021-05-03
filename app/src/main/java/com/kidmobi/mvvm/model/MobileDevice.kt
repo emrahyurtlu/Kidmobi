@@ -1,8 +1,8 @@
 package com.kidmobi.mvvm.model
 
-import com.kidmobi.assets.enums.UserType
-import com.kidmobi.assets.utils.extensions.modelExtensions.blank
-import com.kidmobi.assets.utils.extensions.modelExtensions.init
+import com.kidmobi.business.enums.UserType
+import com.kidmobi.business.utils.extensions.modelExtensions.blank
+import com.kidmobi.business.utils.extensions.modelExtensions.init
 import java.io.Serializable
 import java.util.*
 

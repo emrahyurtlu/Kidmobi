@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.kidmobi.assets.enums.UserType
-import com.kidmobi.assets.repositories.MobileDeviceRepo
-import com.kidmobi.assets.utils.extensions.modelExtensions.init
+import com.kidmobi.business.enums.UserType
+import com.kidmobi.business.repositories.MobileDeviceRepo
+import com.kidmobi.business.utils.extensions.modelExtensions.init
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings

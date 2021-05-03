@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Kidmobi</string>
     <string name="login_welcome_message">Hello. Sign in to manage your devices.</string>
     <string name="facebook_login_btn_msg">SIGNIN WITH FACEBOOK</string>
     <string name="google_login_btn_msg">SIGNIN WITH GOOGLE</string>
@@ -34,14 +33,20 @@
     <string name="dashboard_tab1_txt">MOBILE DEVICES</string>
     <string name="dashboard_tab2_txt">DEVICE IDENTITY</string>
     <string name="login_auth_failed">Verification is failed.</string>
-    <string name="profile_name" translatable="false">Sample Device Owner</string>
     <string name="whose_device">Device Owner?</string>
     <string name="device_owner_hint">John\'s phone</string>
     <string name="form_field_not_null">This field cannot be null.</string>
     <string name="about_us">About</string>
     <string name="login_baskasi_tarafindan_yönetilmek_icin_msg">Or to be managed by someone else</string>
-    <string name="kidmobi_is_running">Kidmobi çalışıyor</string>
+    <string name="kidmobi_is_running">Kidmobi is running</string>
     <string name="foreground_service_title">Kidmobi</string>
-    <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
-    <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
+    <string name="kidmobi_service_channel">Kidmobi Notifications</string>
+    <string name="frg_show_dev_id_header">Device Identity</string>
+    <string name="session_started">Session is started.</string>
+    <string name="session_start_on_target_device">Session Start On Target Device</string>
+    <string name="half_hour">30 Minutes</string>
+    <string name="one_hour">1 Hour</string>
+    <string name="two_hours">2 Hours</string>
+    <string name="four_hours">4 Hours</string>
+    <string name="cancel">Cancel</string>
 </resources>

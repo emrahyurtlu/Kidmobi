@@ -16,8 +16,8 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import com.kidmobi.R
-import com.kidmobi.assets.utils.extensions.modelExtensions.isInvalid
-import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
+import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
+import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.DeviceSessionViewModel
@@ -62,8 +62,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
-        // Banner ID
-        // ca-app-pub-9250940245734350/9369572410
 
         device = args.device
 
@@ -73,7 +71,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
             optionsItemSelected(it)
         }
 
-        //settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         loadData()
         checkSession()
 
@@ -91,7 +88,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
             Timber.d("Session isNull: ${session.isNull()}")
             Timber.d("Session isInvalid: ${session.isInvalid()}")
 
-            if (session.isNull() && session.isInvalid()) {
+            if (session.isNull() || session.isInvalid()) {
                 findNavController().navigate(DeviceManagementFragmentDirections.actionDeviceManagementFragmentToDeviceSessionFragment(device))
             }
         })

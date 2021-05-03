@@ -17,8 +17,8 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-import com.kidmobi.assets.utils.SharedPrefsUtil
-import com.kidmobi.assets.utils.extensions.checkSystemSettingsAdjustable
+import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.FragmentShowDeviceIdBinding
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint

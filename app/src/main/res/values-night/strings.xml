@@ -1,8 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">Kidmobi</string>
+    <string name="mobicon_logo_desc" translatable="false">Kidmobi logo</string>
+    <string name="login_welcome_message">Hoşgeldiniz. Mobil cihazlarınızı yönetmek için giriş yapınız.</string>
+    <string name="facebook_login_btn_msg">FACEBOOK İLE GİRİŞ</string>
+    <string name="google_login_btn_msg">GOOGLE İLE GİRİŞ</string>
+    <string name="login_login_as_guest_btn_str">MİSAFİR OLARAK GİRİŞ</string>
+
+    <string name="facebook_app_id" translatable="false">743880013182917</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb743880013182917</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="qrcode_image_string" translatable="false">Qrcode Image</string>
+    <string name="cihaz_kimligim">Cihaz Kimliğim</string>
+    <string name="login_google_basarisiz_giris">Google ile giriş yapamadınız.</string>
+    <string name="login_kullanici_bilgileri_alinamadi">Kullanıcı bilgileri alınamadı. Lütfen tekrar giriş yapmayı deneyin.</string>
+    <string name="splash_internet_baglantisi_hatasi">Lütfen internet bağlantınızı kontrol ediniz.</string>
+    <string name="qr_code_aciklama">Aşağıdaki karekodu okuyan cihaz sizin mobil cihazınızı yönetebilir.</string>
+    <string name="logOut">Çıkış</string>
+    <string name="btnDelete">Sil</string>
+    <string name="login_baskasi_tarafindan_yönetilmek_icin_msg">Ya da  başkası tarafından yönetilmek için</string>
+    <string name="add_new_device">Yeni cihaz ekle</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="ekran_parlakligi">Ekran Parlaklığını Ayarla</string>
+    <string name="ses_duzeyini_ayarla">Ses Düzeyini Ayarla</string>
+    <string name="cihaz_ekleniyor">Cihaz ağınızına ekleniyor.</string>
+
+    <string name="device_card_text" translatable="false">%1$s %2$s</string>
+
+    <string name="device_admin_desc">Uzaktan yönetim için kullanılacaktır.</string>
+    <string name="qr_couldnt_read">Qr kod okunamadı. Lütfen tekrar deneyiniz.</string>
+    <string name="save">Kaydet</string>
+    <string name="mobile_device_cannot_read_from_fb">Mobil cihazlarınız okunamadı. Lütfen tekrar deneyiniz.</string>
+    <string name="mobile_device_is_added_your_network">Mobil cihaz ağınıza eklendi.</string>
+    <string name="no_mobile_device">Henüz mobil cihaz eklemediniz.</string>
+    <string name="no_mobile_device_message">Henüz mobil cihaz eklemediniz.</string>
+
+    <string name="settings_service_desc">Cihaz ayarlarını servisten okur ve uygular.</string>
+    <string name="no">Hayır</string>
+    <string name="yes">Evet</string>
+    <string name="are_you_sure_to_delete">Bu cihazı silmek istediğinize emin misiniz?</string>
+    <string name="permission_of_changing_system_settings">Sistem ayarlarını değiştirme izni</string>
+    <string name="permission_of_system_setting_msg">Hedef cihazın ses, ekran parlaklığı gibi ayarlarınız değiştirmek için izin istiyoruz.</string>
+    <string name="no_permission_msg">İzin vermediğiniz için uygulama kapatılacaktır.</string>
+    <string name="form_required">* Gerekli</string>
     <string name="dashboard_tab1_txt">MOBİL CİHAZLARIM</string>
     <string name="dashboard_tab2_txt">CİHAZ KİMLİĞİM</string>
     <string name="login_auth_failed">Doğrulama başarısız.</string>
+
     <string name="whose_device">Bu cihaz kime ait?</string>
     <string name="device_owner_hint">Can\'ın telefonu</string>
     <string name="form_field_not_null">Bu alan boş olamaz.</string>
@@ -11,4 +58,5 @@
     <string name="foreground_service_title">Kidmobi</string>
     <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
     <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
+    <string name="session_started">Oturum açıldı</string>
 </resources>

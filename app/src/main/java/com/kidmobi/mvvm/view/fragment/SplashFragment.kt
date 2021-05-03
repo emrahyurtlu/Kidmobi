@@ -2,6 +2,7 @@ package com.kidmobi.mvvm.view.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
@@ -15,8 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
-import com.kidmobi.assets.services.RemoteService
-import com.kidmobi.assets.workers.RemoteSettingsWorker
+import com.kidmobi.business.receivers.RemoteSettingsServiceBroadcastReceiver
+import com.kidmobi.business.services.RemoteService
+import com.kidmobi.business.workers.RemoteSettingsWorker
 import com.kidmobi.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -41,9 +43,16 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registerRemoteSettingsReceiver()
         startSettingWorker()
         startRemoteService()
         checkConnectivity()
+    }
+
+    private fun registerRemoteSettingsReceiver() {
+        IntentFilter(Intent.ACTION_BOOT_COMPLETED).also {
+            requireActivity().registerReceiver(RemoteSettingsServiceBroadcastReceiver(), it)
+        }
     }
 
     private fun startSettingWorker() {

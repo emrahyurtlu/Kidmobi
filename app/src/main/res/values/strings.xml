@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kidmobi</string>
+    <string name="app_name" translatable="false">Kidmobi</string>
     <string name="mobicon_logo_desc" translatable="false">Kidmobi logo</string>
     <string name="login_welcome_message">Hoşgeldiniz. Mobil cihazlarınızı yönetmek için giriş yapınız.</string>
     <string name="facebook_login_btn_msg">FACEBOOK İLE GİRİŞ</string>
@@ -9,7 +9,6 @@
     <string name="facebook_app_id" translatable="false">743880013182917</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb743880013182917</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="qrcode_image_string" translatable="false">Qrcode Image</string>
     <string name="cihaz_kimligim">Cihaz Kimliğim</string>
     <string name="login_google_basarisiz_giris">Google ile giriş yapamadınız.</string>
@@ -50,15 +49,20 @@
     <string name="dashboard_tab2_txt">CİHAZ KİMLİĞİM</string>
     <string name="login_auth_failed">Doğrulama başarısız.</string>
 
-    <string name="profile_name">Sample Device Owner</string>
     <string name="whose_device">Bu cihaz kime ait?</string>
-    <string name="device_owner_hint">Can\'ın telefonu</string>
+    <string name="device_owner_hint">Aslının telefonu</string>
     <string name="form_field_not_null">Bu alan boş olamaz.</string>
     <string name="about_us">Hakkında</string>
     <string name="kidmobi_is_running">Kidmobi çalışıyor</string>
     <string name="foreground_service_title">Kidmobi</string>
     <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
     <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
-
+    <string name="session_started">Oturum açıldı</string>
+    <string name="session_start_on_target_device">Hedef Cihazda Oturum Açın</string>
+    <string name="half_hour">30 dakika</string>
+    <string name="one_hour">Bir saat</string>
+    <string name="two_hours">İki saat</string>
+    <string name="four_hours">Dört saat</string>
+    <string name="cancel">İPTAL</string>
 
 </resources>

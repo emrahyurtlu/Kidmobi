@@ -4,8 +4,8 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kidmobi.assets.repositories.ManagedDeviceRepo
-import com.kidmobi.assets.utils.printsln
+import com.kidmobi.business.repositories.ManagedDeviceRepo
+import com.kidmobi.business.utils.printsln
 import com.kidmobi.mvvm.model.ManagedDevice
 import com.kidmobi.mvvm.model.MobileDevice
 import dagger.hilt.android.lifecycle.HiltViewModel

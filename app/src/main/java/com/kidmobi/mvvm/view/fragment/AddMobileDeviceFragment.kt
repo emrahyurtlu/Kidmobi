@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.kidmobi.R
-import com.kidmobi.assets.utils.extensions.modelExtensions.isNull
+import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.databinding.FragmentAddMobileDeviceBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
@@ -46,15 +46,13 @@ class AddMobileDeviceFragment : Fragment() {
         binding.deviceOwner.setText(mobileDevice.deviceOwnerName)
 
         binding.btnAddDevice.setOnClickListener { saveDeviceDetails() }
-
-        // Admob ID: ca-app-pub-9250940245734350/2801074884
     }
 
     fun turnBack(view: View) {
         activity?.finish()
     }
 
-    fun saveDeviceDetails() {
+    private fun saveDeviceDetails() {
 
         if (binding.deviceOwner.text.isNullOrEmpty()) {
             binding.deviceOwner.setError(
