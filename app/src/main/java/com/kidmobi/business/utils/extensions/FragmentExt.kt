@@ -4,7 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kidmobi.R
 import kotlin.system.exitProcess
@@ -36,5 +39,16 @@ fun Fragment.checkSystemSettingsAdjustable() {
                 dialog.dismiss()
             }
             .show()
+    }
+}
+
+fun Fragment.setMaterialToolbar(toolbar: MaterialToolbar, action: Int) {
+    val appCompatActivity = (requireActivity() as AppCompatActivity?)!!
+    appCompatActivity.setSupportActionBar(toolbar)
+    appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    appCompatActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+
+    toolbar.setNavigationOnClickListener {
+        findNavController().navigate(action)
     }
 }

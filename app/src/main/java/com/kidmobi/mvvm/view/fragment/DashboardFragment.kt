@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.integration.android.IntentIntegrator
@@ -64,7 +64,6 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefsUtil.setDeviceId()
-
         setUpTabs()
 
         binding.topAppBar.inflateMenu(R.menu.top_app_bar)
@@ -125,8 +124,8 @@ class DashboardFragment : Fragment() {
 
                 viewModel.getDeviceById(deviceId)
                 viewModel.device.observe(viewLifecycleOwner, { device ->
-                    Timber.d("New device id: ${deviceId}")
-                    Timber.d("New device is: ${device}")
+                    Timber.d("New device id: $deviceId")
+                    Timber.d("New device is: $device")
 
                     findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
                 })
@@ -134,10 +133,10 @@ class DashboardFragment : Fragment() {
 
             } else {
                 Timber.d(getString(R.string.qr_couldnt_read))
-                Toast.makeText(
-                    context,
+                Snackbar.make(
+                    requireView(),
                     getString(R.string.qr_couldnt_read),
-                    Toast.LENGTH_LONG
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
         }

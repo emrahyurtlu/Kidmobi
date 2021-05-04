@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -42,7 +42,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        //binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -76,17 +75,17 @@ class LoginFragment : Fragment() {
 
                 override fun onCancel() {
                     Timber.d("facebook:onCancel")
-                    Toast.makeText(
-                        context, "Facebook ile giriş iptal edildi.",
-                        Toast.LENGTH_SHORT
+                    Snackbar.make(
+                        requireView(), "Facebook ile giriş iptal edildi.",
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
 
                 override fun onError(error: FacebookException) {
                     Timber.d(error)
-                    Toast.makeText(
-                        context, "Facebook ile giriş sırasında hata oluştu.",
-                        Toast.LENGTH_SHORT
+                    Snackbar.make(
+                        requireView(), "Facebook ile giriş sırasında hata oluştu.",
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
             })
@@ -105,9 +104,9 @@ class LoginFragment : Fragment() {
                     } else {
                         // If sign in fails, display a message to the user.
                         Timber.d("handleFacebookAccessToken: ${task.exception}")
-                        Toast.makeText(
-                            context, getString(R.string.login_auth_failed),
-                            Toast.LENGTH_SHORT
+                        Snackbar.make(
+                            requireView(), getString(R.string.login_auth_failed),
+                            Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -136,9 +135,9 @@ class LoginFragment : Fragment() {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_loginFragment_to_showDeviceIdFragment)
                 } else {
-                    Toast.makeText(
-                        context, getString(R.string.login_auth_failed),
-                        Toast.LENGTH_SHORT
+                    Snackbar.make(
+                        requireView(), getString(R.string.login_auth_failed),
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -155,10 +154,10 @@ class LoginFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Toast.makeText(
-                    context,
+                Snackbar.make(
+                    requireView(),
                     getString(R.string.login_google_basarisiz_giris),
-                    Toast.LENGTH_LONG
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
         }
@@ -176,10 +175,10 @@ class LoginFragment : Fragment() {
                     if (task.isSuccessful) {
                         findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                     } else {
-                        Toast.makeText(
-                            context,
+                        Snackbar.make(
+                            requireView(),
                             getString(R.string.login_kullanici_bilgileri_alinamadi),
-                            Toast.LENGTH_SHORT
+                            Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }

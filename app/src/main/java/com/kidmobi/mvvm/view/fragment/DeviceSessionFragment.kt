@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kidmobi.R
@@ -14,6 +15,7 @@ import com.kidmobi.databinding.FragmentDeviceSessionBinding
 import com.kidmobi.mvvm.model.DeviceSession
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.DeviceSessionViewModel
+import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -23,6 +25,7 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
     lateinit var device: MobileDevice
     private lateinit var binding: FragmentDeviceSessionBinding
     private val viewModel: DeviceSessionViewModel by viewModels()
+    private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
     private val args: DeviceSessionFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -30,7 +33,7 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_session, container, false)
-        dialog?.setCancelable(false)
+        requireDialog().setCancelable(false)
         return binding.root
     }
 
@@ -39,15 +42,16 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
         device = args.device
         Timber.d("Argument is came: $device")
         binding.btnSaveSession.setOnClickListener {
-            createSession(it)
+            createSession()
         }
 
         binding.btnDialogCancel.setOnClickListener {
             dismiss()
+            findNavController().navigate(R.id.action_deviceSessionFragment_to_dashboardFragment)
         }
     }
 
-    private fun createSession(view: View) {
+    private fun createSession() {
         val pref = SharedPrefsUtil(requireContext())
         val calendar = Calendar.getInstance()
         val session = DeviceSession()
@@ -56,7 +60,7 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
             binding.chip2.id -> 60
             binding.chip3.id -> 120
             binding.chip4.id -> 240
-            else -> 10
+            else -> 0
         }
         session.apply {
             sessionStart = calendar.time
@@ -66,6 +70,9 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
             sessionOwnerDeviceId = device.deviceId
         }
 
+        device.session = session
+
+        mobileDeviceViewModel.updateDevice(device)
         viewModel.sessionStart(session)
         Timber.d("Session is created!")
         dismiss()

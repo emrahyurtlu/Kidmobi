@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -18,6 +18,7 @@ import com.google.android.material.slider.Slider
 import com.kidmobi.R
 import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
 import com.kidmobi.business.utils.extensions.modelExtensions.isNull
+import com.kidmobi.business.utils.extensions.setMaterialToolbar
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.DeviceSessionViewModel
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
@@ -46,9 +48,20 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management, container, false)
-        binding.topAppBar.setupWithNavController(findNavController())
         return binding.root
     }
+
+    private fun setCustomToolBar(resId: Int) {
+        val appCompatActivity = (requireActivity() as AppCompatActivity?)!!
+        appCompatActivity.setSupportActionBar(binding.topAppBar)
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        appCompatActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        binding.topAppBar.setNavigationOnClickListener {
+            findNavController().navigate(resId)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +71,16 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        this.setMaterialToolbar(binding.topAppBar, R.id.action_deviceManagementFragment_to_dashboardFragment)
 
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
         device = args.device
+
+        binding.managedDevicesViewModel = managedDevicesViewModel
+        binding.settingsViewModel = settingsViewModel
 
         binding.topAppBar.inflateMenu(R.menu.settings_top_app_bar)
 
@@ -80,6 +97,18 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         binding.mobileDevice = device
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.d("OnResume is triggered!")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.d("OnPause is triggered!")
+        //checkSession()
+    }
+
 
     private fun checkSession() {
         sessionViewModel.getSession(device.deviceId)
@@ -105,6 +134,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         settingsViewModel.getCurrentMobileDevice(device.deviceId)
         settingsViewModel.currentDevice
             .observe(viewLifecycleOwner, { currentDevice ->
+                binding.mobileDevice = currentDevice
                 device = currentDevice
                 Timber.d("$device")
 
@@ -122,10 +152,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
             settingsViewModel.saveDeviceScreenBrightness(device)
         }
         // settingsUtil.changeScreenBrightness(value)
-    }
-
-    fun turnBack(view: View) {
-        activity?.finish()
     }
 
     override fun onStartTrackingTouch(slider: Slider) {

@@ -15,6 +15,7 @@ data class MobileDevice constructor(
     var deviceOwnerEmail: String = "",
     var info: MobileDeviceInfo = MobileDeviceInfo().blank(),
     var settings: MobileDeviceSettings = MobileDeviceSettings().init(),
+    var session: DeviceSession = DeviceSession(),
     var createdAt: Date? = null,
     var updatedAt: Date? = null,
     var userType: UserType = UserType.UserUnknown

@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.kidmobi.R
 import com.kidmobi.business.enums.DbCollection
 import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_ID
@@ -22,10 +21,7 @@ import com.kidmobi.business.utils.SettingsUtil
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.modelExtensions.isNotNull
 import com.kidmobi.business.utils.extensions.modelExtensions.isValid
-import com.kidmobi.business.utils.extensions.toDeviceSession
 import com.kidmobi.business.utils.extensions.toMobileDevice
-import com.kidmobi.business.utils.printsln
-import com.kidmobi.mvvm.model.DeviceSession
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.MainActivity
 import timber.log.Timber
@@ -37,7 +33,6 @@ class RemoteService : LifecycleService() {
     lateinit var db: FirebaseFirestore
     lateinit var device: MobileDevice
     lateinit var deviceId: String
-    private var session: DeviceSession? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -45,28 +40,7 @@ class RemoteService : LifecycleService() {
         sharedPrefsUtil = SharedPrefsUtil(this)
         db = FirebaseFirestore.getInstance()
         deviceId = sharedPrefsUtil.getDeviceId()
-
         Timber.d("Service is initiated.")
-        printsln("RemoteService is initiated.")
-    }
-
-    private fun getSession() {
-        val calendar = Calendar.getInstance()
-        db.collection(DbCollection.DeviceSessions.name)
-            .whereEqualTo("sessionOwnerDeviceId", deviceId)
-            .whereLessThanOrEqualTo("sessionEnd", calendar.time)
-            .orderBy("sessionEnd", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("There is no opened session: ${e.message}")
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.documents.size > 0) {
-                    session = snapshot.documents.first().toDeviceSession()
-                    Timber.d("Session is initiated: ${session}")
-                }
-            }
     }
 
     private fun changeSettings() {
@@ -80,13 +54,9 @@ class RemoteService : LifecycleService() {
                 Timber.d("Current device data: ${snapshot.data}")
                 device = snapshot.toMobileDevice()
 
-                if (device.isNotNull()) {
-                    session?.let {
-                        if (it.isValid()) {
-                            settingsUtil.changeDeviceSound(device.settings.soundLevel.toInt())
-                            settingsUtil.changeScreenBrightness(device.settings.brightnessLevel.toInt())
-                        }
-                    }
+                if (device.isNotNull() && device.session.isValid()) {
+                    settingsUtil.changeDeviceSound(device.settings.soundLevel.toInt())
+                    settingsUtil.changeScreenBrightness(device.settings.brightnessLevel.toInt())
                 }
 
             } else {
@@ -98,9 +68,9 @@ class RemoteService : LifecycleService() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
-        startForegroundService()
-        getSession()
         changeSettings()
+
+        startForegroundService()
 
         return START_STICKY
     }

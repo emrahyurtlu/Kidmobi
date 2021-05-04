@@ -9,16 +9,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
+import com.kidmobi.R
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
+import com.kidmobi.business.utils.extensions.setMaterialToolbar
 import com.kidmobi.databinding.FragmentShowDeviceIdBinding
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,13 +43,13 @@ class ShowDeviceIdFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentShowDeviceIdBinding.inflate(inflater)
-        binding.topAppBar.setupWithNavController(findNavController())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         this.checkSystemSettingsAdjustable()
+        this.setMaterialToolbar(binding.topAppBar, R.id.action_showDeviceIdFragment_to_loginFragment)
 
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()

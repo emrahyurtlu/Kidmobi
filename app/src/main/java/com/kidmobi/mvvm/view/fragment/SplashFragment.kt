@@ -9,11 +9,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.work.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
 import com.kidmobi.business.receivers.RemoteSettingsServiceBroadcastReceiver
@@ -79,23 +79,18 @@ class SplashFragment : Fragment() {
 
         if (isOnline()) {
             findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-
         } else {
             Timber.d("No internet connection!")
-            showToast()
+            Snackbar.make(
+                requireView(),
+                getString(R.string.splash_internet_baglantisi_hatasi),
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
     private fun isOnline(): Boolean {
         val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
         return networkInfo?.isConnected == true
-    }
-
-    private fun showToast() {
-        Toast.makeText(
-            context,
-            getString(R.string.splash_internet_baglantisi_hatasi),
-            Toast.LENGTH_LONG
-        ).show()
     }
 }

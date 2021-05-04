@@ -12,10 +12,10 @@ import com.kidmobi.mvvm.model.MobileDevice
 fun DocumentSnapshot.toManagedDevice() =
     this.toObject<ManagedDevice>() ?: ManagedDevice().init()
 
-fun DocumentSnapshot.toMobileDevice() = this.toObject<MobileDevice>() ?: MobileDevice().init()
+fun DocumentSnapshot.toMobileDevice() = this.toObject<MobileDevice>() ?: MobileDevice()
 
 fun QuerySnapshot.toMobileDeviceList() = this.toObjects<MobileDevice>().toMutableList()
 
-fun DocumentSnapshot.toDeviceSession() = this.toObject<DeviceSession>() ?: DeviceSession().init()
+fun DocumentSnapshot.toDeviceSession() = this.toObject<DeviceSession>() ?: DeviceSession()
 
 fun QuerySnapshot.toDeviceSessionList() = this.toObjects<DeviceSession>().toMutableList()
