@@ -43,6 +43,16 @@ class RemoteService : LifecycleService() {
         Timber.d("Service is initiated.")
     }
 
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
+
+        startForegroundService()
+
+        changeSettings()
+
+        return START_STICKY
+    }
+
     private fun changeSettings() {
         db.collection(DbCollection.MobileDevices.name).document(deviceId).addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -51,10 +61,14 @@ class RemoteService : LifecycleService() {
             }
 
             if (snapshot != null && snapshot.exists()) {
-                Timber.d("Current device data: ${snapshot.data}")
+                //Timber.d("RemoteService current device data: ${snapshot.data}")
                 device = snapshot.toMobileDevice()
 
+                Timber.d("RemoteService current device isNotNull: ${device.isNotNull()}")
+                Timber.d("RemoteService current device session isValid: ${device.session.isValid()}")
+
                 if (device.isNotNull() && device.session.isValid()) {
+                    Timber.d("Device settings are adjusting...")
                     settingsUtil.changeDeviceSound(device.settings.soundLevel.toInt())
                     settingsUtil.changeScreenBrightness(device.settings.brightnessLevel.toInt())
                 }
@@ -63,16 +77,6 @@ class RemoteService : LifecycleService() {
                 Timber.d("Current data: null")
             }
         }
-    }
-
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        super.onStartCommand(intent, flags, startId)
-
-        changeSettings()
-
-        startForegroundService()
-
-        return START_STICKY
     }
 
     private fun startForegroundService() {
