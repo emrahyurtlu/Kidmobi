@@ -22,6 +22,7 @@
         android:name=".business.application.KidmobiApp"
         android:allowBackup="true"
         android:fullBackupOnly="true"
+        android:fullBackupContent="@xml/backup"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -37,6 +38,7 @@
 
         <activity
             android:name=".mvvm.view.MainActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
