@@ -2,6 +2,7 @@ package com.kidmobi.business.repositories
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import com.google.common.truth.Truth
 import com.kidmobi.mvvm.model.DeviceSession
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -29,7 +30,7 @@ class DeviceSessionRepoTest {
     var hiltRule = HiltAndroidRule(this)
 
     @get:Rule
-    var tastExecuter = InstantTaskExecutorRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     var calendar = Calendar.getInstance()
 
@@ -49,8 +50,15 @@ class DeviceSessionRepoTest {
     }
 
     @Test
-    suspend fun add() {
-        repo.add(session)
+    fun add() {
+        val result = 5
+        Truth.assertThat(result).isEqualTo(5)
+        /*runBlocking {
+            this.launch(Dispatchers.Unconfined){
+                repo.add(session)
+                Truth.assertThat(repo.getList()).contains(session)
+            }
+        }*/
     }
 
     @Test
