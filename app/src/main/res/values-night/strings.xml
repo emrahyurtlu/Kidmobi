@@ -59,4 +59,5 @@
     <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
     <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
     <string name="session_started">Oturum açıldı</string>
+    <string name="determine_session_time">Oturum süresini belirleyin</string>
 </resources>

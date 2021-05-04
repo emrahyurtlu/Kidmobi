@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kidmobi.business.repositories.ManagedDeviceRepo
-import com.kidmobi.business.utils.printsln
 import com.kidmobi.mvvm.model.ManagedDevice
 import com.kidmobi.mvvm.model.MobileDevice
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -58,13 +58,12 @@ class ManagedDevicesViewModel @Inject constructor(var managedDeviceRepo: Managed
     fun addManagedDeviceList(deviceId: String) {
         uiScope.launch {
             val managedDevice = managedDeviceRepo.getByCurrentUserId()
-            printsln("ManagedDevicesViewModel::addManagedDeviceList => $managedDevice")
+            Timber.d("$managedDevice")
             val set = managedDevice.devices.toMutableSet()
             set.add(deviceId)
             managedDevice.devices = set.toMutableList()
-            printsln("ManagedDevicesViewModel::addManagedDeviceList => $managedDevice")
             managedDeviceRepo.updateCurrentUserDeviceList(managedDevice)
-            printsln("Device is added to collection!")
+            Timber.d("Device is added to collection!")
 
             _mobileDeviceList.postValue(managedDeviceRepo.getListOfUserDevices())
         }

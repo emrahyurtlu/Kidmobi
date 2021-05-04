@@ -2,13 +2,13 @@ package com.kidmobi.mvvm.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.kidmobi.business.repositories.MobileDeviceRepo
-import com.kidmobi.business.utils.printsln
 import com.kidmobi.mvvm.model.MobileDevice
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class MobileDeviceActivityViewModel @Inject constructor(var mobileDeviceRepo: Mo
     }
 
     fun saveDeviceDetails(device: MobileDevice) {
-        printsln("MobileDeviceActivityViewModel::saveDeviceDetails => $device")
+        Timber.d("$device")
         uiScope.launch {
             val calendar = Calendar.getInstance()
             device.updatedAt = calendar.time

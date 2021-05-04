@@ -38,8 +38,9 @@ class SettingsUtil @Inject constructor(
         if (Settings.System.canWrite(context)) {
 
             audioManager.setStreamVolume(
-                AudioManager.STREAM_MUSIC, value,
-                AudioManager.FLAG_VIBRATE
+                AudioManager.STREAM_MUSIC,
+                value,
+                AudioManager.FLAG_PLAY_SOUND
             )
             /*audioManager.setStreamVolume(
                 AudioManager.STREAM_NOTIFICATION,
@@ -49,7 +50,7 @@ class SettingsUtil @Inject constructor(
             audioManager.setStreamVolume(
                 AudioManager.STREAM_RING,
                 value,
-                AudioManager.FLAG_VIBRATE
+                AudioManager.FLAG_PLAY_SOUND
             )
             /*audioManager.setStreamVolume(
                 AudioManager.STREAM_SYSTEM,

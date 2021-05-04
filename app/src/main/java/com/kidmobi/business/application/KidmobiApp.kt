@@ -62,14 +62,20 @@ class KidmobiApp : Application() {
                     }
                 }
                 val docRef = db.collection(DbCollection.MobileDevices.name).document(uniqueDeviceId)
-                docRef.addSnapshotListener { snapshot, e ->
+                docRef.get().addOnSuccessListener {
+                    if (!it.exists()) {
+                        docRef.set(device)
+                        Timber.d("Current device is saved!")
+                    }
+                }
+                /*docRef.addSnapshotListener { snapshot, e ->
                     if (e == null) {
                         if (snapshot == null || !snapshot.exists()) {
                             docRef.set(device)
                             Timber.d("Current device is saved!")
                         }
                     }
-                }
+                }*/
             }
         }
     }

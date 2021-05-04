@@ -24,6 +24,13 @@
                     android:text="@string/session_start_on_target_device"
                     android:textAppearance="?textAppearanceSubtitle1" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/determine_session_time"
+                    android:textAppearance="?textAppearanceBody1" />
+
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/cg_device_session"
@@ -77,6 +84,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:text="@string/save"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
                         app:cornerRadius="20dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -87,6 +96,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginBottom="16dp"
                         android:text="@string/cancel"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
                         app:cornerRadius="20dp" />
                 </LinearLayout>
 

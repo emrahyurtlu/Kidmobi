@@ -18,6 +18,7 @@ class DeviceSessionViewModel @Inject constructor(private var deviceSessionRepo: 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private lateinit var session: DeviceSession
+
     private var _currentSession = MutableLiveData<DeviceSession>()
     val currentSession: LiveData<DeviceSession>
         get() = _currentSession

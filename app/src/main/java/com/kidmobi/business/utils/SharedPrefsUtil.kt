@@ -9,13 +9,16 @@ import javax.inject.Inject
 class SharedPrefsUtil @Inject constructor(
     @ApplicationContext private var context: Context
 ) {
+    companion object {
+        const val DEVICE_ID = "DEVICE_ID"
+    }
 
     fun getPrefsInstance(): SharedPreferences {
         return context.getSharedPreferences("MobiconLocalData", Context.MODE_PRIVATE)
     }
 
     fun setDeviceId() {
-        val uid = getStringByKey("DEVICE_ID")
+        val uid = getStringByKey(DEVICE_ID)
         if (uid.isNullOrEmpty()) {
             val deviceId = UUID.randomUUID().toString()
             setStringByKey(deviceId)
@@ -23,7 +26,7 @@ class SharedPrefsUtil @Inject constructor(
     }
 
     fun getDeviceId(): String {
-        return getStringByKey("DEVICE_ID").toString()
+        return getStringByKey(DEVICE_ID).toString()
     }
 
     fun getStringByKey(key: String): String? {
@@ -33,6 +36,6 @@ class SharedPrefsUtil @Inject constructor(
     fun setStringByKey(deviceId: String) {
         val prefences = getPrefsInstance()
         val editor = prefences.edit()
-        editor.putString("DEVICE_ID", deviceId).apply()
+        editor.putString(DEVICE_ID, deviceId).apply()
     }
 }

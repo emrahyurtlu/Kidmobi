@@ -64,5 +64,6 @@
     <string name="two_hours">İki saat</string>
     <string name="four_hours">Dört saat</string>
     <string name="cancel">İPTAL</string>
+    <string name="determine_session_time">Oturum süresini belirleyin</string>
 
 </resources>

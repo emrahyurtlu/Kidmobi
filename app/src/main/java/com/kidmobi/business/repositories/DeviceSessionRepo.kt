@@ -6,9 +6,9 @@ import com.google.firebase.firestore.SetOptions
 import com.kidmobi.business.enums.DbCollection
 import com.kidmobi.business.utils.extensions.toDeviceSession
 import com.kidmobi.business.utils.extensions.toDeviceSessionList
-import com.kidmobi.business.utils.printsln
 import com.kidmobi.mvvm.model.DeviceSession
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -50,8 +50,7 @@ class DeviceSessionRepo @Inject constructor(db: FirebaseFirestore) : BaseRepo<De
             .orderBy("sessionEnd", Query.Direction.DESCENDING)
             .get().await().toDeviceSessionList()
 
-        printsln("DeviceSession::getByOpenSession session list size: ${result.size}")
-        printsln("DeviceSession::getByOpenSession sessionList : $result")
+        Timber.d("SessionList : $result")
 
         if (result.size > 0)
             temp = result.first()
