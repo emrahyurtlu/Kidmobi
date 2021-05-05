@@ -17,8 +17,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.integration.android.IntentIntegrator
+import com.kidmobi.BuildConfig
 import com.kidmobi.R
 import com.kidmobi.business.adapter.DashboardViewPager2Adapter
+import com.kidmobi.business.utils.Constants
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.FragmentDashboardBinding
@@ -72,14 +74,19 @@ class DashboardFragment : Fragment() {
             optionsItemSelected(it)
         }
 
-        MobileAds.initialize(requireContext())
-        val adRequest = AdRequest.Builder().build()
-
-        binding.adView.loadAd(adRequest)
+        setUpAds()
 
         this.checkSystemSettingsAdjustable()
 
         binding.btnFab.setOnClickListener { addNewDeviceFab() }
+    }
+
+    private fun setUpAds() {
+        MobileAds.initialize(requireContext())
+        val adRequest = AdRequest.Builder().build()
+        if (!BuildConfig.DEBUG)
+            binding.adView.adUnitId = Constants.DASHBOARD_FRAGMENT_AD_BANNER_ID
+        binding.adView.loadAd(adRequest)
     }
 
     private fun setUpTabs() {
