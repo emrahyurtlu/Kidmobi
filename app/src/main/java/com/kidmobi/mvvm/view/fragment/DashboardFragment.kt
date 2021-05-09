@@ -19,12 +19,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.integration.android.IntentIntegrator
 import com.kidmobi.BuildConfig
 import com.kidmobi.R
-import com.kidmobi.business.adapter.DashboardViewPager2Adapter
 import com.kidmobi.business.utils.Constants
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.FragmentDashboardBinding
 import com.kidmobi.mvvm.view.QrCaptureActivity
+import com.kidmobi.mvvm.view.adapter.DashboardViewPager2Adapter
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

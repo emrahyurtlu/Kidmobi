@@ -1,6 +1,6 @@
 package com.kidmobi.business.utils.extensions.modelExtensions
 
-import com.kidmobi.business.enums.UserType
+import com.kidmobi.business.utils.enums.UserType
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings

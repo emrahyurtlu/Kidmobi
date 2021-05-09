@@ -4,11 +4,12 @@ import android.app.Application
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.BuildConfig
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kidmobi.business.enums.DbCollection
-import com.kidmobi.business.enums.UserType
-import com.kidmobi.business.utils.CrashReportingTree
 import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.enums.DbCollection
+import com.kidmobi.business.utils.enums.UserType
 import com.kidmobi.business.utils.extensions.modelExtensions.init
+import com.kidmobi.business.utils.logs.DebugTree
+import com.kidmobi.business.utils.logs.ReleaseTree
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings
@@ -35,15 +36,10 @@ class KidmobiApp : Application() {
     }
 
     private fun timberSettings() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(object : Timber.DebugTree() {
-                override fun createStackElementTag(element: StackTraceElement): String? {
-                    return String.format("%s::%s", element.className, element.methodName)
-                }
-            })
-        } else {
-            Timber.plant(CrashReportingTree())
-        }
+        if (BuildConfig.DEBUG)
+            Timber.plant(DebugTree())
+        else
+            Timber.plant(ReleaseTree())
     }
 
     private fun saveDevice(uniqueDeviceId: String) {

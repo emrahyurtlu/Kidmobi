@@ -2,7 +2,7 @@ package com.kidmobi.business.repositories
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kidmobi.business.enums.DbCollection
+import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.extensions.toManagedDevice
 import com.kidmobi.mvvm.model.ManagedDevice
 import com.kidmobi.mvvm.model.MobileDevice

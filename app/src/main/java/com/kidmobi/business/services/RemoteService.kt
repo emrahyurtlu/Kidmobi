@@ -13,12 +13,12 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.R
-import com.kidmobi.business.enums.DbCollection
 import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_ID
 import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_NAME
 import com.kidmobi.business.utils.Constants.NOTIFICATION_ID
 import com.kidmobi.business.utils.SettingsUtil
 import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.extensions.modelExtensions.isNotNull
 import com.kidmobi.business.utils.extensions.modelExtensions.isValid
 import com.kidmobi.business.utils.extensions.toMobileDevice

@@ -6,6 +6,6 @@
         android:contentDescription="@string/btnDelete"
         android:icon="@drawable/ic_baseline_delete_outline_24"
         android:title="@string/btnDelete"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

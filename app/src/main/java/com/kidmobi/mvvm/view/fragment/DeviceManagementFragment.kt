@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -45,6 +44,11 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     private val sessionViewModel: DeviceSessionViewModel by viewModels()
     private val args: DeviceManagementFragmentArgs by navArgs()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,22 +57,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         return binding.root
     }
 
-    private fun setCustomToolBar(resId: Int) {
-        val appCompatActivity = (requireActivity() as AppCompatActivity?)!!
-        appCompatActivity.setSupportActionBar(binding.topAppBar)
-        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        appCompatActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
-
-        binding.topAppBar.setNavigationOnClickListener {
-            findNavController().navigate(resId)
-        }
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -196,7 +184,5 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
                 findNavController().navigate(R.id.action_deviceManagementFragment_to_dashboardFragment)
             }
             .show()
-
-
     }
 }

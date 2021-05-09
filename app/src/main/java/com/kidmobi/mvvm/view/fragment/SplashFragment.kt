@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -50,7 +51,10 @@ class SplashFragment : Fragment() {
     }
 
     private fun registerRemoteSettingsReceiver() {
-        IntentFilter(Intent.ACTION_BOOT_COMPLETED).also {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED)
+        intentFilter.addAction(Intent.ACTION_REBOOT)
+        intentFilter.also {
             requireActivity().registerReceiver(RemoteSettingsServiceBroadcastReceiver(), it)
         }
     }
@@ -70,7 +74,7 @@ class SplashFragment : Fragment() {
 
     private fun startRemoteService() =
         Intent(requireContext(), RemoteService::class.java).also {
-            requireContext().startService(it)
+            ContextCompat.startForegroundService(requireContext(), it)
         }
 
     private fun checkConnectivity() {

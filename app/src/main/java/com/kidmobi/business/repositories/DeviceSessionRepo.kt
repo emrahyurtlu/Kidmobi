@@ -3,7 +3,7 @@ package com.kidmobi.business.repositories
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
-import com.kidmobi.business.enums.DbCollection
+import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.extensions.toDeviceSession
 import com.kidmobi.business.utils.extensions.toDeviceSessionList
 import com.kidmobi.mvvm.model.DeviceSession

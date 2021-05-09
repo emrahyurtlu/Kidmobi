@@ -3,7 +3,7 @@ package com.kidmobi.business.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import androidx.core.content.ContextCompat
 import com.kidmobi.business.services.RemoteService
 
 class RemoteSettingsServiceBroadcastReceiver : BroadcastReceiver() {
@@ -18,10 +18,7 @@ class RemoteSettingsServiceBroadcastReceiver : BroadcastReceiver() {
 
     private fun startService(context: Context?) {
         Intent(context, RemoteService::class.java).also {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                context?.startForegroundService(it)
-            else
-                context?.startService(it)
+            ContextCompat.startForegroundService(context!!, it)
         }
     }
 }
