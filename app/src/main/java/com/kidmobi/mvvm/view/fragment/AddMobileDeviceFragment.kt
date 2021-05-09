@@ -49,7 +49,7 @@ class AddMobileDeviceFragment : Fragment() {
 
         binding.deviceOwner.setText(mobileDevice.deviceOwnerName)
 
-        binding.btnAddDevice.setOnClickListener { saveDeviceDetails() }
+        binding.btnAddDevice.setOnClickListener(saveDeviceDetails)
     }
 
     private fun setUpAds() {
@@ -58,10 +58,10 @@ class AddMobileDeviceFragment : Fragment() {
         if (!BuildConfig.DEBUG)
             binding.adView.adUnitId = Constants.ADD_MOBILE_DEVICE_FRAGMENT_AD_BANNER_ID
         binding.adView.loadAd(adRequest)
+
     }
 
-    private fun saveDeviceDetails() {
-
+    private val saveDeviceDetails: (v: View) -> Unit = {
         if (binding.deviceOwner.text.isNullOrEmpty()) {
             binding.deviceOwner.setError(
                 getString(R.string.form_field_not_null),
@@ -73,14 +73,11 @@ class AddMobileDeviceFragment : Fragment() {
                     )
                 }
             )
-            return
+        } else {
+            mobileDevice.deviceOwnerName = binding.deviceOwner.text.toString()
+            viewModel.saveDeviceDetails(mobileDevice)
+            managedDevicesViewModel.addManagedDeviceList(mobileDevice.deviceId)
+            findNavController().navigate(R.id.action_addMobileDeviceFragment_to_dashboardFragment)
         }
-
-        mobileDevice.deviceOwnerName = binding.deviceOwner.text.toString()
-
-        viewModel.saveDeviceDetails(mobileDevice)
-        managedDevicesViewModel.addManagedDeviceList(mobileDevice.deviceId)
-
-        findNavController().navigate(R.id.action_addMobileDeviceFragment_to_dashboardFragment)
     }
 }
