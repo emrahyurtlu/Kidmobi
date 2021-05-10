@@ -43,7 +43,7 @@ class ShowDeviceIdFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentShowDeviceIdBinding.inflate(inflater)
         return binding.root
     }

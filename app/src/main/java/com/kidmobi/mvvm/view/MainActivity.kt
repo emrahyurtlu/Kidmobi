@@ -10,17 +10,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    //private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        //navController = Navigation.findNavController(this, R.id.navHostFragment)
-        //NavigationUI.setupActionBarWithNavController(this, navController)
-        //this.supportActionBar?.hide()
+        //setContentView(R.layout.activity_main)
     }
-
-/*    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, null)
-    }*/
 }

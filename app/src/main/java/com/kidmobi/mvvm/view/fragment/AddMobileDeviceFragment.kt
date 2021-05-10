@@ -16,6 +16,7 @@ import com.kidmobi.BuildConfig
 import com.kidmobi.R
 import com.kidmobi.business.utils.Constants
 import com.kidmobi.business.utils.extensions.modelExtensions.isNull
+import com.kidmobi.business.utils.extensions.redirectIfNull
 import com.kidmobi.databinding.FragmentAddMobileDeviceBinding
 import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel
@@ -43,7 +44,10 @@ class AddMobileDeviceFragment : Fragment() {
 
         setUpAds()
 
+        this.redirectIfNull(args.device, R.id.action_addMobileDeviceFragment_to_dashboardFragment)
+
         mobileDevice = args.device
+
         if (mobileDevice.isNull())
             findNavController().navigate(R.id.action_addMobileDeviceFragment_to_dashboardFragment)
 

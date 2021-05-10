@@ -50,11 +50,11 @@ class LoginFragment : Fragment() {
         callbackManager = CallbackManager.Factory.create()
         checkIfUserLoggedIn()
 
-        binding.btnLoginFacebook.setOnClickListener { loginWithFacebook() }
+        binding.btnLoginFacebook.setOnClickListener(loginWithFacebook)
 
-        binding.btnLoginGoogle.setOnClickListener { loginWithGoogle() }
+        binding.btnLoginGoogle.setOnClickListener(loginWithGoogle)
 
-        binding.btnLoginAsGuest.setOnClickListener { loginAsAnonymously() }
+        binding.btnLoginAsGuest.setOnClickListener(loginAsAnonymously)
     }
 
     private fun checkIfUserLoggedIn() {
@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun loginWithFacebook() {
+    private val loginWithFacebook: (v: View) -> Unit = {
         LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile"))
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onCancel() {
-                    Timber.d("facebook:onCancel")
+                    Timber.e(Exception("User calceled log with facebook"))
                     Snackbar.make(
                         requireView(), "Facebook ile giriş iptal edildi.",
                         Snackbar.LENGTH_SHORT
@@ -82,7 +82,7 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onError(error: FacebookException) {
-                    Timber.d(error)
+                    Timber.e(FacebookException("User cannot logged in with facebook"))
                     Snackbar.make(
                         requireView(), "Facebook ile giriş sırasında hata oluştu.",
                         Snackbar.LENGTH_SHORT
@@ -114,7 +114,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun loginWithGoogle() {
+    private val loginWithGoogle: (v: View) -> Unit = {
         activity?.let {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -128,7 +128,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun loginAsAnonymously() {
+    private val loginAsAnonymously: (v: View) -> Unit = {
         val result = auth.signInAnonymously()
         activity?.let { activity ->
             result.addOnCompleteListener(activity) {

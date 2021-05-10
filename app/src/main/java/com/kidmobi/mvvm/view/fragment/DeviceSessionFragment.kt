@@ -1,6 +1,7 @@
 package com.kidmobi.mvvm.view.fragment
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kidmobi.R
 import com.kidmobi.business.utils.SharedPrefsUtil
@@ -28,6 +30,14 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
     private val args: DeviceSessionFragmentArgs by navArgs()
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): BottomSheetDialog {
+        return object : BottomSheetDialog(requireActivity()) {
+            override fun onBackPressed() {
+                cancelDialog
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,18 +50,34 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         device = args.device
-        Timber.d("Argument is came: $device")
-        binding.btnSaveSession.setOnClickListener {
-            createSession()
-        }
 
-        binding.btnDialogCancel.setOnClickListener {
-            dismiss()
-            findNavController().navigate(R.id.action_deviceSessionFragment_to_dashboardFragment)
+        Timber.d("Argument is came: $device")
+
+        binding.btnSaveSession.setOnClickListener(createSession)
+        binding.btnDialogCancel.setOnClickListener(cancelDialog)
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        requireDialog().setOnKeyListener { dialog, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                cancelDialog
+                return@setOnKeyListener true
+            }
+
+            return@setOnKeyListener false
         }
     }
 
-    private fun createSession() {
+
+    private val cancelDialog: (v: View) -> Unit = {
+        dismiss()
+        findNavController().navigate(R.id.action_deviceSessionFragment_to_dashboardFragment)
+    }
+
+    private val createSession: (v: View) -> Unit = {
         val pref = SharedPrefsUtil(requireContext())
         val calendar = Calendar.getInstance()
         val session = DeviceSession()

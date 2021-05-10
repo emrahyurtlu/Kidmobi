@@ -52,3 +52,8 @@ fun Fragment.setMaterialToolbar(toolbar: MaterialToolbar, action: Int) {
         findNavController().navigate(action)
     }
 }
+
+fun Fragment.redirectIfNull(input: Any, action: Int) {
+    if (input.equals(null))
+        findNavController().navigate(action)
+}
