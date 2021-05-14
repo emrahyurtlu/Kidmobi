@@ -18,7 +18,7 @@ fun Fragment.checkSystemSettingsAdjustable() {
             .setTitle(getString(R.string.permission_of_changing_system_settings))
             .setMessage(getString(R.string.permission_of_system_setting_msg))
             .setCancelable(false)
-            .setNegativeButton(R.string.no) { dialog, which ->
+            .setNegativeButton(R.string.no) { dialog, _ ->
                 dialog.cancel()
                 dialog.dismiss()
                 Toast.makeText(
@@ -28,7 +28,7 @@ fun Fragment.checkSystemSettingsAdjustable() {
                 ).show()
                 exitProcess(-1)
             }
-            .setPositiveButton(R.string.yes) { dialog, which ->
+            .setPositiveButton(R.string.yes) { dialog, _ ->
                 if (!Settings.System.canWrite(context)) {
                     Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).also {
                         it.data = Uri.parse("package:${context!!.packageName}")

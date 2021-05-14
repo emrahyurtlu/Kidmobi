@@ -175,10 +175,10 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         MaterialAlertDialogBuilder(requireActivity())
             .setTitle(device.deviceOwnerName)
             .setMessage(getString(R.string.are_you_sure_to_delete))
-            .setNegativeButton(getString(R.string.no)) { dialog, which ->
+            .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.cancel()
             }
-            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+            .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
                 managedDevicesViewModel.deleteFromMyDevices(device.deviceId)
                 dialog.dismiss()
                 findNavController().navigate(R.id.action_deviceManagementFragment_to_dashboardFragment)

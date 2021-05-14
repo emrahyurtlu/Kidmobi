@@ -15,16 +15,18 @@ fun MobileDeviceInfo.init() = MobileDeviceInfo(
     securityPatch = Build.VERSION.SECURITY_PATCH
 )
 
-fun MobileDeviceInfo.blank() = MobileDeviceInfo(
-    brand = "",
-    device = "",
-    model = "",
-    product = "",
-    host = "",
-    time = 0,
-    sdk = 0,
-    increment = "",
-    securityPatch = ""
-)
+fun MobileDeviceInfo.blank(): MobileDeviceInfo {
+    return MobileDeviceInfo(
+        brand = "",
+        device = "",
+        model = "",
+        product = "",
+        host = "",
+        time = 0,
+        sdk = 0,
+        increment = "",
+        securityPatch = ""
+    )
+}
 
 fun MobileDeviceInfo.isNull() = this.brand.isEmpty()

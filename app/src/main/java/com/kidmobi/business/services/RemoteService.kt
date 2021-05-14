@@ -43,7 +43,7 @@ class RemoteService : LifecycleService() {
         Timber.d("Service is initiated.")
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
         startForegroundService()
@@ -56,7 +56,7 @@ class RemoteService : LifecycleService() {
     private fun changeSettings() {
         db.collection(DbCollection.MobileDevices.name).document(deviceId).addSnapshotListener { snapshot, e ->
             if (e != null) {
-                Timber.w("Listen failed: ${e.message}")
+                Timber.e(e)
                 return@addSnapshotListener
             }
 
@@ -75,6 +75,7 @@ class RemoteService : LifecycleService() {
 
             } else {
                 Timber.d("Current data: null")
+                Timber.e("Snapshot is null")
             }
         }
     }

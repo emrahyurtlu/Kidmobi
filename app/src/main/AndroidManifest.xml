@@ -38,7 +38,7 @@
 
         <activity
             android:name=".mvvm.view.MainActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,7 +74,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data
+                    android:scheme="@string/fb_login_protocol_scheme"
+                    tools:ignore="ManifestResource" />
             </intent-filter>
         </activity>
 

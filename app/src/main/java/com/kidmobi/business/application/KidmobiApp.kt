@@ -53,7 +53,7 @@ class KidmobiApp : Application() {
                 device.apply {
                     deviceId = uniqueDeviceId
                     info = MobileDeviceInfo().init()
-                    settings = MobileDeviceSettings().init()
+                    settings = MobileDeviceSettings()
                     createdAt = now.time
                     updatedAt = now.time
                     deviceOwnerName = user.displayName.toString()
@@ -74,14 +74,6 @@ class KidmobiApp : Application() {
                         Timber.d("Current device is saved!")
                     }
                 }
-                /*docRef.addSnapshotListener { snapshot, e ->
-                    if (e == null) {
-                        if (snapshot == null || !snapshot.exists()) {
-                            docRef.set(device)
-                            Timber.d("Current device is saved!")
-                        }
-                    }
-                }*/
             }
         }
     }

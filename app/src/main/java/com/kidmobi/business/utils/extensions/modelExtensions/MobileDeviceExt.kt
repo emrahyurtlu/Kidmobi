@@ -23,7 +23,7 @@ fun MobileDevice.init() = MobileDevice(
         increment = "",
         securityPatch = ""
     ),
-    settings = MobileDeviceSettings().init(),
+    settings = MobileDeviceSettings(),
     createdAt = null,
     updatedAt = null,
     userType = UserType.UserUnknown

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.kidmobi.business.services.RemoteService
+import timber.log.Timber
 
 class RemoteSettingsServiceBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -17,8 +18,12 @@ class RemoteSettingsServiceBroadcastReceiver : BroadcastReceiver() {
     }
 
     private fun startService(context: Context?) {
-        Intent(context, RemoteService::class.java).also {
-            ContextCompat.startForegroundService(context!!, it)
+        try {
+            Intent(context, RemoteService::class.java).also {
+                ContextCompat.startForegroundService(context!!, it)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 }

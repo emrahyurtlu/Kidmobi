@@ -61,7 +61,7 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        requireDialog().setOnKeyListener { dialog, keyCode, event ->
+        requireDialog().setOnKeyListener { _, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 cancelDialog
                 return@setOnKeyListener true
