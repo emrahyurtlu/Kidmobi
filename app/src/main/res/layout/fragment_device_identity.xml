@@ -57,6 +57,6 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom|center"
             ads:adSize="FULL_BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+            ads:adUnitId="ca-app-pub-9250940245734350/4603821112" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

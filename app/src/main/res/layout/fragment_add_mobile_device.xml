@@ -2,10 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -84,7 +80,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom|center"
             ads:adSize="FULL_BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+            ads:adUnitId="ca-app-pub-9250940245734350/2801074884" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -12,9 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.kidmobi.BuildConfig
 import com.kidmobi.R
-import com.kidmobi.business.utils.Constants
 import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.business.utils.extensions.redirectIfNull
 import com.kidmobi.databinding.FragmentAddMobileDeviceBinding
@@ -59,10 +57,7 @@ class AddMobileDeviceFragment : Fragment() {
     private fun setUpAds() {
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
-        if (!BuildConfig.DEBUG)
-            binding.adView.adUnitId = Constants.ADD_MOBILE_DEVICE_FRAGMENT_AD_BANNER_ID
         binding.adView.loadAd(adRequest)
-
     }
 
     private val saveDeviceDetails: (v: View) -> Unit = {
