@@ -15,8 +15,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-import com.kidmobi.BuildConfig
-import com.kidmobi.business.utils.Constants
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.databinding.FragmentDeviceIdentityBinding
@@ -73,8 +71,6 @@ class DeviceIdentityFragment : Fragment() {
     private fun setUpAds() {
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
-        if (!BuildConfig.DEBUG)
-            binding.adView.adUnitId = Constants.SHOW_DEVICE_ID_FRAGMENT_AD_BANNER_ID
         binding.adView.loadAd(adRequest)
     }
 

@@ -14,9 +14,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
-import com.kidmobi.BuildConfig
 import com.kidmobi.R
-import com.kidmobi.business.utils.Constants
 import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
 import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.business.utils.extensions.setMaterialToolbar
@@ -89,8 +87,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     private fun setUpAds() {
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
-        if (!BuildConfig.DEBUG)
-            binding.adView.adUnitId = Constants.DEVICE_MANAGEMENT_FRAGMENT_AD_BANNER_ID
         binding.adView.loadAd(adRequest)
     }
 
