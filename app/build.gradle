@@ -9,6 +9,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/user/Documents/keystores/kidmobi')
+            storePassword 'kErya?81i'
+            keyPassword 'kErya?81i'
+            keyAlias 'kidmobikey'
+        }
+        release {
+            storeFile file('/Users/user/Documents/keystores/kidmobi')
+            keyAlias 'kidmobikey'
+            storePassword 'kErya?81i'
+            keyPassword 'kErya?81i'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -19,13 +33,19 @@ android {
         versionCode 103
         versionName "1.0.3"
         testInstrumentationRunner "com.kidmobi.HiltTestRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
         }
     }
     compileOptions {
@@ -47,9 +67,9 @@ android {
 
 dependencies {
     //ORIGINAL DEPENDENCIES
-    implementation "androidx.core:core-ktx:1.3.2"
+    implementation "androidx.core:core-ktx:1.5.0"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation "androidx.appcompat:appcompat:1.3.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
@@ -64,7 +84,7 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-auth-ktx"
     implementation "com.google.android.gms:play-services-auth:19.0.0"
-    implementation "com.google.firebase:firebase-firestore-ktx:22.1.2"
+    implementation "com.google.firebase:firebase-firestore-ktx:23.0.0"
     implementation "com.google.android.gms:play-services-ads:20.1.0"
 
     //FACEBOOK LOGIN DEPENDENCIES
@@ -105,9 +125,9 @@ dependencies {
     //Hilt&Kapt
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation 'com.google.firebase:firebase-crashlytics:17.4.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:17.4.1'
-    implementation 'com.google.firebase:firebase-analytics:18.0.3'
+    implementation "com.google.firebase:firebase-crashlytics:$crashlytics_version"
+    implementation "com.google.firebase:firebase-crashlytics-ktx:$crashlytics_version"
+    implementation "com.google.firebase:firebase-analytics:$analytics_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 
