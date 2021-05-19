@@ -18,4 +18,4 @@ data class MobileDevice constructor(
     var createdAt: Date? = null,
     var updatedAt: Date? = null,
     var userType: UserType = UserType.UserUnknown
-) : Serializable, BaseModel
+) : BaseModel, Serializable

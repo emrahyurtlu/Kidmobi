@@ -12,4 +12,4 @@ data class MobileDeviceInfo constructor(
     var sdk: Int = 0,
     var increment: String = "",
     var securityPatch: String = ""
-) : Serializable, BaseModel
+) : BaseModel, Serializable

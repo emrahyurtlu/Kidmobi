@@ -2,7 +2,7 @@ package com.kidmobi.business.workers
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
@@ -19,11 +19,15 @@ class RemoteSettingsWorker(var context: Context, workerParameters: WorkerParamet
     override fun doWork(): Result {
         Timber.d("RemoteSettingsWorker is triggered.")
 
+
+
         Intent(applicationContext, RemoteService::class.java).also {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 context.startForegroundService(it)
             else
-                context.startService(it)
+                context.startService(it)*/
+
+            ContextCompat.startForegroundService(context, it)
         }
 
 

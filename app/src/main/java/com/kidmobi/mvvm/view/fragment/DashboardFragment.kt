@@ -20,7 +20,9 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.kidmobi.R
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
+import com.kidmobi.business.utils.extensions.modelExtensions.isNotNull
 import com.kidmobi.databinding.FragmentDashboardBinding
+import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.view.QrCaptureActivity
 import com.kidmobi.mvvm.view.adapter.DashboardViewPager2Adapter
 import com.kidmobi.mvvm.viewmodel.MobileDeviceViewModel
@@ -130,7 +132,11 @@ class DashboardFragment : Fragment() {
                     Timber.d("New device id: $deviceId")
                     Timber.d("New device is: $device")
 
-                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
+                    if (device.isNotNull())
+                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
+                    else
+                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(MobileDevice(deviceId)))
+
                 })
 
 
