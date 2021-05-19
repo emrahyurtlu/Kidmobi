@@ -30,8 +30,8 @@ android {
         applicationId "com.kidmobi"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 103
-        versionName "1.0.3"
+        versionCode 104
+        versionName "1.0.4"
         testInstrumentationRunner "com.kidmobi.HiltTestRunner"
         signingConfig signingConfigs.release
     }
