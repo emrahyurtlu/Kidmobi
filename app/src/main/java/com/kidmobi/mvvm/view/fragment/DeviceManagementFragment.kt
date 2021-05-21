@@ -1,10 +1,7 @@
 package com.kidmobi.mvvm.view.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -45,6 +42,11 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.settings_top_app_bar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onCreateView(

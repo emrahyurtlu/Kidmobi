@@ -26,14 +26,16 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+
     defaultConfig {
         applicationId "com.kidmobi"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 104
-        versionName "1.0.4"
+        versionCode 105
+        versionName "1.0.5"
         testInstrumentationRunner "com.kidmobi.HiltTestRunner"
         signingConfig signingConfigs.release
+        setProperty("archivesBaseName", applicationId + "-v" + versionCode + "(" + versionName + ")")
     }
 
     buildTypes {

@@ -27,6 +27,7 @@ import com.kidmobi.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+import javax.security.auth.login.LoginException
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -103,6 +104,7 @@ class LoginFragment : Fragment() {
                         findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                     } else {
                         // If sign in fails, display a message to the user.
+                        Timber.e(task.exception)
                         Timber.d("handleFacebookAccessToken: ${task.exception}")
                         Snackbar.make(
                             requireView(), getString(R.string.login_auth_failed),
@@ -135,6 +137,7 @@ class LoginFragment : Fragment() {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_loginFragment_to_showDeviceIdFragment)
                 } else {
+                    Timber.e(LoginException("Cannot logged as anonymously"))
                     Snackbar.make(
                         requireView(), getString(R.string.login_auth_failed),
                         Snackbar.LENGTH_SHORT
@@ -154,6 +157,7 @@ class LoginFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
+                Timber.e(e)
                 Snackbar.make(
                     requireView(),
                     getString(R.string.login_google_basarisiz_giris),
