@@ -5,12 +5,14 @@ import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
 import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.business.utils.extensions.modelExtensions.isValid
 import junit.framework.TestCase
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
 class DeviceSessionTest : TestCase() {
     lateinit var session: DeviceSession
 
+    @Before
     public override fun setUp() {
         super.setUp()
         val calendar = Calendar.getInstance()

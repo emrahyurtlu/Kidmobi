@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.business.utils.SharedPrefsUtil
 import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.enums.UserType
-import com.kidmobi.business.utils.extensions.modelExtensions.init
+import com.kidmobi.business.utils.extensions.modelExtensions.thisDevice
 import com.kidmobi.business.utils.logs.DebugTree
 import com.kidmobi.business.utils.logs.ReleaseTree
 import com.kidmobi.mvvm.model.MobileDevice
@@ -52,7 +52,7 @@ class KidmobiApp : Application() {
                 val now = Calendar.getInstance()
                 device.apply {
                     deviceId = uniqueDeviceId
-                    info = MobileDeviceInfo().init()
+                    info = MobileDeviceInfo().thisDevice()
                     settings = MobileDeviceSettings()
                     createdAt = now.time
                     updatedAt = now.time

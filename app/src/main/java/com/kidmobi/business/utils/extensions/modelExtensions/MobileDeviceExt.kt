@@ -5,7 +5,7 @@ import com.kidmobi.mvvm.model.MobileDevice
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 import com.kidmobi.mvvm.model.MobileDeviceSettings
 
-fun MobileDevice.init() = MobileDevice(
+fun MobileDevice.thisDevice() = MobileDevice(
     deviceId = "",
     deviceImageUrl = 0,
     deviceOwnerName = "",
