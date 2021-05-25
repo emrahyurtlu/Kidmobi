@@ -3,7 +3,7 @@ package com.kidmobi.business.utils.extensions.modelExtensions
 import com.kidmobi.mvvm.model.DeviceSession
 import java.util.*
 
-fun DeviceSession.init() = DeviceSession(
+fun DeviceSession.thisDevice() = DeviceSession(
     sessionCreatorDeviceId = "",
     sessionOwnerDeviceId = "",
     sessionStart = null,

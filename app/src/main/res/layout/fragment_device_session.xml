@@ -84,21 +84,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:text="@string/save"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        app:cornerRadius="20dp" />
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnDialogCancel"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginBottom="16dp"
                         android:text="@string/cancel"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        app:cornerRadius="20dp" />
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+                        android:textColor="@color/secondaryColor" />
                 </LinearLayout>
 
             </LinearLayout>

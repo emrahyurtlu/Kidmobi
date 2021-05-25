@@ -3,7 +3,7 @@ package com.kidmobi.business.utils.extensions.modelExtensions
 import android.os.Build
 import com.kidmobi.mvvm.model.MobileDeviceInfo
 
-fun MobileDeviceInfo.init() = MobileDeviceInfo(
+fun MobileDeviceInfo.thisDevice() = MobileDeviceInfo(
     brand = Build.BRAND,
     device = Build.DEVICE,
     model = Build.MODEL,
