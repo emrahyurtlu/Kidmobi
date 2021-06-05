@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel" />
+            type="com.kidmobi.ui.viewmodel.ManagedDevicesViewModel" />
 
         <import type="android.view.View" />
     </data>

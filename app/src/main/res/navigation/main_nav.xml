@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.SplashFragment"
+        android:name="com.kidmobi.ui.view.fragment.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.LoginFragment"
+        android:name="com.kidmobi.ui.view.fragment.LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.DashboardFragment"
+        android:name="com.kidmobi.ui.view.fragment.DashboardFragment"
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_loginFragment"
@@ -41,43 +41,43 @@
     </fragment>
     <fragment
         android:id="@+id/addMobileDeviceFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.AddMobileDeviceFragment"
+        android:name="com.kidmobi.ui.view.fragment.AddMobileDeviceFragment"
         tools:layout="@layout/fragment_add_mobile_device">
         <action
             android:id="@+id/action_addMobileDeviceFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
         <argument
             android:name="device"
-            app:argType="com.kidmobi.mvvm.model.MobileDevice" />
+            app:argType="com.kidmobi.data.model.MobileDevice" />
     </fragment>
     <fragment
         android:id="@+id/deviceManagementFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.DeviceManagementFragment"
+        android:name="com.kidmobi.ui.view.fragment.DeviceManagementFragment"
         tools:layout="@layout/fragment_device_management">
         <action
             android:id="@+id/action_deviceManagementFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
         <argument
             android:name="device"
-            app:argType="com.kidmobi.mvvm.model.MobileDevice" />
+            app:argType="com.kidmobi.data.model.MobileDevice" />
         <action
             android:id="@+id/action_deviceManagementFragment_to_deviceSessionFragment"
             app:destination="@id/deviceSessionFragment" />
     </fragment>
     <dialog
         android:id="@+id/deviceSessionFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.DeviceSessionFragment"
+        android:name="com.kidmobi.ui.view.fragment.DeviceSessionFragment"
         tools:layout="@layout/fragment_device_session">
         <argument
             android:name="device"
-            app:argType="com.kidmobi.mvvm.model.MobileDevice" />
+            app:argType="com.kidmobi.data.model.MobileDevice" />
         <action
             android:id="@+id/action_deviceSessionFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </dialog>
     <fragment
         android:id="@+id/showDeviceIdFragment"
-        android:name="com.kidmobi.mvvm.view.fragment.ShowDeviceIdFragment"
+        android:name="com.kidmobi.ui.view.fragment.ShowDeviceIdFragment"
         tools:layout="@layout/fragment_show_device_id">
         <action
             android:id="@+id/action_showDeviceIdFragment_to_loginFragment"

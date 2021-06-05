@@ -10,9 +10,9 @@ import com.kidmobi.business.utils.enums.UserType
 import com.kidmobi.business.utils.extensions.modelExtensions.thisDevice
 import com.kidmobi.business.utils.logs.DebugTree
 import com.kidmobi.business.utils.logs.ReleaseTree
-import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.model.MobileDeviceInfo
-import com.kidmobi.mvvm.model.MobileDeviceSettings
+import com.kidmobi.data.model.MobileDevice
+import com.kidmobi.data.model.MobileDeviceInfo
+import com.kidmobi.data.model.MobileDeviceSettings
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

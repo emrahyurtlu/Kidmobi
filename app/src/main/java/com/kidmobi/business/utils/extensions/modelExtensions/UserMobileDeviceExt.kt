@@ -1,6 +1,6 @@
 package com.kidmobi.business.utils.extensions.modelExtensions
 
-import com.kidmobi.mvvm.model.ManagedDevice
+import com.kidmobi.data.model.ManagedDevice
 
 fun ManagedDevice.thisDevice() = ManagedDevice()
 

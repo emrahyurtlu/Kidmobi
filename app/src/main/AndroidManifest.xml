@@ -37,7 +37,7 @@
             android:icon="@drawable/ic_logo" />
 
         <activity
-            android:name=".mvvm.view.MainActivity"
+            android:name=".ui.view.MainActivity"
             android:screenOrientation="fullSensor"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout">
             <intent-filter>
@@ -47,7 +47,7 @@
         </activity>
 
         <activity
-            android:name=".mvvm.view.QrCaptureActivity"
+            android:name=".ui.view.QrCaptureActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"

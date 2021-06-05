@@ -1,9 +1,9 @@
 package com.kidmobi.business.utils.extensions.modelExtensions
 
 import com.kidmobi.business.utils.enums.UserType
-import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.model.MobileDeviceInfo
-import com.kidmobi.mvvm.model.MobileDeviceSettings
+import com.kidmobi.data.model.MobileDevice
+import com.kidmobi.data.model.MobileDeviceInfo
+import com.kidmobi.data.model.MobileDeviceSettings
 
 fun MobileDevice.thisDevice() = MobileDevice(
     deviceId = "",

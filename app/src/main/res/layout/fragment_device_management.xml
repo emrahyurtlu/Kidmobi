@@ -2,21 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".mvvm.view.fragment.DeviceManagementFragment">
+    tools:context=".ui.view.fragment.DeviceManagementFragment">
 
     <data>
 
         <variable
             name="mobileDevice"
-            type="com.kidmobi.mvvm.model.MobileDevice" />
+            type="com.kidmobi.data.model.MobileDevice" />
 
         <variable
             name="managedDevicesViewModel"
-            type="com.kidmobi.mvvm.viewmodel.ManagedDevicesViewModel" />
+            type="com.kidmobi.ui.viewmodel.ManagedDevicesViewModel" />
 
         <variable
             name="settingsViewModel"
-            type="com.kidmobi.mvvm.viewmodel.SettingsViewModel" />
+            type="com.kidmobi.ui.viewmodel.SettingsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

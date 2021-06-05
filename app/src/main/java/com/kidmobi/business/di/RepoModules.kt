@@ -2,8 +2,8 @@ package com.kidmobi.business.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kidmobi.business.repositories.ManagedDeviceRepo
-import com.kidmobi.business.repositories.MobileDeviceRepo
+import com.kidmobi.data.repositories.ManagedDeviceRepo
+import com.kidmobi.data.repositories.MobileDeviceRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
