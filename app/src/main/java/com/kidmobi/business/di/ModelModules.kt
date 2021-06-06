@@ -1,8 +1,8 @@
 package com.kidmobi.business.di
 
-import com.kidmobi.mvvm.model.ManagedDevice
-import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.model.MobileDeviceInfo
+import com.kidmobi.data.model.ManagedDevice
+import com.kidmobi.data.model.MobileDevice
+import com.kidmobi.data.model.MobileDeviceInfo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

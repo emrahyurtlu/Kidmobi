@@ -18,18 +18,22 @@ class RemoteSettingsWorker(var context: Context, workerParameters: WorkerParamet
 
     override fun doWork(): Result {
         Timber.d("RemoteSettingsWorker is triggered.")
+        println("RemoteSettingsWorker is triggered. RemoteService is running: ${RemoteService.isRunning}")
 
-
-
-        Intent(applicationContext, RemoteService::class.java).also {
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                context.startForegroundService(it)
-            else
-                context.startService(it)*/
-
-            ContextCompat.startForegroundService(context, it)
+        try {
+            if (!RemoteService.isRunning) {
+                Intent(applicationContext, RemoteService::class.java).also {
+                    ContextCompat.startForegroundService(context, it)
+                }
+                Timber.d("RemoteService is started via Worker")
+                println("RemoteService is started via Worker")
+            } else {
+                Timber.d("RemoteService is already running.")
+                println("RemoteService is already running.")
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
-
 
         return Result.retry()
     }

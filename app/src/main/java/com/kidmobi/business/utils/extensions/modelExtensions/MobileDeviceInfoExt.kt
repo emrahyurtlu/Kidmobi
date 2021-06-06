@@ -1,7 +1,7 @@
 package com.kidmobi.business.utils.extensions.modelExtensions
 
 import android.os.Build
-import com.kidmobi.mvvm.model.MobileDeviceInfo
+import com.kidmobi.data.model.MobileDeviceInfo
 
 fun MobileDeviceInfo.thisDevice() = MobileDeviceInfo(
     brand = Build.BRAND,

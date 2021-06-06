@@ -4,9 +4,9 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
-import com.kidmobi.mvvm.model.DeviceSession
-import com.kidmobi.mvvm.model.ManagedDevice
-import com.kidmobi.mvvm.model.MobileDevice
+import com.kidmobi.data.model.DeviceSession
+import com.kidmobi.data.model.ManagedDevice
+import com.kidmobi.data.model.MobileDevice
 
 fun DocumentSnapshot.toManagedDevice() =
     this.toObject<ManagedDevice>() ?: ManagedDevice()

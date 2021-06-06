@@ -37,9 +37,10 @@
             android:icon="@drawable/ic_logo" />
 
         <activity
-            android:name=".mvvm.view.MainActivity"
+            android:name=".ui.view.MainActivity"
             android:screenOrientation="fullSensor"
-            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout">
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,7 +48,7 @@
         </activity>
 
         <activity
-            android:name=".mvvm.view.QrCaptureActivity"
+            android:name=".ui.view.QrCaptureActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
@@ -83,6 +84,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9250940245734350~2478868616" />
+
     </application>
 
 </manifest>

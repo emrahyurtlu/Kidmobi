@@ -22,8 +22,8 @@ import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.extensions.modelExtensions.isNotNull
 import com.kidmobi.business.utils.extensions.modelExtensions.isValid
 import com.kidmobi.business.utils.extensions.toMobileDevice
-import com.kidmobi.mvvm.model.MobileDevice
-import com.kidmobi.mvvm.view.MainActivity
+import com.kidmobi.data.model.MobileDevice
+import com.kidmobi.ui.view.MainActivity
 import timber.log.Timber
 import java.util.*
 
@@ -41,6 +41,7 @@ class RemoteService : LifecycleService() {
         db = FirebaseFirestore.getInstance()
         deviceId = sharedPrefsUtil.getDeviceId()
         Timber.d("Service is initiated.")
+        Timber.d("DEVICE_ID: $deviceId")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -96,6 +97,7 @@ class RemoteService : LifecycleService() {
             .setContentIntent(getMainActivityPendingIntent())
 
         startForeground(NOTIFICATION_ID, notificationBuilder.build())
+        isRunning = true
     }
 
     private fun getMainActivityPendingIntent() = PendingIntent.getActivity(
@@ -113,5 +115,9 @@ class RemoteService : LifecycleService() {
             IMPORTANCE_LOW
         )
         notificationManager.createNotificationChannel(channel)
+    }
+
+    companion object {
+        var isRunning: Boolean = false
     }
 }

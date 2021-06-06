@@ -1,6 +1,6 @@
 package com.kidmobi.business.utils.extensions.modelExtensions
 
-import com.kidmobi.mvvm.model.DeviceSession
+import com.kidmobi.data.model.DeviceSession
 import java.util.*
 
 fun DeviceSession.thisDevice() = DeviceSession(
