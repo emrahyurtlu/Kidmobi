@@ -97,6 +97,7 @@ class RemoteService : LifecycleService() {
             .setContentIntent(getMainActivityPendingIntent())
 
         startForeground(NOTIFICATION_ID, notificationBuilder.build())
+        isRunning = true
     }
 
     private fun getMainActivityPendingIntent() = PendingIntent.getActivity(
@@ -114,5 +115,9 @@ class RemoteService : LifecycleService() {
             IMPORTANCE_LOW
         )
         notificationManager.createNotificationChannel(channel)
+    }
+
+    companion object {
+        var isRunning: Boolean = false
     }
 }

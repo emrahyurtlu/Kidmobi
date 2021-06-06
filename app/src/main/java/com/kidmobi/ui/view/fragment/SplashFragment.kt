@@ -18,7 +18,7 @@ import androidx.work.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.R
-import com.kidmobi.business.receivers.BatteryOkReceiver
+import com.kidmobi.business.receivers.BatteryChangedReceiver
 import com.kidmobi.business.receivers.RemoteSettingsServiceReceiver
 import com.kidmobi.business.receivers.VolumeChangedReceiver
 import com.kidmobi.business.services.RemoteService
@@ -47,19 +47,21 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        registerRemoteSettingsReceiver()
+
+        /*registerRemoteSettingsReceiver()
         registerVolumeChangedReceiver()
-        registerBatteryOkReceiver()
-        startSettingWorker()
-        startRemoteService()
+        registerBatteryChangedReceiver()*/
+
+        /*startSettingWorker()
+        startRemoteService()*/
         checkConnectivity()
     }
 
-    private fun registerBatteryOkReceiver() {
+    private fun registerBatteryChangedReceiver() {
         val intentFilter = IntentFilter()
-        intentFilter.addAction(Intent.ACTION_BATTERY_OKAY)
+        intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
         intentFilter.also {
-            requireActivity().registerReceiver(BatteryOkReceiver(), it)
+            requireActivity().registerReceiver(BatteryChangedReceiver(), it)
         }
     }
 

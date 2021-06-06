@@ -115,7 +115,7 @@ class DashboardFragment : Fragment() {
             setPrompt(getString(R.string.cihaz_ekleniyor))
             setBarcodeImageEnabled(false)
             captureActivity = QrCaptureActivity::class.java
-            setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)
+            setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
         }
         integrator.initiateScan()
     }
