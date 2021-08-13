@@ -1,5 +1,6 @@
 package com.kidmobi.ui.view.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.kidmobi.ui.view.adapter.MobileDeviceRecyclerAdapter
 import com.kidmobi.ui.viewmodel.ManagedDevicesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+
 
 @AndroidEntryPoint
 class MobileDevicesFragment : Fragment(),
@@ -55,6 +57,7 @@ class MobileDevicesFragment : Fragment(),
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun loadData() {
         viewModel.getManagedMobileDevices()
         viewModel.mobileDeviceList

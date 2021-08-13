@@ -1,5 +1,6 @@
 package com.kidmobi.business.services
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
@@ -8,11 +9,13 @@ import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.R
+import com.kidmobi.business.observers.SoundContentObserver
 import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_ID
 import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_NAME
 import com.kidmobi.business.utils.Constants.NOTIFICATION_ID
@@ -26,6 +29,7 @@ import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.ui.view.MainActivity
 import timber.log.Timber
 import java.util.*
+
 
 class RemoteService : LifecycleService() {
     lateinit var settingsUtil: SettingsUtil
@@ -49,12 +53,20 @@ class RemoteService : LifecycleService() {
 
         startForegroundService()
 
+        checkSoundSettings()
+
         changeSettings()
 
         return START_STICKY
     }
 
+    private fun checkSoundSettings() {
+        val settingsContentObserver = SoundContentObserver(baseContext, ::changeSettings)
+        contentResolver.registerContentObserver(Settings.System.CONTENT_URI, true, settingsContentObserver)
+    }
+
     private fun changeSettings() {
+        println("changeSettings() is invoked!")
         db.collection(DbCollection.MobileDevices.name).document(deviceId).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Timber.e(e)
@@ -100,6 +112,7 @@ class RemoteService : LifecycleService() {
         isRunning = true
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun getMainActivityPendingIntent() = PendingIntent.getActivity(
         this,
         0,

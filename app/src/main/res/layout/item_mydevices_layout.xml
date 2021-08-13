@@ -40,7 +40,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:contentDescription="Zehra'nın cep telefonu"
+                    android:contentDescription="@string/device_owner_placeholder"
                     android:src="@drawable/iphone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout"
@@ -64,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="Zehra'nın cep telefonu"
+                        android:text="@string/device_owner_placeholder"
 
                         android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_light"
-                        android:text="iPhone 11"
+                        android:text="@string/device_brand"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -81,7 +81,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginEnd="8dp"
-                    android:contentDescription="Click to go details"
+                    android:contentDescription="@string/click_to_go_details"
                     android:src="@drawable/ic_card_view_right"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
