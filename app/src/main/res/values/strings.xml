@@ -10,7 +10,6 @@
     <string name="fb_login_protocol_scheme" translatable="false">fb743880013182917</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="qrcode_image_string" translatable="false">Qrcode Image</string>
-    <string name="cihaz_kimligim">Cihaz Kimliğim</string>
     <string name="login_google_basarisiz_giris">Google ile giriş yapamadınız.</string>
     <string name="login_kullanici_bilgileri_alinamadi">Kullanıcı bilgileri alınamadı. Lütfen tekrar giriş yapmayı deneyin.</string>
     <string name="splash_internet_baglantisi_hatasi">Lütfen internet bağlantınızı kontrol ediniz.</string>
@@ -27,17 +26,11 @@
     <string name="ses_duzeyini_ayarla">Ses Düzeyini Ayarla</string>
     <string name="cihaz_ekleniyor">Cihaz ağınızına ekleniyor.</string>
 
-    <string name="device_card_text" translatable="false">%1$s %2$s</string>
-
-    <string name="device_admin_desc">Uzaktan yönetim için kullanılacaktır.</string>
     <string name="qr_couldnt_read">Qr kod okunamadı. Lütfen tekrar deneyiniz.</string>
     <string name="save">Kaydet</string>
-    <string name="mobile_device_cannot_read_from_fb">Mobil cihazlarınız okunamadı. Lütfen tekrar deneyiniz.</string>
-    <string name="mobile_device_is_added_your_network">Mobil cihaz ağınıza eklendi.</string>
     <string name="no_mobile_device">Henüz mobil cihaz eklemediniz.</string>
     <string name="no_mobile_device_message">Henüz mobil cihaz eklemediniz.</string>
 
-    <string name="settings_service_desc">Cihaz ayarlarını servisten okur ve uygular.</string>
     <string name="no">Hayır</string>
     <string name="yes">Evet</string>
     <string name="are_you_sure_to_delete">Bu cihazı silmek istediğinize emin misiniz?</string>
@@ -54,10 +47,7 @@
     <string name="form_field_not_null">Bu alan boş olamaz.</string>
     <string name="about_us">Hakkında</string>
     <string name="kidmobi_is_running">Kidmobi çalışıyor</string>
-    <string name="foreground_service_title">Kidmobi</string>
-    <string name="kidmobi_service_channel">Kidmobi Bildirimleri</string>
     <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
-    <string name="session_started">Oturum açıldı</string>
     <string name="session_start_on_target_device">Hedef Cihazda Oturum Açın</string>
     <string name="half_hour">30 dakika</string>
     <string name="one_hour">Bir saat</string>
@@ -65,5 +55,8 @@
     <string name="four_hours">Dört saat</string>
     <string name="cancel">İPTAL</string>
     <string name="determine_session_time">Oturum süresini belirleyin</string>
+    <string name="device_owner_placeholder">Zehra\'nın cep telefonu</string>
+    <string name="device_brand">iPhone 11</string>
+    <string name="click_to_go_details">Click to go details</string>
 
 </resources>

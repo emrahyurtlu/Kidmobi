@@ -2,10 +2,8 @@
 <resources>
     <!--NEW COLORS-->
     <color name="primaryColor">#6437bf</color>
-    <color name="primaryLightColor">#9864f3</color>
     <color name="primaryDarkColor">#2c068e</color>
     <color name="secondaryColor">#92bf37</color>
-    <color name="secondaryLightColor">#c5f269</color>
     <color name="secondaryDarkColor">#608f00</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>

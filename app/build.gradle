@@ -8,6 +8,13 @@ plugins {
     id "com.google.gms.google-services"
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.firebase.crashlytics'
+
+
+
+
 android {
     signingConfigs {
         debug {
@@ -35,6 +42,12 @@ android {
         testInstrumentationRunner "com.kidmobi.HiltTestRunner"
         signingConfig signingConfigs.release
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "(" + versionName + ")")
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        //kapt.use.worker.api=false
     }
 
     buildTypes {
@@ -49,11 +62,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_14
-        targetCompatibility JavaVersion.VERSION_14
+        sourceCompatibility JavaVersion.VERSION_15
+        targetCompatibility JavaVersion.VERSION_15
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "15" //1.8
     }
     buildFeatures {
         viewBinding true
@@ -62,30 +75,33 @@ android {
     kapt {
         correctErrorTypes true
     }
+
+
 }
 
 dependencies {
     //ORIGINAL DEPENDENCIES
-    implementation "androidx.core:core-ktx:1.5.0"
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation("androidx.multidex:multidex:2.0.1@aar")
 
     //GOOGLE DEPENDENCIES
     implementation platform("com.google.firebase:firebase-bom:26.5.0")
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-auth-ktx"
-    implementation "com.google.android.gms:play-services-auth:19.0.0"
-    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.1'
-    implementation "com.google.android.gms:play-services-ads:20.1.0"
+    implementation "com.google.android.gms:play-services-auth:19.2.0"
+    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.3'
+    implementation "com.google.android.gms:play-services-ads:20.2.0"
 
     //FACEBOOK LOGIN DEPENDENCIES
-    implementation 'com.facebook.android:facebook-android-sdk:9.1.1'
+    implementation 'com.facebook.android:facebook-android-sdk:11.2.0'
 
     implementation "com.squareup.picasso:picasso:2.71828"
 
@@ -93,7 +109,7 @@ dependencies {
     implementation "com.google.zxing:core:3.4.1"
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-native-mt'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1-native-mt'
 
     // Kotlin + coroutines
     //noinspection GradleDependency
@@ -109,7 +125,7 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.0-native-mt'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1-native-mt'
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -134,30 +150,29 @@ dependencies {
     //TESTING DEPENDENCIES
 
     // Local Unit Tests
+    implementation "androidx.test:core:$androidx_test"
     kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
     kaptTest "com.google.dagger:hilt-compiler:$hilt_version"
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    implementation "androidx.test:core:1.3.0"
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.hamcrest:hamcrest-all:1.3"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
-    //testImplementation 'org.robolectric:robolectric:4.5.1'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0-native-mt'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1-native-mt'
     testImplementation "com.google.truth:truth:$truth_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
 
     // Instrumented Unit Tests
     androidTestImplementation "junit:junit:$junit_version"
     androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.1'
-    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0-native-mt'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1-native-mt'
     androidTestImplementation "com.google.truth:truth:$truth_version"
     androidTestImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation "androidx.test:core:1.3.0"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation "androidx.test.ext:truth:1.3.0"
-    androidTestImplementation "androidx.test:runner:1.3.0"
-    androidTestImplementation "androidx.test:rules:1.3.0"
+    androidTestImplementation "androidx.test:core:$androidx_test"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation "androidx.test.ext:truth:$androidx_test"
+    androidTestImplementation "androidx.test:runner:$androidx_test"
+    androidTestImplementation "androidx.test:rules:$androidx_test"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"

@@ -4,7 +4,6 @@
     <string name="facebook_login_btn_msg">SIGNIN WITH FACEBOOK</string>
     <string name="google_login_btn_msg">SIGNIN WITH GOOGLE</string>
     <string name="login_login_as_guest_btn_str">SIGNIN AS A GUEST</string>
-    <string name="cihaz_kimligim">Device Identity</string>
     <string name="login_google_basarisiz_giris">Cannot sign in with Google</string>
     <string name="login_kullanici_bilgileri_alinamadi">Please try again.</string>
     <string name="splash_internet_baglantisi_hatasi">Please check your internet connection.</string>
@@ -15,14 +14,10 @@
     <string name="ekran_parlakligi">Adjust Screen Brightness</string>
     <string name="ses_duzeyini_ayarla">Adjust Sound Volume</string>
     <string name="cihaz_ekleniyor">The device is adding your network.</string>
-    <string name="device_admin_desc">Will be used for remote management.</string>
     <string name="qr_couldnt_read">Qrcode cannot be read. Please try again.</string>
     <string name="save">Save</string>
-    <string name="mobile_device_cannot_read_from_fb">Your devices didn\'t read. Please try again.</string>
-    <string name="mobile_device_is_added_your_network">The device is added to your network.</string>
     <string name="no_mobile_device">There is no mobile device.</string>
     <string name="no_mobile_device_message">There is no mobile device.</string>
-    <string name="settings_service_desc">Reads device settings via a servis and apply it.</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="are_you_sure_to_delete">Are you sure to delete the device?</string>
@@ -39,10 +34,7 @@
     <string name="about_us">About</string>
     <string name="login_baskasi_tarafindan_yönetilmek_icin_msg">Or to be managed by someone else</string>
     <string name="kidmobi_is_running">Kidmobi is running</string>
-    <string name="foreground_service_title">Kidmobi</string>
-    <string name="kidmobi_service_channel">Kidmobi Notifications</string>
     <string name="frg_show_dev_id_header">Device Identity</string>
-    <string name="session_started">Session is started.</string>
     <string name="session_start_on_target_device">Session Start On Target Device</string>
     <string name="half_hour">30 Minutes</string>
     <string name="one_hour">1 Hour</string>
@@ -50,4 +42,5 @@
     <string name="four_hours">4 Hours</string>
     <string name="cancel">Cancel</string>
     <string name="determine_session_time">Define session time</string>
+    <string name="device_brand">iPhone 11</string>
 </resources>
