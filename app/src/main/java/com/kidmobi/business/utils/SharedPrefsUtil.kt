@@ -13,7 +13,7 @@ class SharedPrefsUtil @Inject constructor(
         const val DEVICE_ID = "DEVICE_ID"
     }
 
-    fun getPrefsInstance(): SharedPreferences {
+    private fun getPrefsInstance(): SharedPreferences {
         return context.getSharedPreferences("MobiconLocalData", Context.MODE_PRIVATE)
     }
 
@@ -29,11 +29,11 @@ class SharedPrefsUtil @Inject constructor(
         return getStringByKey(DEVICE_ID).toString()
     }
 
-    fun getStringByKey(key: String): String? {
+    private fun getStringByKey(key: String): String? {
         return getPrefsInstance().getString(key, null)
     }
 
-    fun setStringByKey(deviceId: String) {
+    private fun setStringByKey(deviceId: String) {
         val prefences = getPrefsInstance()
         val editor = prefences.edit()
         editor.putString(DEVICE_ID, deviceId).apply()

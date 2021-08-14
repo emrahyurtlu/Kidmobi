@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 class DeviceSessionNullObjectTest : TestCase() {
-    lateinit var session: DeviceSession
+    private lateinit var session: DeviceSession
 
     @Before
     public override fun setUp() {

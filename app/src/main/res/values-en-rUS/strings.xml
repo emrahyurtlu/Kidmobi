@@ -43,4 +43,6 @@
     <string name="cancel">Cancel</string>
     <string name="determine_session_time">Define session time</string>
     <string name="device_brand">iPhone 11</string>
+    <string name="device_owner_placeholder">Alice\'s phone</string>
+    <string name="click_to_go_details">Click to go details</string>
 </resources>
