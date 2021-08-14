@@ -16,7 +16,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ManagedDevicesViewModel @Inject constructor(var managedDeviceRepo: ManagedDeviceRepo) : ViewModel() {
+class ManagedDevicesViewModel @Inject constructor(private var managedDeviceRepo: ManagedDeviceRepo) : ViewModel() {
 
     private var _userMobileDevice = MutableLiveData<ManagedDevice>()
     val managedDevice: LiveData<ManagedDevice>
@@ -41,7 +41,7 @@ class ManagedDevicesViewModel @Inject constructor(var managedDeviceRepo: Managed
         viewModelJob.cancel()
     }
 
-    fun getManagedDevice() {
+    private fun getManagedDevice() {
         uiScope.launch {
             val temp = managedDeviceRepo.getByCurrentUserId()
             _userMobileDevice.postValue(temp)

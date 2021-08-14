@@ -46,7 +46,7 @@ class ManagedDeviceRepo @Inject constructor(
         return list
     }
 
-    suspend fun update(documentId: String, entity: ManagedDevice) {
+    private suspend fun update(documentId: String, entity: ManagedDevice) {
         collection.document(documentId).set(entity).await()
     }
 

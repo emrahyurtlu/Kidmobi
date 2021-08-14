@@ -50,4 +50,6 @@
     <string name="kidmobi_is_running">Kidmobi çalışıyor</string>
     <string name="frg_show_dev_id_header">Cihaz Kimliği</string>
     <string name="determine_session_time">Oturum süresini belirleyin</string>
+    <string name="device_owner_placeholder">Zehra\'nın cep telefonu</string>
+    <string name="click_to_go_details">Click to go details</string>
 </resources>

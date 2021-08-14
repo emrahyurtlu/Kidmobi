@@ -3,16 +3,15 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
+    id "com.google.gms.google-services"
     id "com.google.firebase.crashlytics"
     id "androidx.navigation.safeargs"
-    id "com.google.gms.google-services"
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-
-
 
 
 android {

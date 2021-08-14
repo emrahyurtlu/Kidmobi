@@ -32,7 +32,7 @@ import java.util.*
 
 
 class RemoteService : LifecycleService() {
-    lateinit var settingsUtil: SettingsUtil
+    private lateinit var settingsUtil: SettingsUtil
     lateinit var sharedPrefsUtil: SharedPrefsUtil
     lateinit var db: FirebaseFirestore
     lateinit var device: MobileDevice

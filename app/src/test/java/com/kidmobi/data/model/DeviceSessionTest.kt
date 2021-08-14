@@ -10,7 +10,7 @@ import org.junit.Test
 import java.util.*
 
 class DeviceSessionTest : TestCase() {
-    lateinit var session: DeviceSession
+    private lateinit var session: DeviceSession
 
     @Before
     public override fun setUp() {

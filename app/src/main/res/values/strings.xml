@@ -56,7 +56,7 @@
     <string name="cancel">İPTAL</string>
     <string name="determine_session_time">Oturum süresini belirleyin</string>
     <string name="device_owner_placeholder">Zehra\'nın cep telefonu</string>
-    <string name="device_brand">iPhone 11</string>
     <string name="click_to_go_details">Click to go details</string>
+    <string name="device_brand">iPhone 11</string>
 
 </resources>
