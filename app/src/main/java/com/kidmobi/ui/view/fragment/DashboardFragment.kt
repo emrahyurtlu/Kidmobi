@@ -25,6 +25,8 @@ import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDashboardBinding
 import com.kidmobi.ui.view.QrCaptureActivity
 import com.kidmobi.ui.view.adapter.DashboardViewPager2Adapter
+import com.kidmobi.ui.view.fragment.tabs.dashboard.DeviceIdentityTabFragment
+import com.kidmobi.ui.view.fragment.tabs.dashboard.MobileDevicesTabFragment
 import com.kidmobi.ui.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -66,6 +68,7 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefsUtil.setDeviceId()
+
         setUpTabs()
 
         binding.topAppBar.inflateMenu(R.menu.top_app_bar)
@@ -90,8 +93,8 @@ class DashboardFragment : Fragment() {
     private fun setUpTabs() {
         val adapter = DashboardViewPager2Adapter(parentFragmentManager, lifecycle)
 
-        adapter.addFragment(MobileDevicesFragment(), getString(R.string.dashboard_tab1_txt))
-        adapter.addFragment(DeviceIdentityFragment(), getString(R.string.dashboard_tab2_txt))
+        adapter.addFragment(MobileDevicesTabFragment(), getString(R.string.dashboard_tab1_txt))
+        adapter.addFragment(DeviceIdentityTabFragment(), getString(R.string.dashboard_tab2_txt))
 
         binding.viewPager2.adapter = adapter
 

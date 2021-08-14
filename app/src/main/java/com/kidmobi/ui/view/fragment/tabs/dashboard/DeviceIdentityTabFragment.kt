@@ -1,4 +1,4 @@
-package com.kidmobi.ui.view.fragment
+package com.kidmobi.ui.view.fragment.tabs.dashboard
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -24,7 +24,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DeviceIdentityFragment : Fragment() {
+class DeviceIdentityTabFragment : Fragment() {
     private lateinit var binding: FragmentDeviceIdentityBinding
     private lateinit var imageView: ImageView
     private lateinit var qrCodeWriter: QRCodeWriter

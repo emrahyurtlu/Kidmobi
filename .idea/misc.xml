@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/layout/fragment_device_management.xml" value="0.3854166666666667" />
+        <entry key="app/src/main/res/layout/fragment_device_management_general_tab.xml" value="0.3854166666666667" />
         <entry key="app/src/main/res/layout/item_mydevices_layout.xml" value="0.21822916666666667" />
       </map>
     </option>

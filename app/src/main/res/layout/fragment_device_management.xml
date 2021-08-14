@@ -34,6 +34,22 @@
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/app_name" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_man_tab_general" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_man_tab_web" />
+            </com.google.android.material.tabs.TabLayout>
+
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,47 +59,13 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ekran_parlakligi"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
-
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/screenBrightnessSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/ekran_parlakligi"
-                    android:stepSize="1"
-                    android:value="@{mobileDevice.settings.brightnessLevel}"
-                    android:valueFrom="0"
-                    android:valueTo="255"
-                    app:tickVisible="false" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ses_duzeyini_ayarla"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
-
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/soundVolumeSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/ses_duzeyini_ayarla"
-                    android:stepSize="1"
-                    android:value="@{mobileDevice.settings.soundLevel}"
-                    android:valueFrom="0"
-                    android:valueTo="15"
-                    app:tickVisible="false" />
-
-            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

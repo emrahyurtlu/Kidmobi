@@ -10,33 +10,28 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.slider.Slider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kidmobi.R
-import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
-import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.business.utils.extensions.setMaterialToolbar
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
-import com.kidmobi.ui.viewmodel.DeviceSessionViewModel
+import com.kidmobi.ui.view.adapter.DeviceManagementViewPagerAdapter
+import com.kidmobi.ui.view.fragment.tabs.dashboard.DeviceIdentityTabFragment
+import com.kidmobi.ui.view.fragment.tabs.devicemanagement.DeviceManagementGeneralTabFragment
 import com.kidmobi.ui.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.ui.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
+class DeviceManagementFragment : Fragment() {
     @Inject
     lateinit var device: MobileDevice
     private lateinit var binding: FragmentDeviceManagementBinding
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
-    private val sessionViewModel: DeviceSessionViewModel by viewModels()
     private val args: DeviceManagementFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +57,7 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         super.onViewCreated(view, savedInstanceState)
 
         this.setMaterialToolbar(binding.topAppBar, R.id.action_deviceManagementFragment_to_dashboardFragment)
-
+        setUpTabs()
         setUpAds()
 
         device = args.device
@@ -76,12 +71,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
             optionsItemSelected(it)
         }
 
-        loadData()
-        checkSession()
-
-        binding.screenBrightnessSlider.addOnSliderTouchListener(this)
-        binding.soundVolumeSlider.addOnSliderTouchListener(this)
-
         binding.mobileDevice = device
 
     }
@@ -92,29 +81,18 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
         binding.adView.loadAd(adRequest)
     }
 
-    override fun onResume() {
-        super.onResume()
-        Timber.d("OnResume is triggered!")
-    }
+    private fun setUpTabs() {
+        val adapter = DeviceManagementViewPagerAdapter(parentFragmentManager, lifecycle)
 
-    override fun onPause() {
-        super.onPause()
-        Timber.d("OnPause is triggered!")
-        //checkSession()
-    }
+        adapter.addFragment(DeviceManagementGeneralTabFragment(device), getString(R.string.device_man_tab_general))
+        adapter.addFragment(DeviceIdentityTabFragment(), getString(R.string.device_man_tab_web))
 
+        binding.viewPager2.adapter = adapter
 
-    private fun checkSession() {
-        sessionViewModel.getSession(device.deviceId)
-        sessionViewModel.currentSession.observe(viewLifecycleOwner, { session ->
-            Timber.d("Session: $session")
-            Timber.d("Session isNull: ${session.isNull()}")
-            Timber.d("Session isInvalid: ${session.isInvalid()}")
+        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+            tab.text = adapter.getTitle(position)
+        }.attach()
 
-            if (session.isNull() || session.isInvalid()) {
-                findNavController().navigate(DeviceManagementFragmentDirections.actionDeviceManagementFragmentToDeviceSessionFragment(device))
-            }
-        })
     }
 
     private fun optionsItemSelected(item: MenuItem): Boolean {
@@ -122,48 +100,6 @@ class DeviceManagementFragment : Fragment(), Slider.OnSliderTouchListener {
             R.id.miDeleteMobileDevice -> deleteMobileDevice()
         }
         return true
-    }
-
-    private fun loadData() {
-        settingsViewModel.getCurrentMobileDevice(device.deviceId)
-        settingsViewModel.currentDevice
-            .observe(viewLifecycleOwner, { currentDevice ->
-                binding.mobileDevice = currentDevice
-                device = currentDevice
-                Timber.d("$device")
-
-                device.let {
-                    binding.topAppBar.title = it.deviceOwnerName
-                    binding.screenBrightnessSlider.value = it.settings.brightnessLevel
-                    binding.soundVolumeSlider.value = it.settings.soundLevel
-                }
-            })
-    }
-
-    private suspend fun saveDeviceScreenBrightness(value: Float) {
-        device.settings.brightnessLevel = value
-        device = withContext(Dispatchers.Default) {
-            settingsViewModel.saveDeviceScreenBrightness(device)
-        }
-        // settingsUtil.changeScreenBrightness(value)
-    }
-
-    override fun onStartTrackingTouch(slider: Slider) {
-
-    }
-
-    override fun onStopTrackingTouch(slider: Slider) {
-        when (slider.id) {
-            R.id.screenBrightnessSlider -> GlobalScope.launch { saveDeviceScreenBrightness(slider.value) }
-            R.id.soundVolumeSlider -> GlobalScope.launch { saveDeviceSoundVolume(slider.value) }
-        }
-    }
-
-    private suspend fun saveDeviceSoundVolume(value: Float) {
-        device.settings.soundLevel = value
-        device = withContext(Dispatchers.Default) {
-            settingsViewModel.saveDeviceSoundVolume(device)
-        }
     }
 
     private fun deleteMobileDevice() {

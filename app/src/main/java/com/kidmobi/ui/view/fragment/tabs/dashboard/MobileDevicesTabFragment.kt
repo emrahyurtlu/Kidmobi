@@ -1,4 +1,4 @@
-package com.kidmobi.ui.view.fragment
+package com.kidmobi.ui.view.fragment.tabs.dashboard
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -15,13 +15,14 @@ import com.kidmobi.R
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentMobileDevicesBinding
 import com.kidmobi.ui.view.adapter.MobileDeviceRecyclerAdapter
+import com.kidmobi.ui.view.fragment.DashboardFragmentDirections
 import com.kidmobi.ui.viewmodel.ManagedDevicesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 
 @AndroidEntryPoint
-class MobileDevicesFragment : Fragment(),
+class MobileDevicesTabFragment : Fragment(),
     MobileDeviceRecyclerAdapter.OnMyDeviceItemClickListener {
     private var devices: MutableList<MobileDevice> = mutableListOf()
     private lateinit var binding: FragmentMobileDevicesBinding

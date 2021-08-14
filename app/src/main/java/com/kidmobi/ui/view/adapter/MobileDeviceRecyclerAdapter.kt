@@ -9,13 +9,13 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.kidmobi.R
 import com.kidmobi.data.model.MobileDevice
-import com.kidmobi.ui.view.fragment.MobileDevicesFragment
+import com.kidmobi.ui.view.fragment.tabs.dashboard.MobileDevicesTabFragment
 import com.squareup.picasso.Picasso
 import java.util.*
 
 class MobileDeviceRecyclerAdapter(
     private var devices: MutableList<MobileDevice>,
-    private val listener: MobileDevicesFragment
+    private val listener: MobileDevicesTabFragment
 ) :
     RecyclerView.Adapter<MobileDeviceRecyclerAdapter.MobileDeviceViewHolder>() {
     interface OnMyDeviceItemClickListener {
