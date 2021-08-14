@@ -16,8 +16,8 @@ import com.kidmobi.business.utils.extensions.setMaterialToolbar
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.ui.view.adapter.DeviceManagementViewPagerAdapter
-import com.kidmobi.ui.view.fragment.tabs.dashboard.DeviceIdentityTabFragment
 import com.kidmobi.ui.view.fragment.tabs.devicemanagement.DeviceManagementGeneralTabFragment
+import com.kidmobi.ui.view.fragment.tabs.devicemanagement.DeviceManagementWebTabFragment
 import com.kidmobi.ui.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.ui.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,21 +57,24 @@ class DeviceManagementFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         this.setMaterialToolbar(binding.topAppBar, R.id.action_deviceManagementFragment_to_dashboardFragment)
-        setUpTabs()
-        setUpAds()
 
         device = args.device
 
         binding.managedDevicesViewModel = managedDevicesViewModel
         binding.settingsViewModel = settingsViewModel
 
-        binding.topAppBar.inflateMenu(R.menu.settings_top_app_bar)
-
-        binding.topAppBar.setOnMenuItemClickListener {
-            optionsItemSelected(it)
+        binding.topAppBar.let {
+            it.inflateMenu(R.menu.settings_top_app_bar)
+            it.setOnMenuItemClickListener { mi ->
+                optionsItemSelected(mi)
+            }
+            it.title = device.deviceOwnerName
         }
 
         binding.mobileDevice = device
+
+        setUpTabs()
+        setUpAds()
 
     }
 
@@ -85,7 +88,7 @@ class DeviceManagementFragment : Fragment() {
         val adapter = DeviceManagementViewPagerAdapter(parentFragmentManager, lifecycle)
 
         adapter.addFragment(DeviceManagementGeneralTabFragment(device), getString(R.string.device_man_tab_general))
-        adapter.addFragment(DeviceIdentityTabFragment(), getString(R.string.device_man_tab_web))
+        adapter.addFragment(DeviceManagementWebTabFragment(), getString(R.string.device_man_tab_web))
 
         binding.viewPager2.adapter = adapter
 

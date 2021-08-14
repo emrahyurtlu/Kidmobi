@@ -8,17 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.slider.Slider
 import com.kidmobi.R
 import com.kidmobi.business.utils.extensions.modelExtensions.isInvalid
 import com.kidmobi.business.utils.extensions.modelExtensions.isNull
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceManagementGeneralTabBinding
-import com.kidmobi.ui.view.fragment.DeviceManagementFragmentArgs
 import com.kidmobi.ui.view.fragment.DeviceManagementFragmentDirections
 import com.kidmobi.ui.viewmodel.DeviceSessionViewModel
-import com.kidmobi.ui.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.ui.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -31,9 +28,7 @@ import timber.log.Timber
 class DeviceManagementGeneralTabFragment(var device: MobileDevice) : Fragment(), Slider.OnSliderTouchListener {
     private lateinit var binding: FragmentDeviceManagementGeneralTabBinding
     private val settingsViewModel: SettingsViewModel by viewModels()
-    private val managedDevicesViewModel: ManagedDevicesViewModel by viewModels()
     private val sessionViewModel: DeviceSessionViewModel by viewModels()
-    private val args: DeviceManagementFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,7 +92,6 @@ class DeviceManagementGeneralTabFragment(var device: MobileDevice) : Fragment(),
         device = withContext(Dispatchers.Default) {
             settingsViewModel.saveDeviceScreenBrightness(device)
         }
-        // settingsUtil.changeScreenBrightness(value)
     }
 
     private suspend fun saveDeviceSoundVolume(value: Float) {
