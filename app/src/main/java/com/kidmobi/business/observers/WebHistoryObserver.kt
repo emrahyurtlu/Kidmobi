@@ -1,13 +1,13 @@
 package com.kidmobi.business.observers
 
-import android.content.Context
+import android.content.ContentResolver
 import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 
-class WebHistoryObserver(val context: Context?) : ContentObserver(Handler(Looper.getMainLooper())) {
+class WebHistoryObserver(val resolver: ContentResolver) : ContentObserver(Handler(Looper.getMainLooper())) {
 
     override fun onChange(selfChange: Boolean) {
         super.onChange(selfChange)
@@ -15,7 +15,7 @@ class WebHistoryObserver(val context: Context?) : ContentObserver(Handler(Looper
         val cr: Cursor
         var sb: StringBuilder
 
-        val BOOKMARKS_URI: Uri = Uri.parse("content://com.android.chrome.browser/history")
+        val BOOKMARKS_URI: Uri = Uri.parse("content://com.android.chrome.browser/bookmarks")
         val projection = arrayOf(
             "_id",  // 0
             "url",  // 1
@@ -29,9 +29,10 @@ class WebHistoryObserver(val context: Context?) : ContentObserver(Handler(Looper
             "user_entered"
         )
 
-        cr = context?.contentResolver?.query(BOOKMARKS_URI, projection, null, null, null)!!
-
+        cr = resolver.query(BOOKMARKS_URI, projection, null, null, null)!!
         cr.moveToFirst()
+        println("WebHistoryObserver is started!!!!!!!!!!!!!!!")
+        println(cr)
         var title = ""
         var date = ""
         var visits = ""
