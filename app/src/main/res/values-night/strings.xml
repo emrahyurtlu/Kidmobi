@@ -53,4 +53,5 @@
     <string name="device_owner_placeholder">Zehra\'nın cep telefonu</string>
     <string name="click_to_go_details">Click to go details</string>
     <string name="device_man_tab_general">Genel</string>
+    <string name="device_man_tab_apps">UYGULAMALAR</string>
 </resources>

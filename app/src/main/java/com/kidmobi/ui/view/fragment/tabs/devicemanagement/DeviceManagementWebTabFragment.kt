@@ -1,5 +1,6 @@
 package com.kidmobi.ui.view.fragment.tabs.devicemanagement
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.provider.UserDictionary
 import android.view.LayoutInflater
@@ -26,11 +27,6 @@ class DeviceManagementWebTabFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management_web_tab, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.btnBrowserRec.setOnClickListener { getList2() }
     }
 
     private fun getBrowserHistory() {
@@ -67,6 +63,26 @@ class DeviceManagementWebTabFragment : Fragment() {
         println("getList2() is started!")
 
         CoroutineScope(Dispatchers.Default + Job()).launch {
+            val cv = ContentValues()
+            cv.put(UserDictionary.Words.APP_ID, "com.kidmobi")
+            cv.put(UserDictionary.Words.WORD, "istikbal halı")
+            cv.put(UserDictionary.Words.LOCALE, "tr")
+            cv.put(UserDictionary.Words.FREQUENCY, "1000")
+
+
+            cv.put(UserDictionary.Words.APP_ID, "com.kidmobi")
+            cv.put(UserDictionary.Words.WORD, "shaggy halı")
+            cv.put(UserDictionary.Words.LOCALE, "tr")
+            cv.put(UserDictionary.Words.FREQUENCY, "1000")
+
+            cv.put(UserDictionary.Words.APP_ID, "com.kidmobi")
+            cv.put(UserDictionary.Words.WORD, "tuğra halı")
+            cv.put(UserDictionary.Words.LOCALE, "tr")
+            cv.put(UserDictionary.Words.FREQUENCY, "1000")
+
+            requireContext().contentResolver.insert(UserDictionary.Words.CONTENT_URI, cv)
+
+
             val cursor = requireContext().contentResolver.query(
                 UserDictionary.Words.CONTENT_URI, null, null, null, null
             )!!
@@ -79,29 +95,12 @@ class DeviceManagementWebTabFragment : Fragment() {
                     println("Cursor is trying to get word!")
                     println(word)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             } finally {
                 println("Cursor is null or process finished")
                 cursor.close()
             }
         }
-
-        /*
-        val projection: Array<String> = arrayOf(
-            UserDictionary.Words.WORD,      // Contract class constant containing the word column name
-            UserDictionary.Words.LOCALE     // Contract class constant containing the locale column name
-        )
-
-        val data = StringBuffer()
-
-        if (cursor != null && (cursor.moveToNext() && cursor.count > 0)) {
-            println("Cursor is not null")
-            val v1 = cursor.getString(0)
-            val v2 = cursor.getString(1)
-            data.append(v1 + "," + v2)
-            data.append("\n")
-            println(data)
-            cursor.close()
-        }
-        println("Cursor is null")*/
     }
 }
