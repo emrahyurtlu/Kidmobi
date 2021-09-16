@@ -25,7 +25,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 @AndroidEntryPoint
-class DeviceManagementGeneralTabFragment(var device: MobileDevice) : Fragment(), Slider.OnSliderTouchListener {
+class GeneralTabFragment(var device: MobileDevice) : Fragment(), Slider.OnSliderTouchListener {
     private lateinit var binding: FragmentDeviceManagementGeneralTabBinding
     private val settingsViewModel: SettingsViewModel by viewModels()
     private val sessionViewModel: DeviceSessionViewModel by viewModels()

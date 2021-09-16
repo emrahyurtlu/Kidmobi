@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class DeviceManagementWebTabFragment : Fragment() {
+class WebTabFragment : Fragment() {
     private lateinit var binding: FragmentDeviceManagementWebTabBinding
 
     override fun onCreateView(

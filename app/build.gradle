@@ -140,7 +140,7 @@ dependencies {
     implementation "com.google.firebase:firebase-crashlytics:$crashlytics_version"
     implementation "com.google.firebase:firebase-crashlytics-ktx:$crashlytics_version"
     implementation "com.google.firebase:firebase-analytics:$analytics_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk15:$kotlin_version"
 
 
     //Timber Logs

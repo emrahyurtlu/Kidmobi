@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.kidmobi.R
+import com.kidmobi.data.model.InstalledApp
 import com.kidmobi.databinding.FragmentInstalledAppBinding
+import com.kidmobi.ui.view.adapter.InstalledAppRecyclerAdapter
 
 
-class InstalledAppFragment : Fragment() {
+class InstalledAppFragment : Fragment(), InstalledAppRecyclerAdapter.OnListItemClickListener {
     private lateinit var binding: FragmentInstalledAppBinding
 
     override fun onCreateView(
@@ -41,5 +43,10 @@ class InstalledAppFragment : Fragment() {
         }
 
         return result
+    }
+
+    override fun onItemClick(app: InstalledApp) {
+        println(app)
+        println("Item is clicked now!!!")
     }
 }

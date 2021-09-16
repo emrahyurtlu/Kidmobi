@@ -16,7 +16,7 @@ import com.kidmobi.business.utils.extensions.setMaterialToolbar
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceManagementBinding
 import com.kidmobi.ui.view.adapter.DeviceManagementViewPagerAdapter
-import com.kidmobi.ui.view.fragment.tabs.devicemanagement.DeviceManagementGeneralTabFragment
+import com.kidmobi.ui.view.fragment.tabs.devicemanagement.GeneralTabFragment
 import com.kidmobi.ui.view.fragment.tabs.devicemanagement.InstalledAppFragment
 import com.kidmobi.ui.viewmodel.ManagedDevicesViewModel
 import com.kidmobi.ui.viewmodel.SettingsViewModel
@@ -87,7 +87,7 @@ class DeviceManagementFragment : Fragment() {
     private fun setUpTabs() {
         val adapter = DeviceManagementViewPagerAdapter(parentFragmentManager, lifecycle)
 
-        adapter.addFragment(DeviceManagementGeneralTabFragment(device), getString(R.string.device_man_tab_general))
+        adapter.addFragment(GeneralTabFragment(device), getString(R.string.device_man_tab_general))
         adapter.addFragment(InstalledAppFragment(), getString(R.string.device_man_tab_apps))
 
         binding.viewPager2.adapter = adapter
