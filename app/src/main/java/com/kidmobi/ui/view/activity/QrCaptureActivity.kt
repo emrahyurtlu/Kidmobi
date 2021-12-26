@@ -1,4 +1,4 @@
-package com.kidmobi.ui.view
+package com.kidmobi.ui.view.activity
 
 import com.journeyapps.barcodescanner.CaptureActivity
 

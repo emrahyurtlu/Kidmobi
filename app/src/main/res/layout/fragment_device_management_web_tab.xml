@@ -15,14 +15,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Merhaba, bu alanda web geçmişi görüntülenecektir." />
+            android:text="Merhaba, yüklü uygulamalarınız bu ekran görüntülenecektir." />
 
         <Button
-            android:id="@+id/btn_browser_rec"
+            android:id="@+id/btn_app_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Get Browser Records" />
+            android:text="Get Apps On Current Device" />
 
     </LinearLayout>
 </layout>

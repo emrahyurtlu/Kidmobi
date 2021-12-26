@@ -1,4 +1,4 @@
-package com.kidmobi.ui.view
+package com.kidmobi.ui.view.activity
 
 import android.content.Intent
 import android.content.IntentFilter
