@@ -45,5 +45,8 @@
     <string name="device_brand">iPhone 11</string>
     <string name="device_owner_placeholder">Alice\'s phone</string>
     <string name="click_to_go_details">Click to go details</string>
-    <string name="device_man_tab_general">Genel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="device_man_tab_general">GENERAL</string>
+    <string name="device_man_tab_web">Web</string>
+    <string name="device_man_tab_apps">APPS</string>
 </resources>

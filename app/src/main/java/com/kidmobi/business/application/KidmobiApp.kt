@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.BuildConfig
 import com.google.firebase.firestore.FirebaseFirestore
+import com.kidmobi.business.services.RemoteService
 import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.enums.UserType

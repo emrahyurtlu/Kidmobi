@@ -1,7 +1,6 @@
 package com.kidmobi.business.utils.constants
 
 object AdMobConstants {
-    // TODO() ADD ADMOB FRAGMENT IDS as contants
     const val ADMOB_TEST_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"
     const val ADMOB_TEST_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
 

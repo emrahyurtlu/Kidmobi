@@ -137,7 +137,6 @@ class DashboardFragment : Fragment() {
                         findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(device))
                     else
                         findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToAddMobileDeviceFragment(MobileDevice(deviceId)))
-
                 })
 
 

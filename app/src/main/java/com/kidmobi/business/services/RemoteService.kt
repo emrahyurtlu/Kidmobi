@@ -28,6 +28,7 @@ import com.kidmobi.business.utils.extensions.toMobileDevice
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.ui.view.MainActivity
 import timber.log.Timber
+import javax.inject.Inject
 
 
 class RemoteService : LifecycleService() {

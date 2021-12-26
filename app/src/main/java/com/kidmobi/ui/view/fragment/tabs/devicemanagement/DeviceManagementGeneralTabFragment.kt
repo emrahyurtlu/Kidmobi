@@ -1,5 +1,6 @@
 package com.kidmobi.ui.view.fragment.tabs.devicemanagement
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,10 +77,12 @@ class DeviceManagementGeneralTabFragment(var device: MobileDevice) : Fragment(),
             })
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onStartTrackingTouch(slider: Slider) {
 
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onStopTrackingTouch(slider: Slider) {
         when (slider.id) {
             R.id.screenBrightnessSlider -> GlobalScope.launch { saveDeviceScreenBrightness(slider.value) }
