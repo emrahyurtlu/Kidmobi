@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kidmobi.R
-import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import com.kidmobi.data.model.DeviceSession
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceSessionBinding

@@ -16,11 +16,11 @@ import androidx.lifecycle.LifecycleService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kidmobi.R
 import com.kidmobi.business.observers.SoundContentObserver
-import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_ID
-import com.kidmobi.business.utils.Constants.NOTIFICATION_CHANNEL_NAME
-import com.kidmobi.business.utils.Constants.NOTIFICATION_ID
-import com.kidmobi.business.utils.SettingsUtil
-import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.constants.NotificationConstants.NOTIFICATION_CHANNEL_ID
+import com.kidmobi.business.utils.constants.NotificationConstants.NOTIFICATION_CHANNEL_NAME
+import com.kidmobi.business.utils.constants.NotificationConstants.NOTIFICATION_ID
+import com.kidmobi.business.utils.misc.SettingsUtil
+import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.extensions.modelExtensions.isNotNull
 import com.kidmobi.business.utils.extensions.modelExtensions.isValid
@@ -28,7 +28,6 @@ import com.kidmobi.business.utils.extensions.toMobileDevice
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.ui.view.MainActivity
 import timber.log.Timber
-import java.util.*
 
 
 class RemoteService : LifecycleService() {

@@ -16,7 +16,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import com.kidmobi.R
-import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import com.kidmobi.business.utils.extensions.checkSystemSettingsAdjustable
 import com.kidmobi.business.utils.extensions.setMaterialToolbar
 import com.kidmobi.databinding.FragmentShowDeviceIdBinding
@@ -51,8 +51,6 @@ class ShowDeviceIdFragment : Fragment() {
         this.checkSystemSettingsAdjustable()
         this.setMaterialToolbar(binding.topAppBar, R.id.action_showDeviceIdFragment_to_loginFragment)
 
-        setUpAds()
-
         qrCodeWriter = QRCodeWriter()
         imageView = binding.qrCodeImage
 
@@ -70,11 +68,11 @@ class ShowDeviceIdFragment : Fragment() {
         }
     }
 
-    private fun setUpAds() {
+    /*private fun setUpAds() {
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
-    }
+    }*/
 
     private fun saveDevice(uniqueDeviceId: String) {
         Timber.d("Started to save device")

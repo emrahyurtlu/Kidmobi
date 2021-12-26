@@ -1,8 +1,8 @@
 package com.kidmobi.business.di
 
 import android.content.Context
-import com.kidmobi.business.utils.SettingsUtil
-import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.misc.SettingsUtil
+import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

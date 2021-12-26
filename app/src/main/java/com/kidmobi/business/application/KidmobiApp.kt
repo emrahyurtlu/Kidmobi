@@ -4,12 +4,13 @@ import android.app.Application
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.BuildConfig
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kidmobi.business.utils.SharedPrefsUtil
+import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import com.kidmobi.business.utils.enums.DbCollection
 import com.kidmobi.business.utils.enums.UserType
 import com.kidmobi.business.utils.extensions.modelExtensions.thisDevice
 import com.kidmobi.business.utils.logs.DebugTree
 import com.kidmobi.business.utils.logs.ReleaseTree
+import com.kidmobi.business.utils.misc.InstalledAppsUtil
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.data.model.MobileDeviceInfo
 import com.kidmobi.data.model.MobileDeviceSettings
@@ -28,6 +29,8 @@ class KidmobiApp : Application() {
     @Inject
     lateinit var sharedPrefsUtil: SharedPrefsUtil
 
+    @Inject
+    lateinit var installedAppsUtil: InstalledAppsUtil
 
     override fun onCreate() {
         super.onCreate()

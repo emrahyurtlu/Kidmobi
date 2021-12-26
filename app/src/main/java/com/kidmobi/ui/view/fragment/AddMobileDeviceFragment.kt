@@ -40,8 +40,6 @@ class AddMobileDeviceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpAds()
-
         this.redirectIfNull(args.device, R.id.action_addMobileDeviceFragment_to_dashboardFragment)
 
         mobileDevice = args.device
@@ -54,11 +52,11 @@ class AddMobileDeviceFragment : Fragment() {
         binding.btnAddDevice.setOnClickListener(saveDeviceDetails)
     }
 
-    private fun setUpAds() {
+    /*private fun setUpAds() {
         MobileAds.initialize(requireContext())
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
-    }
+    }*/
 
     private val saveDeviceDetails: (v: View) -> Unit = {
         if (binding.deviceOwner.text.isNullOrEmpty()) {

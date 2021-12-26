@@ -1,4 +1,4 @@
-package com.kidmobi.business.utils
+package com.kidmobi.business.utils.misc
 
 import android.content.Context
 import android.content.Intent

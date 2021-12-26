@@ -37,8 +37,8 @@ android {
         applicationId "com.kidmobi"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 110
-        versionName "1.1.0"
+        versionCode 111
+        versionName "1.1.1"
         testInstrumentationRunner "com.kidmobi.HiltTestRunner"
         signingConfig signingConfigs.release
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "(" + versionName + ")")
@@ -47,7 +47,6 @@ android {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
-        //kapt.use.worker.api=false
     }
 
     buildTypes {
