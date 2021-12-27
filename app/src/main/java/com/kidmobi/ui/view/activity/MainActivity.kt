@@ -9,9 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.work.*
 import com.kidmobi.R
-import com.kidmobi.business.receivers.BatteryChangedReceiver
-import com.kidmobi.business.receivers.RemoteSettingsServiceReceiver
-import com.kidmobi.business.receivers.VolumeChangedReceiver
+import com.kidmobi.business.receivers.*
 import com.kidmobi.business.services.RemoteService
 import com.kidmobi.business.workers.RemoteSettingsWorker
 import com.kidmobi.databinding.ActivityMainBinding
@@ -26,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        registerAppRemovedReceiver()
+        registerNewAppInstalledReceiver()
         registerRemoteSettingsReceiver()
         registerVolumeChangedReceiver()
         registerBatteryChangedReceiver()
@@ -33,6 +33,22 @@ class MainActivity : AppCompatActivity() {
         startSettingWorker()
         startRemoteService()
 
+    }
+
+    private fun registerAppRemovedReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED)
+        intentFilter.also {
+            registerReceiver(AppRemovedReceiver(), it)
+        }
+    }
+
+    private fun registerNewAppInstalledReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Intent.ACTION_INSTALL_PACKAGE)
+        intentFilter.also {
+            registerReceiver(NewAppInstalledReceiver(), it)
+        }
     }
 
     private fun registerBatteryChangedReceiver() {

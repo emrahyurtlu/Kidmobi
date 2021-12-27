@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.kidmobi.business.utils.enums.UserType
 import com.kidmobi.business.utils.extensions.modelExtensions.thisDevice
+import com.kidmobi.business.utils.misc.InstalledAppsUtil
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.data.model.MobileDeviceInfo
 import com.kidmobi.data.model.MobileDeviceSettings
@@ -30,6 +31,9 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
 
+    @Inject
+    lateinit var installedAppsUtil: InstalledAppsUtil
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -45,6 +49,7 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
                     deviceId = uniqueDeviceId
                     info = MobileDeviceInfo().thisDevice()
                     settings = MobileDeviceSettings()
+                    apps = installedAppsUtil.getList()
                     createdAt = now.time
                     updatedAt = now.time
                     deviceOwnerName = user.displayName.toString()

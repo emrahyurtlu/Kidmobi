@@ -58,6 +58,7 @@ class KidmobiApp : Application() {
                     deviceId = uniqueDeviceId
                     info = MobileDeviceInfo().thisDevice()
                     settings = MobileDeviceSettings()
+                    apps = installedAppsUtil.getList()
                     createdAt = now.time
                     updatedAt = now.time
                     deviceOwnerName = user.displayName.toString()

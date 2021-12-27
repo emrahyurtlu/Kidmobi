@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <uses-feature
@@ -24,6 +26,7 @@
     <application
         android:name=".business.application.KidmobiApp"
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup"
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
@@ -31,8 +34,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Kidmobi"
-        android:dataExtractionRules="@xml/data_extraction_rules">
+        android:theme="@style/Theme.Kidmobi">
         <!--<provider
             android:name=".business.providers.WebHistoryProvider"
             android:authorities="com.kidmobi.provider"
