@@ -1,5 +1,6 @@
 package com.kidmobi.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.kidmobi.data.model.MobileDeviceInfo
 import com.kidmobi.data.model.MobileDeviceSettings
 import com.kidmobi.data.repositories.MobileDeviceRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,7 +23,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobileDeviceRepo: MobileDeviceRepo) : ViewModel() {
+class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobileDeviceRepo: MobileDeviceRepo, @ApplicationContext var context: Context) : ViewModel() {
 
     private var _device = MutableLiveData<MobileDevice>()
 
@@ -49,7 +51,7 @@ class MobileDeviceViewModel @Inject constructor(var auth: FirebaseAuth, var mobi
                     deviceId = uniqueDeviceId
                     info = MobileDeviceInfo().thisDevice()
                     settings = MobileDeviceSettings()
-                    apps = installedAppsUtil.getList()
+                    apps = installedAppsUtil.getList(context)
                     createdAt = now.time
                     updatedAt = now.time
                     deviceOwnerName = user.displayName.toString()

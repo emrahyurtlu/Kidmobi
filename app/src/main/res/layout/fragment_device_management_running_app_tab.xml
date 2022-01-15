@@ -22,7 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Get Apps On Current Device" />
+            android:text="Get Running Apps On Current Device" />
+
+        <TextView
+            android:id="@+id/tv_list_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Liste adedi." />
 
     </LinearLayout>
 </layout>

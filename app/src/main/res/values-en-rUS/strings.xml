@@ -48,5 +48,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="device_man_tab_general">GENERAL</string>
     <string name="device_man_tab_web">Web</string>
-    <string name="device_man_tab_apps">APPS</string>
+    <string name="device_man_tab_running_apps">RUNNING APPS</string>
+    <string name="device_man_tab_apps">INSTALLED APPS</string>
 </resources>

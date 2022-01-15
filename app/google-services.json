@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "874126678362-2361thtodkf0ocu6nmlo32e0m3jb7j7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kidmobi",
+            "certificate_hash": "ed1090b204cd5c0ddfb84803535bca205ba89e44"
+          }
+        },
+        {
           "client_id": "874126678362-8h8fms8fofhel9sphm4n0antl6sn12qk.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -40,7 +48,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-9250940245734350~2478868616"
     }
   ],
   "configuration_version": "1"

@@ -14,6 +14,7 @@ data class MobileDevice constructor(
     var deviceOwnerEmail: String = "",
     var info: MobileDeviceInfo = MobileDeviceInfo().blank(),
     var apps: MutableList<InstalledApp> = mutableListOf(),
+    var runningApps: MutableList<InstalledApp> = mutableListOf(),
     var settings: MobileDeviceSettings = MobileDeviceSettings(),
     var session: DeviceSession = DeviceSession(),
     var createdAt: Date? = null,

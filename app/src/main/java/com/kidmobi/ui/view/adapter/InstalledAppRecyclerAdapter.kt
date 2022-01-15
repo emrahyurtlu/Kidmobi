@@ -8,11 +8,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.kidmobi.R
 import com.kidmobi.data.model.InstalledApp
-import com.kidmobi.ui.view.fragment.tabs.devicemanagement.InstalledAppFragment
 
 class InstalledAppRecyclerAdapter(
     private var apps: MutableList<InstalledApp>,
-    private val listener: InstalledAppFragment
+    //private val listener: InstalledAppFragment
 ) :
     RecyclerView.Adapter<InstalledAppRecyclerAdapter.ViewHolder>() {
 
@@ -52,7 +51,7 @@ class InstalledAppRecyclerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val app: InstalledApp = apps[position]
-        holder.bind(app, listener)
+        //holder.bind(app, listener)
     }
 
     override fun getItemCount() = apps.size

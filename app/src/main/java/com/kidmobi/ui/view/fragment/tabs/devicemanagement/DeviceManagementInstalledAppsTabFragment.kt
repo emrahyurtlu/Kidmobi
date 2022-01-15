@@ -8,14 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.kidmobi.R
 import com.kidmobi.business.utils.misc.InstalledAppsUtil
-import com.kidmobi.databinding.FragmentDeviceManagementWebTabBinding
+import com.kidmobi.databinding.FragmentDeviceManagementInstalledAppTabBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class DeviceManagementInstalledAppsTabFragment : Fragment() {
-    private lateinit var binding: FragmentDeviceManagementWebTabBinding
+    private lateinit var binding: FragmentDeviceManagementInstalledAppTabBinding
 
     @Inject
     lateinit var appUtil: InstalledAppsUtil
@@ -24,7 +25,7 @@ class DeviceManagementInstalledAppsTabFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management_web_tab, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_device_management_installed_app_tab, container, false)
         return binding.root
     }
 
@@ -34,7 +35,15 @@ class DeviceManagementInstalledAppsTabFragment : Fragment() {
     }
 
     private fun listInstalledApps() {
-        val list = appUtil.getList()
+        val list = appUtil.getList(requireContext())
+        println("****************************************")
+        println("****************************************")
+        println("****************************************")
+        Timber.d(list.count().toString())
+        Timber.d(list.toString())
         println(list)
+        println("****************************************")
+        println("****************************************")
+        println("****************************************")
     }
 }

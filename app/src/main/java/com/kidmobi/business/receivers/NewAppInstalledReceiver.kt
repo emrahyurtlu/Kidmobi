@@ -30,7 +30,7 @@ class NewAppInstalledReceiver : BroadcastReceiver() {
 
                 // Get App List
                 val appListUtil = InstalledAppsUtil(ctx.applicationContext)
-                val list = appListUtil.getList()
+                val list = appListUtil.getList(ctx.applicationContext)
 
                 // Get Mobile Device and Set Device List
                 val db: FirebaseFirestore = FirebaseFirestore.getInstance()

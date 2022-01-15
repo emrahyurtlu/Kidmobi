@@ -62,6 +62,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="device_man_tab_general">Genel</string>
     <string name="device_man_tab_web">Web</string>
-    <string name="device_man_tab_apps">UYGULAMALAR</string>
+    <string name="device_man_tab_running_apps">ÇALIŞAN UYGULAMALAR</string>
+    <string name="device_man_tab_apps">YÜKLÜ UYGULAMALAR</string>
 
 </resources>

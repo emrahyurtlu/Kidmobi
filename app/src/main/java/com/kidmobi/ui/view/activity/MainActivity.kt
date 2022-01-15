@@ -11,7 +11,9 @@ import androidx.work.*
 import com.kidmobi.R
 import com.kidmobi.business.receivers.*
 import com.kidmobi.business.services.RemoteService
+import com.kidmobi.business.services.RunningProcessesService
 import com.kidmobi.business.workers.RemoteSettingsWorker
+import com.kidmobi.business.workers.RunningProcessesWorker
 import com.kidmobi.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -32,6 +34,9 @@ class MainActivity : AppCompatActivity() {
 
         startSettingWorker()
         startRemoteService()
+
+        startRunningProcessesWorker()
+        startRunningProcessesService()
 
     }
 
@@ -94,6 +99,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun startRemoteService() =
         Intent(this, RemoteService::class.java).also {
+            ContextCompat.startForegroundService(this, it)
+        }
+
+
+    private fun startRunningProcessesWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val settingsRequest =
+            PeriodicWorkRequestBuilder<RunningProcessesWorker>(1, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
+                .build()
+
+        WorkManager.getInstance(this).enqueue(settingsRequest)
+    }
+
+    private fun startRunningProcessesService() =
+        Intent(this, RunningProcessesService::class.java).also {
             ContextCompat.startForegroundService(this, it)
         }
 }

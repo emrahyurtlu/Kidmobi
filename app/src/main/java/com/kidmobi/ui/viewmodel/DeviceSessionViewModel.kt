@@ -41,9 +41,3 @@ class DeviceSessionViewModel @Inject constructor(private var deviceSessionRepo: 
         }
     }
 }
-
-
-
-        // M -> Model -> Veritabanındaki entitymiz
-        // V -> Activiyt, Fragment -> Verinin sunulduğu katmanı oluşturuyor
-        // VM -> Ekran ile veritabanı arasındaki iletişimi sağlıyor.

@@ -13,24 +13,7 @@ import javax.inject.Inject
 class InstalledAppsUtil @Inject constructor(
     @ApplicationContext private var context: Context
 ) {
-    fun getList(): MutableList<InstalledApp> {
-        /*getInstalledApps()
-        val list: MutableList<InstalledApp> = mutableListOf()
-        val packageManager = context.packageManager
-        val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
-        for (p in packages) {
-            if (p.applicationInfo.flags != ApplicationInfo.FLAG_SYSTEM && p.applicationInfo.enabled) {
-                val appName = p.applicationInfo.loadLabel(packageManager).toString()
-                val packageName = p.applicationInfo.packageName
-                val app = InstalledApp(appName, packageName)
-                list.add(app)
-            }
-        }
-
-        println(list)
-
-        return list*/
-
+    /*fun getList(): MutableList<InstalledApp> {
         Timber.d("List installed app!")
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -41,10 +24,46 @@ class InstalledAppsUtil @Inject constructor(
         for (p in pkgAppsList) {
             val appName = p.loadLabel(context.packageManager).toString()
             val packageName = p.resolvePackageName
-            val app = InstalledApp(appName, packageName)
-            list.add(app)
+            packageName?.let {
+                val app = InstalledApp(appName, it)
+                list.add(app)
+            }
         }
-
         return list
+    }*/
+
+    fun getList(context: Context): MutableList<InstalledApp> {
+        val list: MutableList<InstalledApp> = mutableListOf()
+        val pm = context.packageManager
+        val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
+        for (packageInfo in packages) {
+            //system apps! get out
+            if (!isSTOPPED(packageInfo) && !isSYSTEM(packageInfo)) {
+                val packageName = packageInfo.packageName
+                val appName = getApplicationLabel(context, packageName).toString()
+                val app = InstalledApp(appName, packageName)
+                list.add(app)
+            }
+        }
+        return list
+    }
+
+    private fun isSTOPPED(pkgInfo: ApplicationInfo): Boolean {
+        return pkgInfo.flags and ApplicationInfo.FLAG_STOPPED != 0
+    }
+
+    private fun isSYSTEM(pkgInfo: ApplicationInfo): Boolean {
+        return pkgInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
+    }
+
+    private fun getApplicationLabel(context: Context, packageName: String): String? {
+        val packageManager = context.packageManager
+        val packages = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        var label: String? = null
+        for (i in packages.indices) {
+            val temp = packages[i]
+            if (temp.packageName == packageName) label = packageManager.getApplicationLabel(temp).toString()
+        }
+        return label
     }
 }
