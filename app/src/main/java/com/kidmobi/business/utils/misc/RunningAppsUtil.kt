@@ -13,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class RunningAppsUtil @Inject constructor(var context: Context) {
+class RunningAppsUtil constructor(var context: Context) {
     fun getList(): MutableList<InstalledApp> {
         val list: MutableList<InstalledApp> = mutableListOf()
 
