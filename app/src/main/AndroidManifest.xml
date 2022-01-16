@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+
 
     <permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
@@ -35,12 +37,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Kidmobi">
-        <!--<provider
-            android:name=".business.providers.WebHistoryProvider"
-            android:authorities="com.kidmobi.provider"
-            android:enabled="true"
-            android:exported="false" />-->
+        android:theme="@style/Theme.Kidmobi"
+        tools:targetApi="s">
+
+        <receiver
+            android:name=".business.receivers.AppRemovedReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".business.receivers.NewAppInstalledReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".business.receivers.BatteryChangedReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".business.receivers.RemoteSettingsServiceReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".business.receivers.VolumeChangedReceiver"
+            android:enabled="true" />
 
         <service
             android:name=".business.services.RemoteService"
@@ -82,8 +96,7 @@
 
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">

@@ -19,10 +19,7 @@ import com.kidmobi.ui.view.fragment.DeviceManagementFragmentDirections
 import com.kidmobi.ui.viewmodel.DeviceSessionViewModel
 import com.kidmobi.ui.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -82,6 +79,7 @@ class DeviceManagementGeneralTabFragment(var device: MobileDevice) : Fragment(),
 
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("RestrictedApi")
     override fun onStopTrackingTouch(slider: Slider) {
         when (slider.id) {

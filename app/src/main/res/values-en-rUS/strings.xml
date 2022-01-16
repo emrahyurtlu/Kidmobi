@@ -52,4 +52,7 @@
     <string name="device_man_tab_apps">INSTALLED APPS</string>
     <string name="running_app_not_found">Running apps not found.</string>
     <string name="installed_apps_not_found">Installed apps not found.</string>
+    <string name="gunluk_limit_belirleyin">Set daily limit</string>
+    <string name="uygulamayi_kaldir">Remove this app</string>
+    <string name="remove_app">Remove</string>
 </resources>

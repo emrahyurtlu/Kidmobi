@@ -10,19 +10,25 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kidmobi.R
 import com.kidmobi.business.utils.misc.InstalledAppsUtil
+import com.kidmobi.data.model.InstalledApp
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceManagementInstalledAppTabBinding
+import com.kidmobi.ui.view.adapter.DeviceManagmentInstalledAppsRecyclerAdapter
+import com.kidmobi.ui.view.adapter.MobileDeviceRecyclerAdapter
+import com.kidmobi.ui.view.fragment.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DeviceManagementInstalledAppsTabFragment(var device: MobileDevice) : Fragment() {
+class DeviceManagementInstalledAppsTabFragment(var device: MobileDevice) : Fragment(), DeviceManagmentInstalledAppsRecyclerAdapter.OnMyDeviceItemClickListener {
     private lateinit var binding: FragmentDeviceManagementInstalledAppTabBinding
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var adapter: DeviceManagmentInstalledAppsRecyclerAdapter
     private var items = mutableListOf<String>()
 
     @Inject
@@ -39,19 +45,18 @@ class DeviceManagementInstalledAppsTabFragment(var device: MobileDevice) : Fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = mutableListOf<String>()
-        device.apps.forEach { item ->
-            items.add(item.appName)
+        adapter = DeviceManagmentInstalledAppsRecyclerAdapter(device.apps, this)
+
+        binding.rvInstalledApp.let {
+            it.layoutManager = LinearLayoutManager(requireContext())
+            it.adapter = adapter
         }
+    }
 
-        if (items.isEmpty())
-            items.add(getString(R.string.installed_apps_not_found))
-
-        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
-        binding.lstInstalledApps.adapter = adapter
-
-        binding.lstInstalledApps.setOnItemClickListener { parent, view, position, id ->
-            println(items.get(position) + " is clicked!!!!!!!")
-        }
+    override fun onItemClick(installedApp: InstalledApp) {
+        println(installedApp)
+        /*findNavController().navigate(
+            DashboardFragmentDirections.actionDashboardFragmentToDeviceManagementFragment(device)
+        )*/
     }
 }

@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_deviceManagementInstalledAppsTabFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_deviceManagementInstalledAppsTabFragment_to_appManagementFragment"
+            app:destination="@id/appManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/deviceManagementRunningAppsTabFragment"
@@ -112,4 +115,13 @@
             android:id="@+id/action_deviceManagementRunningAppsTabFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/appManagementFragment"
+        android:name="com.kidmobi.ui.view.fragment.AppManagementFragment"
+        android:label="AppManagementFragment"
+        tools:layout="@layout/fragment_app_management">
+        <argument
+            android:name="app"
+            app:argType="com.kidmobi.data.model.InstalledApp" />
+    </dialog>
 </navigation>

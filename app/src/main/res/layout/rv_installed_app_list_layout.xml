@@ -40,10 +40,13 @@
                     android:text="Instagram"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="@font/roboto_bold"
+                    />
 
                 <TextView
                     android:id="@+id/packageName"
+                    android:fontFamily="@font/roboto_light"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="com.facebook.instagram"

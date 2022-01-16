@@ -55,4 +55,7 @@
     <string name="device_man_tab_general">Genel</string>
     <string name="running_app_not_found">Çalışan uygulama bulunamadı.</string>
     <string name="installed_apps_not_found">Yüklü uygulama bulunamadı.</string>
+    <string name="gunluk_limit_belirleyin">Günlük limit belirleyin</string>
+    <string name="uygulamayi_kaldir">Uygulamayı kaldır</string>
+    <string name="remove_app">Kaldır</string>
 </resources>
