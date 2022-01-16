@@ -37,6 +37,12 @@
         <action
             android:id="@+id/action_dashboardFragment_to_deviceManagementFragment"
             app:destination="@id/deviceManagementFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_deviceManagementInstalledAppsTabFragment"
+            app:destination="@id/deviceManagementInstalledAppsTabFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_deviceManagementRunningAppsTabFragment"
+            app:destination="@id/deviceManagementRunningAppsTabFragment" />
     </fragment>
     <fragment
         android:id="@+id/addMobileDeviceFragment"
@@ -81,5 +87,29 @@
         <action
             android:id="@+id/action_showDeviceIdFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceManagementInstalledAppsTabFragment"
+        android:name="com.kidmobi.ui.view.fragment.tabs.devicemanagement.DeviceManagementInstalledAppsTabFragment"
+        android:label="DeviceManagementInstalledAppsTabFragment"
+        tools:layout="@layout/fragment_device_management_installed_app_tab">
+        <argument
+            android:name="device"
+            app:argType="com.kidmobi.data.model.MobileDevice" />
+        <action
+            android:id="@+id/action_deviceManagementInstalledAppsTabFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceManagementRunningAppsTabFragment"
+        android:name="com.kidmobi.ui.view.fragment.tabs.devicemanagement.DeviceManagementRunningAppsTabFragment"
+        android:label="DeviceManagementRunningAppsTabFragment"
+        tools:layout="@layout/fragment_device_management_running_app_tab">
+        <argument
+            android:name="device"
+            app:argType="com.kidmobi.data.model.MobileDevice" />
+        <action
+            android:id="@+id/action_deviceManagementRunningAppsTabFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
 </navigation>

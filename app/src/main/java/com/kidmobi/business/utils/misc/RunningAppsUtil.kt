@@ -1,52 +1,32 @@
 package com.kidmobi.business.utils.misc
 
 import android.app.ActivityManager
-import android.app.ActivityManager.RunningAppProcessInfo
-import android.app.ActivityManager.RunningTaskInfo
-import android.content.ComponentName
 import android.content.Context
 import android.content.Context.ACTIVITY_SERVICE
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import com.kidmobi.data.model.InstalledApp
-import timber.log.Timber
-import javax.inject.Inject
 
 
 class RunningAppsUtil constructor(var context: Context) {
+
     fun getList(): MutableList<InstalledApp> {
         val list: MutableList<InstalledApp> = mutableListOf()
 
         val activityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         val procInfos = activityManager.runningAppProcesses
-
         val pm = context.packageManager
 
-        for (runningProInfo in procInfos) {
-            val processName = runningProInfo.processName
+
+        procInfos.forEach { info ->
+            val processName = info.processName
             val appName = pm.getApplicationInfo(processName, 0).loadLabel(context.packageManager).toString()
             val app = InstalledApp(appName, processName)
-            println("**************************************")
-            //println(app)
-            println("**************************************")
             list.add(app)
-        }
-
-        for (appProcess in procInfos) {
-            println("====> appProcess.importance App: " + appProcess.importance)
-            if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                println("====> Foreground App: " + appProcess.processName)
-            }
-
-            if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                println("====> IMPORTANCE_VISIBLE App: " + appProcess.processName)
-            }
         }
 
         return list
     }
 
-    fun getActiveApps(context: Context): MutableList<InstalledApp> {
+    /*fun getActiveApps(context: Context): MutableList<InstalledApp> {
         val list: MutableList<InstalledApp> = mutableListOf()
         val pm = context.packageManager
         val packages = pm.getInstalledApplications(PackageManager.GET_META_DATA)
@@ -80,7 +60,6 @@ class RunningAppsUtil constructor(var context: Context) {
         }
         return label
     }
-
 
     private fun getForegroundApp(): RunningAppProcessInfo? {
         var activityManager = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
@@ -147,6 +126,6 @@ class RunningAppsUtil constructor(var context: Context) {
             if (service.process.equals(processname)) return true
         }
         return false
-    }
+    }*/
 
 }
