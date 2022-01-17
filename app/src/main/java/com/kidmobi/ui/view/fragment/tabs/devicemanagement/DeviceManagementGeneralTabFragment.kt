@@ -79,7 +79,6 @@ class DeviceManagementGeneralTabFragment(var device: MobileDevice) : Fragment(),
 
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("RestrictedApi")
     override fun onStopTrackingTouch(slider: Slider) {
         when (slider.id) {

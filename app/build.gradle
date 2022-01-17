@@ -37,8 +37,8 @@ android {
         applicationId "com.kidmobi"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 111
-        versionName "1.1.1"
+        versionCode 112
+        versionName "1.1.2"
         testInstrumentationRunner "com.kidmobi.HiltTestRunner"
         signingConfig signingConfigs.release
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "(" + versionName + ")")

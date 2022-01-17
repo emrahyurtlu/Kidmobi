@@ -68,6 +68,9 @@
         <action
             android:id="@+id/action_deviceManagementFragment_to_deviceSessionFragment"
             app:destination="@id/deviceSessionFragment" />
+        <action
+            android:id="@+id/action_deviceManagementFragment_to_appManagementFragment"
+            app:destination="@id/appManagementFragment" />
     </fragment>
     <dialog
         android:id="@+id/deviceSessionFragment"
@@ -99,9 +102,6 @@
         <action
             android:id="@+id/action_deviceManagementInstalledAppsTabFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
-        <action
-            android:id="@+id/action_deviceManagementInstalledAppsTabFragment_to_appManagementFragment"
-            app:destination="@id/appManagementFragment" />
     </fragment>
     <fragment
         android:id="@+id/deviceManagementRunningAppsTabFragment"
@@ -121,7 +121,13 @@
         android:label="AppManagementFragment"
         tools:layout="@layout/fragment_app_management">
         <argument
+            android:name="device"
+            app:argType="com.kidmobi.data.model.MobileDevice" />
+        <argument
             android:name="app"
             app:argType="com.kidmobi.data.model.InstalledApp" />
+        <action
+            android:id="@+id/action_appManagementFragment_to_deviceManagementFragment"
+            app:destination="@id/deviceManagementFragment" />
     </dialog>
 </navigation>

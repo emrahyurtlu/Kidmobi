@@ -14,8 +14,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kidmobi.R
 import com.kidmobi.business.utils.misc.SharedPrefsUtil
 import com.kidmobi.data.model.DeviceSession
+import com.kidmobi.data.model.InstalledApp
 import com.kidmobi.data.model.MobileDevice
-import com.kidmobi.databinding.FragmentDeviceSessionBinding
+import com.kidmobi.databinding.FragmentAppManagementBinding
 import com.kidmobi.ui.viewmodel.DeviceSessionViewModel
 import com.kidmobi.ui.viewmodel.MobileDeviceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,10 +26,11 @@ import java.util.*
 @AndroidEntryPoint
 class AppManagementFragment : BottomSheetDialogFragment() {
     lateinit var device: MobileDevice
-    private lateinit var binding: FragmentDeviceSessionBinding
+    private lateinit var app: InstalledApp
+    private lateinit var binding: FragmentAppManagementBinding
     private val viewModel: DeviceSessionViewModel by viewModels()
     private val mobileDeviceViewModel: MobileDeviceViewModel by viewModels()
-    private val args: DeviceSessionFragmentArgs by navArgs()
+    private val args: AppManagementFragmentArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): BottomSheetDialog {
         return object : BottomSheetDialog(requireActivity()) {
@@ -50,10 +52,10 @@ class AppManagementFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         device = args.device
-
+        app = args.app
         Timber.d("Argument is came: $device")
 
-        binding.btnSaveSession.setOnClickListener(createSession)
+        binding.btnSaveSession.setOnClickListener(setTimeLimitation)
         binding.btnDialogCancel.setOnClickListener(cancelDialog)
 
     }
@@ -74,12 +76,10 @@ class AppManagementFragment : BottomSheetDialogFragment() {
 
     private val cancelDialog: (v: View) -> Unit = {
         dismiss()
-        findNavController().navigate(R.id.action_deviceSessionFragment_to_dashboardFragment)
+        //findNavController().navigate(R.id.action_appManagementFragment_to_deviceManagementFragment)
     }
 
-    private val createSession: (v: View) -> Unit = {
-        val pref = SharedPrefsUtil(requireContext())
-        val calendar = Calendar.getInstance()
+    private val setTimeLimitation: (v: View) -> Unit = {
         val session = DeviceSession()
         val minutes = when (binding.cgDeviceSession.checkedChipId) {
             binding.chip1.id -> 30
@@ -88,19 +88,12 @@ class AppManagementFragment : BottomSheetDialogFragment() {
             binding.chip4.id -> 240
             else -> 0
         }
-        session.apply {
-            sessionStart = calendar.time
-            calendar.add(Calendar.MINUTE, minutes)
-            sessionEnd = calendar.time
-            sessionCreatorDeviceId = pref.getDeviceId()
-            sessionOwnerDeviceId = device.deviceId
-        }
 
         device.session = session
 
-        mobileDeviceViewModel.updateDevice(device)
-        viewModel.sessionStart(session)
-        Timber.d("Session is created!")
+        //mobileDeviceViewModel.updateDevice(device)
+        //viewModel.sessionStart(session)
+        Timber.d("Limitation is set!")
         dismiss()
     }
 

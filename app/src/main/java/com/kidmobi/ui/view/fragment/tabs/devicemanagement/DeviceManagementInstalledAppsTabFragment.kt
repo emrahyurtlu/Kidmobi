@@ -1,13 +1,9 @@
 package com.kidmobi.ui.view.fragment.tabs.devicemanagement
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,10 +14,8 @@ import com.kidmobi.data.model.InstalledApp
 import com.kidmobi.data.model.MobileDevice
 import com.kidmobi.databinding.FragmentDeviceManagementInstalledAppTabBinding
 import com.kidmobi.ui.view.adapter.DeviceManagmentInstalledAppsRecyclerAdapter
-import com.kidmobi.ui.view.adapter.MobileDeviceRecyclerAdapter
-import com.kidmobi.ui.view.fragment.DashboardFragmentDirections
+import com.kidmobi.ui.view.fragment.DeviceManagementFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -55,8 +49,8 @@ class DeviceManagementInstalledAppsTabFragment(var device: MobileDevice) : Fragm
 
     override fun onItemClick(installedApp: InstalledApp) {
         println(installedApp)
-        /*findNavController().navigate(
-            DashboardFragmentDirections.actionDashboardFragmentToDeviceManagementFragment(device)
-        )*/
+        findNavController().navigate(
+            DeviceManagementFragmentDirections.actionDeviceManagementFragmentToAppManagementFragment(device, installedApp)
+        )
     }
 }

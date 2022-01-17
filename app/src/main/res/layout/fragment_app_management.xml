@@ -22,16 +22,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Uygulamayı yönetin"
-                    android:textAppearance="?textAppearanceSubtitle1" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/gunluk_limit_belirleyin"
-                    android:textAppearance="?textAppearanceBody1" />
-
+                    android:textAppearance="?textAppearanceSubtitle1" />
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/cg_device_session"
@@ -98,29 +90,6 @@
                         android:text="@string/cancel"
                         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                         android:textColor="@color/secondaryColor" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/uygulamayi_kaldir"
-                    android:textAppearance="?textAppearanceBody1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="0dp"
-                    android:paddingBottom="0dp">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnRemoveApp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/remove_app"
-                        style="@style/Widget.MaterialComponents.Button.TextButton" />
                 </LinearLayout>
 
             </LinearLayout>

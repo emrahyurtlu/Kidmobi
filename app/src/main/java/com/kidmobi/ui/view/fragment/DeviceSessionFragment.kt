@@ -74,7 +74,7 @@ class DeviceSessionFragment : BottomSheetDialogFragment() {
 
     private val cancelDialog: (v: View) -> Unit = {
         dismiss()
-        findNavController().navigate(R.id.action_deviceSessionFragment_to_dashboardFragment)
+        findNavController().navigate(R.id.action_appManagementFragment_to_deviceManagementFragment)
     }
 
     private val createSession: (v: View) -> Unit = {
