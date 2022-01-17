@@ -39,8 +39,12 @@ class InstalledAppsUtil @Inject constructor(
         for (packageInfo in packages) {
             //system apps! get out
             if (!isSTOPPED(packageInfo) && !isSYSTEM(packageInfo)) {
-                val packageName = packageInfo.packageName
-                val appName = getApplicationLabel(context, packageName).toString()
+                val packageName = packageInfo.packageName ?: "com.package.empty"
+                var appName = getApplicationLabel(context, packageName).toString()
+
+                if(appName == "")
+                    appName = "Could not get"
+
                 val app = InstalledApp(appName, packageName)
                 list.add(app)
             }
